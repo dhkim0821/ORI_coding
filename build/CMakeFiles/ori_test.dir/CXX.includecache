@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././include/Part.hpp
+
+/Users/donghyunkim/Repository/ORI_coding/src/Part.cpp
+Part.hpp
+-
+
+/Users/donghyunkim/Repository/ORI_coding/src/main.cpp
+iostream
+-
+vector
+-
+Part.hpp
+-
+
