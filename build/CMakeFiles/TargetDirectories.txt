@@ -1,3 +1,0 @@
-/Users/donghyunkim/Repository/ORI_coding/build/CMakeFiles/edit_cache.dir
-/Users/donghyunkim/Repository/ORI_coding/build/CMakeFiles/rebuild_cache.dir
-/Users/donghyunkim/Repository/ORI_coding/build/CMakeFiles/ori_test.dir
