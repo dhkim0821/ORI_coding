@@ -13,6 +13,7 @@ int main(int argc, char ** argv ){
     Factory factory(file_name);
 
     // Construct Algorith
+    //Algorithm_Palletizing palletizing;
     //Algorithm_LoadingUnloading loading_unloading;
     //Algorithm_SetupAndMachining setup_and_machining;
 

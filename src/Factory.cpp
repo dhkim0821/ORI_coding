@@ -164,6 +164,10 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     for(int i(0);i < part_list.size(); ++i){
         part_list[i]->printPartInfo(i);
     }
+
+    //for(int i(0); i<pallet_list.size(); ++i){
+        //pallet_list[i]->printPalletInfo(i);
+    //}
 }
 
 Factory::~Factory(){}
