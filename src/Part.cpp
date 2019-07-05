@@ -1,15 +1,13 @@
 #include <Part.hpp>
 #include <iostream>
 
-Part::Part(int type, int num_operation, int due_time):
+Part::Part(int type, int num_operation, int due_time, bool dependency):
     _part_type(type), _num_operation(num_operation), _due_time(due_time),
+    _dependency(dependency),
     _current_operation(0), _post_current_operation(0){
 
-    printf("Part generated. type: %d, num operation: %d, due_time: %d \n", 
-            _part_type, _num_operation, _due_time);
-
-    // TEST
-    _dependency = false;
+    //printf("Part generated. type: %d, num operation: %d, due_time: %d \n", 
+            //_part_type, _num_operation, _due_time);
 }
 
 
@@ -22,4 +20,35 @@ bool Part::IsDone(){
         }
     }
     return false;
+}
+
+void Part::printPartInfo(int idx){
+    printf("%dth part type: %d, num operation: %d, due_time: %d \n", 
+            idx, _part_type, _num_operation, _due_time);
+
+    for(int i(0); i<_machining_info_list.size(); ++i){
+        printf("%d th operation info: \n", i);
+        for(int j(0); j<_machining_info_list[i].machine_name.size(); ++j){
+            printf("name: %s, idx: %d, processing_time: %d\n", 
+                    _machining_info_list[i].machine_name[j].c_str(),
+                    _machining_info_list[i].machine_idx[j],
+                    _machining_info_list[i].processing_time[j]);
+        }
+    }
+
+    if(_dependency){
+        printf("*** Dependent part) num operation: %d\n", _post_num_operation);
+
+        for(int i(0); i<_post_machining_info_list.size(); ++i){
+            printf("%d th operation info: \n", i);
+            for(int j(0); j<_post_machining_info_list[i].machine_name.size(); ++j){
+                printf("name: %s, idx: %d, processing_time: %d\n", 
+                        _post_machining_info_list[i].machine_name[j].c_str(),
+                        _post_machining_info_list[i].machine_idx[j],
+                        _post_machining_info_list[i].processing_time[j]);
+            }
+        }
+
+    }
+    printf("\n");
 }

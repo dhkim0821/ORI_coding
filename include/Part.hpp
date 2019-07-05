@@ -26,11 +26,12 @@ class History{
 
 class Part{
     public:
-        Part(int type, int num_operation, int due_time);
+        Part(int type, int num_operation, int due_time, bool dependency);
         ~Part(){}
 
         bool IsDone();
 
+        void printPartInfo(int idx);
     public:
         int _due_time;
 

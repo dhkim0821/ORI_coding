@@ -1,3 +1,9 @@
+#ifndef DEFINITION_H
+#define DEFINITION_H
+
+#define NUM_FIXTURE_TYPE 3
+#include <string>
+
 namespace loc{
     constexpr int Outside = 0; // Out of system
     constexpr int LoadingStation = 1;
@@ -6,6 +12,9 @@ namespace loc{
 };
 
 struct MachiningInfo{
-    std::vector<int> alternative_machine;
+    std::vector<int> machine_idx;
+    std::vector<std::string> machine_name;
     std::vector<int> processing_time;
 };
+
+#endif

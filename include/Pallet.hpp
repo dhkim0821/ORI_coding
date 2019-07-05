@@ -1,15 +1,21 @@
 #ifndef PALLET_H
 #define PALLET_H
 
+#include <vector> 
+
 class Pallet{
     public:
+        Pallet(int LU_station_idx, std::vector<int> fixture_type);
+        ~Pallet();
+
         bool IsProcessing(){ return _in_process; }
         bool EngagePallet(int ProcessName, int ProcessDuration);
 
         void OneStepForward();
 
         // Variables
-        int _fixture_type[4];
+        int _ini_station_idx;
+        std::vector<int> _fixture_type;
 
         bool _in_process;
         int _process_name;

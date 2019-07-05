@@ -1,6 +1,13 @@
 #include <Pallet.hpp>
 #include <iostream>
 
+Pallet::Pallet(int LU_station_idx, std::vector<int> fixture_type): 
+    _ini_station_idx(LU_station_idx){
+        _fixture_type = fixture_type;
+}
+
+Pallet::~Pallet(){  }
+
 bool Pallet::EngagePallet(int ProcessName, int ProcessDuration){
 
     if(_in_process){ // Already in process
