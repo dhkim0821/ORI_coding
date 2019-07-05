@@ -10,11 +10,20 @@ ARCHITECTURE_ID	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  defi
 ARCHITECTURE_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#   define ARCHITECTURE_ID /;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define ARCHITECTURE_ID /;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define ARCHITECTURE_ID$/;"	d	file:
+Algorithm	Old_MultiFMS_0526/Function.h	/^class Algorithm {$/;"	c
+AllPart	Old_MultiFMS_0526/Function.h	/^	Part * AllPart;$/;"	m	class:Initialize
 All_Done	src/Factory.cpp	/^bool Factory::All_Done(){$/;"	f	class:Factory
+Alternative_MAC	Old_MultiFMS_0526/stdafx.h	/^struct Alternative_MAC {$/;"	s
+AsyncLoading	Old_MultiFMS_0526/Function.cpp	/^auto AsyncLoading(Initialize InitializeSystem,$/;"	f
+B	Old_MultiFMS_0526/Function.h	/^static vector<Pallet> B;$/;"	v
+Buffer	Old_MultiFMS_0526/Function.cpp	/^void Buffer(Initialize InitializeSystem,$/;"	f
 Buffer	include/Definition.h	/^    constexpr int Buffer = 2;$/;"	m	namespace:loc
 CMAKE_BINARY_DIR	build/Makefile	/^CMAKE_BINARY_DIR = \/Users\/angela\/Repository\/ORI_coding\/build$/;"	m
 CMAKE_COMMAND	build/Makefile	/^CMAKE_COMMAND = \/usr\/local\/Cellar\/cmake\/3.14.5\/bin\/cmake$/;"	m
 CMAKE_SOURCE_DIR	build/Makefile	/^CMAKE_SOURCE_DIR = \/Users\/angela\/Repository\/ORI_coding$/;"	m
+CMP	Old_MultiFMS_0526/Function.cpp	/^bool CMP(const Part &Order1, const Part &Order2) {\/\/due date 비교함수 $/;"	f
+CMP_DUE	Old_MultiFMS_0526/Function.cpp	/^bool CMP_DUE(const mac &DUE1, const mac &DUE2) {\/\/due date 비교함수 $/;"	f
+CMP_PT	Old_MultiFMS_0526/Function.cpp	/^bool CMP_PT(const mac &PT1, const mac &PT2) {\/\/due date 비교함수 $/;"	f
 COMPILER_ID	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^# define COMPILER_ID /;"	d	file:
 COMPILER_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define COMPILER_ID /;"	d	file:
 COMPILER_VERSION_INTERNAL	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define COMPILER_VERSION_INTERNAL /;"	d	file:
@@ -48,29 +57,174 @@ CXX_STD	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define C
 C_DIALECT	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define C_DIALECT /;"	d	file:
 C_DIALECT	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define C_DIALECT$/;"	d	file:
 C_DIALECT	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^# define C_DIALECT /;"	d	file:
+Compare_Trans_vs_MaxPT	Old_MultiFMS_0526/Function.cpp	/^void Compare_Trans_vs_MaxPT(Initialize InitializeSystem, int PalletInSys, vector<MatrixMax> Matrix_For_Max,$/;"	f
+Complete	Old_MultiFMS_0526/stdafx.h	/^	int Complete;  \/\/1:가공완료, 0:아직완료안됨$/;"	m	struct:Pallet
+Complete	Old_MultiFMS_0526/stdafx.h	/^	int Complete;  \/\/1:가공완료, 0:아직완료안됨$/;"	m	struct:Part
+Complete	Old_MultiFMS_0526/stdafx.h	/^	int Complete;  \/\/1:가공완료, 0:아직완료안됨.  머신선택되면 1로 바뀜(그래야중복x)$/;"	m	struct:Operation
+Copy_Arr	Old_MultiFMS_0526/Function.cpp	/^void Copy_Arr(Part From[], Part To[], int n) {$/;"	f
+CurrentTime_microseconds	Old_MultiFMS_0526/Function.h	/^inline uint64_t CurrentTime_microseconds()$/;"	f
+CurrentTime_milliseconds	Old_MultiFMS_0526/Function.h	/^inline uint64_t CurrentTime_milliseconds()$/;"	f
+CurrentTime_nanoseconds	Old_MultiFMS_0526/Function.h	/^inline uint64_t CurrentTime_nanoseconds()$/;"	f
+Current_Mac	Old_MultiFMS_0526/stdafx.h	/^	int Current_Mac;$/;"	m	struct:Pallet
+Current_PT	Old_MultiFMS_0526/stdafx.h	/^	int Current_PT;$/;"	m	struct:Operation
+Current_Position	Old_MultiFMS_0526/stdafx.h	/^	int Current_Position;$/;"	m	struct:MatrixMax
+Current_Position	Old_MultiFMS_0526/stdafx.h	/^	int Current_Position;$/;"	m	struct:Pallet
+Current_Position	Old_MultiFMS_0526/stdafx.h	/^	int Current_Position;$/;"	m	struct:mac
 DEC	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#define DEC(/;"	d	file:
 DEC	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define DEC(/;"	d	file:
+Demand	Old_MultiFMS_0526/stdafx.h	/^	Part * Demand;$/;"	m	struct:DependPart
+Demand	Old_MultiFMS_0526/stdafx.h	/^	Part * Demand;$/;"	m	struct:Parttype
+Depend	Old_MultiFMS_0526/stdafx.h	/^	Depend * Depend;  \/* -1:Dependency선행\/0:dependency후행 *\/$/;"	m	struct:Alternative_MAC
+Depend	Old_MultiFMS_0526/stdafx.h	/^	DependPart * Depend; \/* -1:Dependency선행\/0:dependency후행\/-2:일반파트 *\/$/;"	m	struct:Part
+Depend	Old_MultiFMS_0526/stdafx.h	/^struct Depend {$/;"	s
+DependPart	Old_MultiFMS_0526/stdafx.h	/^struct DependPart {    \/\/Part에서  dependency파트만 따로 분류 $/;"	s
+Dependency	Old_MultiFMS_0526/stdafx.h	/^	int Dependency;   \/* -1:Dependency선행\/0:dependency후행\/-2:일반파트 *\/$/;"	m	struct:DependPart
+Dependency	Old_MultiFMS_0526/stdafx.h	/^	int Dependency;   \/* -1:Dependency선행\/0:dependency후행\/-2:일반파트 *\/$/;"	m	struct:Parttype
+Dependency	Old_MultiFMS_0526/stdafx.h	/^	int Dependency;$/;"	m	struct:Depend
+Dependency	Old_MultiFMS_0526/stdafx.h	/^	int Dependency;$/;"	m	struct:Part
+Dependency_Suc	Old_MultiFMS_0526/stdafx.h	/^	DependPart * Dependency_Suc; \/* -1:Dependency선행\/0:dependency후행\/-2:일반파트 *\/$/;"	m	struct:Parttype
+Dependency_temp	Old_MultiFMS_0526/Function.h	/^	int Dependency_temp;$/;"	m	class:Initialize
+DueDate_temp	Old_MultiFMS_0526/Function.h	/^	int DueDate_temp;$/;"	m	class:Initialize
+Due_Date	Old_MultiFMS_0526/stdafx.h	/^	int Due_Date;$/;"	m	struct:DependPart
+Due_Date	Old_MultiFMS_0526/stdafx.h	/^	int Due_Date;$/;"	m	struct:Part
 EQUALS	build/Makefile	/^EQUALS = =$/;"	m
 EngagePallet	src/Pallet.cpp	/^bool Pallet::EngagePallet(int ProcessName, int ProcessDuration){$/;"	f	class:Pallet
 FACTORY_H	include/Factory.hpp	/^#define FACTORY_H$/;"	d
+FIND_MAX_PT	Old_MultiFMS_0526/Function.cpp	/^auto FIND_MAX_PT(Initialize InitializeSystem, std::vector<Pallet> PALLET_temp, vector<MatrixMax> Matrix_For_Max, std::mutex& mux) \/\/함수재활용 = 파라미터 맞추기 ★★머신에서 가공 하나 끝나면 PALLET, PALLET_temp에 바뀐데이터 업데이트 $/;"	f
+FIND_MIN_DUE	Old_MultiFMS_0526/Function.cpp	/^auto FIND_MIN_DUE(Initialize InitializeSystem, vector<Pallet> PALLET_temp, MatrixMin MATRIX_DUE, std::mutex& mux)$/;"	f
+FIND_MIN_PT	Old_MultiFMS_0526/Function.cpp	/^auto FIND_MIN_PT(Initialize InitializeSystem, vector<Pallet> PALLET_temp, MatrixMin MATRIX, std::mutex& mux) \/\/파라미터(PALLET, PALLET_temp) 자체가 바껴서 들어와야됨  \/\/PALLET_temp(인풋데이터)$/;"	f
 Factory	include/Factory.hpp	/^class Factory{$/;"	c
 Factory	src/Factory.cpp	/^Factory::Factory(const std::string & file_name):_sim_time(-1){$/;"	f	class:Factory
+Fixture	Old_MultiFMS_0526/stdafx.h	/^struct Fixture {$/;"	s
+Fixture_No	Old_MultiFMS_0526/stdafx.h	/^	int Fixture_No;$/;"	m	struct:Fixture
+Fixture_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<Fixture> Fixture_vec;$/;"	m	struct:Pallet
 ForwardOneStep	src/Factory.cpp	/^void Factory::ForwardOneStep(){$/;"	f	class:Factory
+Function_h	Old_MultiFMS_0526/Function.h	/^#define Function_h$/;"	d
+General_Parttype	Old_MultiFMS_0526/Function.h	/^	int General_Parttype;    \/\/general파트$/;"	m	class:Initialize
+Go_F_State	Old_MultiFMS_0526/Function.h	/^static int Go_F_State;$/;"	v
+Go_Func	Old_MultiFMS_0526/Function.cpp	/^void Go_Func(int PalletInSys, vector<Pallet> PALLET_temp, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part,$/;"	f
 HEX	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#define HEX(/;"	d	file:
 HEX	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define HEX(/;"	d	file:
 History	include/Part.hpp	/^class History{$/;"	c
 ID_VOID_MAIN	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^# define ID_VOID_MAIN$/;"	d	file:
 IP_ADDR_MYSELF	Configuration.h	/^#define IP_ADDR_MYSELF /;"	d
+Incomplete_Move_B_To_A	Old_MultiFMS_0526/Function.cpp	/^auto Incomplete_Move_B_To_A(vector<Pallet> PALLET_temp, int Mac, int Mac_P) {$/;"	f
+Initialize	Old_MultiFMS_0526/Function.h	/^class Initialize { \/\/input data 전역변수들로 쓰려고 class씀$/;"	c
+InputData	Old_MultiFMS_0526/Function.cpp	/^void Initialize::InputData(int argc, _TCHAR* argv[])$/;"	f	class:Initialize
+InputThePallet	Old_MultiFMS_0526/Function.cpp	/^void InputThePallet(Initialize InitializeSystem, int PalletInSys, vector<MatrixMax> Matrix_For_Max, MatrixMin MATRIX_DUE, MatrixMin MATRIX,$/;"	f
 IsDone	src/Part.cpp	/^bool Part::IsDone(){$/;"	f	class:Part
 IsProcessing	include/Pallet.hpp	/^        bool IsProcessing(){ return _in_process; }$/;"	f	class:Pallet
+LD_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> LD_End_vec;$/;"	m	struct:LU_Time
+LD_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> LD_End_vec;$/;"	m	struct:Pallet
+LD_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> LD_Start_vec;$/;"	m	struct:LU_Time
+LD_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> LD_Start_vec;$/;"	m	struct:Pallet
+LD_Station	Old_MultiFMS_0526/stdafx.h	/^	int LD_Station;$/;"	m	struct:Pallet
+LD_Station	Old_MultiFMS_0526/stdafx.h	/^	int LD_Station;$/;"	m	struct:Part
+LD_Time	Old_MultiFMS_0526/stdafx.h	/^	int LD_Time;$/;"	m	struct:Part
+LU1	Old_MultiFMS_0526/stdafx.h	/^	LU_Time LU1;$/;"	m	struct:Pallet
+LU1_State	Old_MultiFMS_0526/Function.h	/^static int LU1_State;  \/\/0휴식중 1워킹중, LU 전역 State $/;"	v
+LU2	Old_MultiFMS_0526/stdafx.h	/^	LU_Time LU2;$/;"	m	struct:Pallet
+LU2_State	Old_MultiFMS_0526/Function.h	/^static int LU2_State;$/;"	v
+LU3	Old_MultiFMS_0526/stdafx.h	/^	LU_Time LU3;$/;"	m	struct:Pallet
+LU3_State	Old_MultiFMS_0526/Function.h	/^static int LU3_State;$/;"	v
+LU4	Old_MultiFMS_0526/stdafx.h	/^	LU_Time LU4;$/;"	m	struct:Pallet
+LU4_State	Old_MultiFMS_0526/Function.h	/^static int LU4_State;$/;"	v
+LU_Station	Old_MultiFMS_0526/stdafx.h	/^	int LU_Station;$/;"	m	struct:Pallet
+LU_Time	Old_MultiFMS_0526/Function.h	/^	int LU_Time;$/;"	m	class:Initialize
+LU_Time	Old_MultiFMS_0526/stdafx.h	/^struct LU_Time {$/;"	s
+LU_Timetable	Old_MultiFMS_0526/stdafx.h	/^	std::vector<LU_Time> LU_Timetable;$/;"	m	struct:Pallet
+Loading	Old_MultiFMS_0526/Function.cpp	/^void Loading(Initialize InitializeSystem, vector<MatrixMax> Matrix_For_Max, MatrixMin MATRIX_DUE, MatrixMin MATRIX, int PalletInSys)$/;"	f
 LoadingStation	include/Definition.h	/^    constexpr int LoadingStation = 1;$/;"	m	namespace:loc
+M1_State	Old_MultiFMS_0526/Function.h	/^static int M1_State;$/;"	v
+M2_State	Old_MultiFMS_0526/Function.h	/^static int M2_State;$/;"	v
+M3_State	Old_MultiFMS_0526/Function.h	/^static int M3_State;$/;"	v
+MAC1_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC1_End_vec;$/;"	m	struct:Operation
+MAC1_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC1_Start_vec;$/;"	m	struct:Operation
+MAC2_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC2_End_vec;$/;"	m	struct:Operation
+MAC2_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC2_Start_vec;$/;"	m	struct:Operation
+MAC3_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC3_End_vec;$/;"	m	struct:Operation
+MAC3_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> MAC3_Start_vec;$/;"	m	struct:Operation
+MACHINE1	Old_MultiFMS_0526/Function.cpp	/^void MACHINE1(int PalletInSys, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part, vector<Pallet> PALLET_temp,$/;"	f
+MACHINE2	Old_MultiFMS_0526/Function.cpp	/^void MACHINE2(int PalletInSys, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part, vector<Pallet> PALLET_temp,$/;"	f
+MACHINE3	Old_MultiFMS_0526/Function.cpp	/^void MACHINE3(int PalletInSys, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part, vector<Pallet> PALLET_temp,$/;"	f
 MACHINE_H	include/Machine.hpp	/^#define MACHINE_H$/;"	d
+MATRIX	Old_MultiFMS_0526/Function.h	/^	MatrixMin MATRIX;  	\/\/Matrix for Min Procceing Time$/;"	m	class:Algorithm
+MATRIX_DUE	Old_MultiFMS_0526/Function.h	/^	MatrixMin MATRIX_DUE;  	\/\/Matrix for Min Due Date$/;"	m	class:Algorithm
+MIN_DUE1	Old_MultiFMS_0526/Function.cpp	/^auto MIN_DUE1(int MinDue_M1, vector<mac> MAC1_temp, vector<Pallet> Matrix_d, std::mutex& mux)$/;"	f
+MIN_DUE2	Old_MultiFMS_0526/Function.cpp	/^auto MIN_DUE2(int MinDue_M2, vector<mac> MAC2_temp, vector<Pallet> Matrix_d, std::mutex& mux)$/;"	f
+MIN_DUE3	Old_MultiFMS_0526/Function.cpp	/^auto MIN_DUE3(int MinDue_M3, vector<mac> MAC3_temp, vector<Pallet> Matrix_d, std::mutex& mux)$/;"	f
+MIN_PT1	Old_MultiFMS_0526/Function.cpp	/^auto MIN_PT1(int MinPT_M1, vector<int> mac1, vector<mac> MAC1_temp, vector<Pallet> Matrix_p, std::mutex& mux)$/;"	f
+MIN_PT2	Old_MultiFMS_0526/Function.cpp	/^auto MIN_PT2(int MinPT_M2, vector<int> mac2, vector<mac> MAC2_temp, vector<Pallet> Matrix_p, std::mutex& mux)$/;"	f
+MIN_PT3	Old_MultiFMS_0526/Function.cpp	/^auto MIN_PT3(int MinPT_M3, vector<int> mac3, vector<mac> MAC3_temp, vector<Pallet> Matrix_p, std::mutex& mux)$/;"	f
+Mac	Old_MultiFMS_0526/stdafx.h	/^	Alternative_MAC * Mac; \/\/대안머신$/;"	m	struct:Operation
+MacName_temp	Old_MultiFMS_0526/Function.h	/^	std::string MacName_temp;$/;"	m	class:Initialize
+MacNo_temp	Old_MultiFMS_0526/Function.h	/^	int MacNo_temp;$/;"	m	class:Initialize
+Mac_Name	Old_MultiFMS_0526/stdafx.h	/^	std::string Mac_Name;$/;"	m	struct:Alternative_MAC
+Mac_No	Old_MultiFMS_0526/stdafx.h	/^	int Mac_No;$/;"	m	struct:Alternative_MAC
+Mac_No	Old_MultiFMS_0526/stdafx.h	/^	int Mac_No;$/;"	m	struct:MatrixMin
+Mac_Schedule	Old_MultiFMS_0526/stdafx.h	/^	std::vector<int> Mac_Schedule;$/;"	m	struct:Alternative_MAC
 Machine	include/Definition.h	/^    constexpr int Machine = 3;$/;"	m	namespace:loc
 Machine	include/Machine.hpp	/^class Machine{$/;"	c
+Machine_Schedule	Old_MultiFMS_0526/Function.h	/^	std::vector<int> Machine_Schedule;$/;"	m	class:Initialize
 MachiningInfo	include/Definition.h	/^struct MachiningInfo{$/;"	s
+MatrixMax	Old_MultiFMS_0526/stdafx.h	/^struct MatrixMax { \/\/=pallet$/;"	s
+MatrixMin	Old_MultiFMS_0526/stdafx.h	/^struct MatrixMin {$/;"	s
+Matrix_For_Max	Old_MultiFMS_0526/Function.h	/^	vector <MatrixMax> Matrix_For_Max;  	\/\/Matrix for Max Procceing Time$/;"	m	class:Algorithm
+Max_PT1	Old_MultiFMS_0526/Function.cpp	/^bool Max_PT1(const mac &PT1, const mac &PT2) {\/\/매트릭스상에서 최대 가공시간  $/;"	f
+MinPT	Old_MultiFMS_0526/stdafx.h	/^struct MinPT {$/;"	s
+Min_mac	Old_MultiFMS_0526/stdafx.h	/^	int Min_mac;$/;"	m	struct:MinPT
+Min_op	Old_MultiFMS_0526/stdafx.h	/^	int Min_op;$/;"	m	struct:MinPT
+Min_pallet	Old_MultiFMS_0526/stdafx.h	/^	int Min_pallet;$/;"	m	struct:MinPT
+Min_part	Old_MultiFMS_0526/stdafx.h	/^	int Min_part;$/;"	m	struct:MinPT
+Min_pt	Old_MultiFMS_0526/stdafx.h	/^	int Min_pt;$/;"	m	struct:MinPT
+Move_A_to_B	Old_MultiFMS_0526/Function.cpp	/^void Move_A_to_B(int Pallet_count, vector<Pallet> PALLET_temp, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part,$/;"	f
+New_Matrix	Old_MultiFMS_0526/Function.cpp	/^void New_Matrix(vector<Pallet> PALLET_temp, vector<mac> Mac1_Part, vector<mac> Mac2_Part, vector<mac> Mac3_Part, Initialize InitializeSystem,$/;"	f
+NumDemand	Old_MultiFMS_0526/stdafx.h	/^	int NumDemand;$/;"	m	struct:DependPart
+NumDemand	Old_MultiFMS_0526/stdafx.h	/^	int NumDemand;$/;"	m	struct:Parttype
+NumDemand_temp	Old_MultiFMS_0526/Function.h	/^	int NumDemand_temp;$/;"	m	class:Initialize
+NumFixIn_P	Old_MultiFMS_0526/Function.h	/^	int NumFixIn_P = 3;$/;"	m	class:Initialize
+NumMac_temp	Old_MultiFMS_0526/Function.h	/^	int NumMac_temp;$/;"	m	class:Initialize
+NumOperation	Old_MultiFMS_0526/stdafx.h	/^	int NumOperation;$/;"	m	struct:DependPart
+NumOperation	Old_MultiFMS_0526/stdafx.h	/^	int NumOperation;$/;"	m	struct:Parttype
+NumOperaton_temp	Old_MultiFMS_0526/Function.h	/^	int NumOperaton_temp;$/;"	m	class:Initialize
+NumPartLU	Old_MultiFMS_0526/Function.h	/^	int NumPartLU; \/\/전체파트를 각 로딩스테이션 마다 NumPartLU개씩 분배시킴$/;"	m	class:Algorithm
+NumPart_LU1	Old_MultiFMS_0526/Function.h	/^	int NumPart_LU1; \/\/      "     파트 개수 $/;"	m	class:Algorithm
+NumPart_LU2	Old_MultiFMS_0526/Function.h	/^	int NumPart_LU2;$/;"	m	class:Algorithm
+NumPart_LU3	Old_MultiFMS_0526/Function.h	/^	int NumPart_LU3;$/;"	m	class:Algorithm
+NumPart_LU4	Old_MultiFMS_0526/Function.h	/^	int NumPart_LU4;$/;"	m	class:Algorithm
+Num_AlterMac	Old_MultiFMS_0526/stdafx.h	/^	int Num_AlterMac;$/;"	m	struct:Operation
+Num_Dependency	Old_MultiFMS_0526/Function.h	/^	int Num_Dependency;$/;"	m	class:Initialize
+Num_Dependency_Pre	Old_MultiFMS_0526/Function.h	/^	int Num_Dependency_Pre;  \/\/dependency파트선행$/;"	m	class:Initialize
+Num_Dependency_Suc	Old_MultiFMS_0526/Function.h	/^	int Num_Dependency_Suc;  \/\/dependency파트선행$/;"	m	class:Initialize
+Num_LU_Station	Old_MultiFMS_0526/Function.h	/^	int Num_LU_Station;$/;"	m	class:Initialize
+Num_Machine	Old_MultiFMS_0526/Function.h	/^	int Num_Machine;$/;"	m	class:Initialize
+Num_Operation	Old_MultiFMS_0526/stdafx.h	/^	int Num_Operation;$/;"	m	struct:DependPart
+Num_Operation	Old_MultiFMS_0526/stdafx.h	/^	int Num_Operation;$/;"	m	struct:Part
+Num_Pallet	Old_MultiFMS_0526/Function.h	/^	int Num_Pallet;$/;"	m	class:Initialize
+Num_Pallet_LU1	Old_MultiFMS_0526/Function.h	/^	int Num_Pallet_LU1;$/;"	m	class:Initialize
+Num_Pallet_LU2	Old_MultiFMS_0526/Function.h	/^	int Num_Pallet_LU2;$/;"	m	class:Initialize
+Num_Pallet_LU3	Old_MultiFMS_0526/Function.h	/^	int Num_Pallet_LU3;$/;"	m	class:Initialize
+Num_Pallet_LU4	Old_MultiFMS_0526/Function.h	/^	int Num_Pallet_LU4;$/;"	m	class:Initialize
+Num_Parttype	Old_MultiFMS_0526/Function.h	/^	int Num_Parttype;$/;"	m	class:Initialize
+Num_Total_Part	Old_MultiFMS_0526/Function.h	/^	int Num_Total_Part;$/;"	m	class:Initialize
+OP_idx	Old_MultiFMS_0526/stdafx.h	/^	int OP_idx; \/\/현재 OP몇번 작업중이고, 다음 OP몇번인지 식별 $/;"	m	struct:Part
+OP_idx	Old_MultiFMS_0526/stdafx.h	/^	int OP_idx;$/;"	m	struct:DependPart
+OP_idx	Old_MultiFMS_0526/stdafx.h	/^	int OP_idx;$/;"	m	struct:Pallet
 OneStepForward	src/Pallet.cpp	/^void Pallet::OneStepForward(){$/;"	f	class:Pallet
+Oper	Old_MultiFMS_0526/stdafx.h	/^	Operation * Oper;$/;"	m	struct:DependPart
+Oper	Old_MultiFMS_0526/stdafx.h	/^	Operation * Oper;$/;"	m	struct:Part
+Oper	Old_MultiFMS_0526/stdafx.h	/^	Operation * Oper;$/;"	m	struct:Parttype
+Operation	Old_MultiFMS_0526/stdafx.h	/^struct Operation {$/;"	s
+Operation_No	Old_MultiFMS_0526/stdafx.h	/^	int Operation_No;$/;"	m	struct:Operation
 Outside	include/Definition.h	/^    constexpr int Outside = 0; \/\/ Out of system$/;"	m	namespace:loc
+PALLET	Old_MultiFMS_0526/Function.h	/^static vector<Pallet> PALLET; \/\/Pallets in Buffer after Loading$/;"	v
 PALLET_H	include/Pallet.hpp	/^#define PALLET_H$/;"	d
+PALLET_LU1	Old_MultiFMS_0526/Function.h	/^	std::vector<Pallet> PALLET_LU1;$/;"	m	class:Initialize
+PALLET_LU2	Old_MultiFMS_0526/Function.h	/^	std::vector<Pallet> PALLET_LU2;$/;"	m	class:Initialize
+PALLET_LU3	Old_MultiFMS_0526/Function.h	/^	std::vector<Pallet> PALLET_LU3;$/;"	m	class:Initialize
+PALLET_LU4	Old_MultiFMS_0526/Function.h	/^	std::vector<Pallet> PALLET_LU4;$/;"	m	class:Initialize
+PALLET_temp_public	Old_MultiFMS_0526/Function.h	/^static vector<Pallet> PALLET_temp_public; \/\/A$/;"	v
+PART	Old_MultiFMS_0526/Function.h	/^	Part * PART;$/;"	m	class:Initialize
 PART_H	include/Part.hpp	/^#define PART_H$/;"	d
 PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define PLATFORM_ID /;"	d	file:
 PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define PLATFORM_ID$/;"	d	file:
@@ -80,9 +234,39 @@ PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  de
 PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#  define PLATFORM_ID$/;"	d	file:
 PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define PLATFORM_ID /;"	d	file:
 PLATFORM_ID	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^# define PLATFORM_ID$/;"	d	file:
+PT_Trans_Time	Old_MultiFMS_0526/stdafx.h	/^	int PT_Trans_Time; \/\/가공+이동시간$/;"	m	struct:mac
+Pallet	Old_MultiFMS_0526/stdafx.h	/^struct Pallet {$/;"	s
 Pallet	include/Pallet.hpp	/^class Pallet{$/;"	c
+PalletInSys	Old_MultiFMS_0526/Function.h	/^	int PalletInSys;  \/\/시스템 안에 있는 팔렛, 버퍼CAPA로 쓰던지  $/;"	m	class:Algorithm
+Pallet_No	Old_MultiFMS_0526/stdafx.h	/^	int Pallet_No;$/;"	m	struct:Fixture
+Pallet_No	Old_MultiFMS_0526/stdafx.h	/^	int Pallet_No;$/;"	m	struct:Pallet
+Palletizing	Old_MultiFMS_0526/Function.cpp	/^void Algorithm::Palletizing(Initialize InitializeSystem)$/;"	f	class:Algorithm
+Part	Old_MultiFMS_0526/stdafx.h	/^struct Part {$/;"	s
 Part	include/Part.hpp	/^class Part{$/;"	c
 Part	src/Part.cpp	/^Part::Part(int type, int num_operation, int due_time):$/;"	f	class:Part
+PartType	Old_MultiFMS_0526/stdafx.h	/^	int PartType;$/;"	m	struct:DependPart
+PartType	Old_MultiFMS_0526/stdafx.h	/^	int PartType;$/;"	m	struct:Parttype
+Part_Info_Size	Old_MultiFMS_0526/Function.h	/^	int Part_Info_Size;$/;"	m	class:Initialize
+Part_LU1	Old_MultiFMS_0526/Function.h	/^	Part * Part_LU1; \/\/각 LU에 대기중인 파트$/;"	m	class:Algorithm
+Part_LU1_vec	Old_MultiFMS_0526/Function.h	/^	vector<Part> Part_LU1_vec; \/\/벡터로옮김$/;"	m	class:Algorithm
+Part_LU2	Old_MultiFMS_0526/Function.h	/^	Part * Part_LU2;$/;"	m	class:Algorithm
+Part_LU2_vec	Old_MultiFMS_0526/Function.h	/^	vector<Part> Part_LU2_vec;$/;"	m	class:Algorithm
+Part_LU3	Old_MultiFMS_0526/Function.h	/^	Part * Part_LU3;$/;"	m	class:Algorithm
+Part_LU3_vec	Old_MultiFMS_0526/Function.h	/^	vector<Part> Part_LU3_vec;$/;"	m	class:Algorithm
+Part_LU4	Old_MultiFMS_0526/Function.h	/^	Part * Part_LU4;$/;"	m	class:Algorithm
+Part_LU4_vec	Old_MultiFMS_0526/Function.h	/^	vector<Part> Part_LU4_vec;$/;"	m	class:Algorithm
+Part_No	Old_MultiFMS_0526/stdafx.h	/^	int Part_No;   \/\/파트타입별 파트번호 $/;"	m	struct:Part
+Part_No	Old_MultiFMS_0526/stdafx.h	/^	int Part_No;$/;"	m	struct:DependPart
+Part_Type	Old_MultiFMS_0526/Function.h	/^	Parttype * Part_Type;$/;"	m	class:Initialize
+Part_Type	Old_MultiFMS_0526/stdafx.h	/^	int Part_Type;$/;"	m	struct:DependPart
+Part_Type	Old_MultiFMS_0526/stdafx.h	/^	int Part_Type;$/;"	m	struct:Part
+Parttype	Old_MultiFMS_0526/stdafx.h	/^struct Parttype {$/;"	s
+Parttype_temp	Old_MultiFMS_0526/Function.h	/^	int Parttype_temp;$/;"	m	class:Initialize
+Pcount	Old_MultiFMS_0526/Function.h	/^	int Pcount = 0;  \/\/total part count$/;"	m	class:Initialize
+Pre_PT	Old_MultiFMS_0526/stdafx.h	/^	int Pre_PT; \/\/남은시간 저장 후 New_Matrix에서 비교 ?$/;"	m	struct:Alternative_MAC
+ProcessTime_temp	Old_MultiFMS_0526/Function.h	/^	int ProcessTime_temp;$/;"	m	class:Initialize
+Process_Time	Old_MultiFMS_0526/stdafx.h	/^	int Process_Time;$/;"	m	struct:Part
+Processing_Time	Old_MultiFMS_0526/stdafx.h	/^	int Processing_Time;$/;"	m	struct:Alternative_MAC
 RM	build/Makefile	/^RM = \/usr\/local\/Cellar\/cmake\/3.14.5\/bin\/cmake -E remove -f$/;"	m
 SHELL	build/Makefile	/^SHELL = \/bin\/sh$/;"	m
 SIMULATE_ID	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#  define SIMULATE_ID /;"	d	file:
@@ -96,8 +280,35 @@ STRINGIFY	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define
 STRINGIFY_HELPER	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^#define STRINGIFY_HELPER(/;"	d	file:
 STRINGIFY_HELPER	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^#define STRINGIFY_HELPER(/;"	d	file:
 SUFFIXES	build/Makefile	/^SUFFIXES =$/;"	m
+SelecPart	Old_MultiFMS_0526/stdafx.h	/^	std::vector<Part> SelecPart; \/\/각팔렛에 선택된파트 $/;"	m	struct:Pallet
+SelecParts_vec	Old_MultiFMS_0526/Function.h	/^	vector <Part> SelecParts_vec;$/;"	m	class:Algorithm
+SelectedMac	Old_MultiFMS_0526/stdafx.h	/^	Alternative_MAC * SelectedMac; \/\/대안머신$/;"	m	struct:Operation
+State	Old_MultiFMS_0526/stdafx.h	/^	int State;  \/\/1:일하는중, 0:놀고있음$/;"	m	struct:Pallet
+State	Old_MultiFMS_0526/stdafx.h	/^	int State; \/\/1:가공중, 0:노는중 $/;"	m	struct:Operation
+State	Old_MultiFMS_0526/stdafx.h	/^	int State; \/\/1:가공중, 0:노는중 $/;"	m	struct:Part
 Summary	include/Part.hpp	/^        void Summary(std::iostream file ){ $/;"	f	class:History
 THIS_COM	Configuration.h	/^#define THIS_COM /;"	d
+Total_Pallet_No	Old_MultiFMS_0526/stdafx.h	/^	int Total_Pallet_No;$/;"	m	struct:Pallet
+Total_Part_No	Old_MultiFMS_0526/Function.h	/^	int Total_Part_No;$/;"	m	class:Algorithm
+Total_Part_No	Old_MultiFMS_0526/stdafx.h	/^	int Total_Part_No; \/\/모든파트줄세워 놨을때의 파트번호$/;"	m	struct:Part
+Total_Part_No	Old_MultiFMS_0526/stdafx.h	/^	int Total_Part_No;$/;"	m	struct:DependPart
+TransTime	Old_MultiFMS_0526/Function.h	/^	int TransTime;$/;"	m	class:Initialize
+Trans_PT	Old_MultiFMS_0526/stdafx.h	/^	int Trans_PT; $/;"	m	struct:Alternative_MAC
+Trans_PT_New	Old_MultiFMS_0526/stdafx.h	/^	int Trans_PT_New;$/;"	m	struct:Alternative_MAC
+Trans_Time	Old_MultiFMS_0526/stdafx.h	/^	int Trans_Time;$/;"	m	struct:Pallet
+Trans_Time	Old_MultiFMS_0526/stdafx.h	/^	int Trans_Time;$/;"	m	struct:Part
+Transporation_Time	Old_MultiFMS_0526/stdafx.h	/^struct Transporation_Time {$/;"	s
+TransportationT	Old_MultiFMS_0526/stdafx.h	/^	std::vector<int> TransportationT;$/;"	m	struct:Transporation_Time
+Transportation_Time	Old_MultiFMS_0526/Function.h	/^	int **Transportation_Time;$/;"	m	class:Initialize
+TrasnPoint	Old_MultiFMS_0526/stdafx.h	/^	int TrasnPoint;$/;"	m	struct:Alternative_MAC
+ULD_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> ULD_End_vec;$/;"	m	struct:LU_Time
+ULD_End_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> ULD_End_vec;$/;"	m	struct:Pallet
+ULD_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> ULD_Start_vec;$/;"	m	struct:LU_Time
+ULD_Start_vec	Old_MultiFMS_0526/stdafx.h	/^	std::vector<long long> ULD_Start_vec;$/;"	m	struct:Pallet
+ULD_Station	Old_MultiFMS_0526/stdafx.h	/^	int ULD_Station;$/;"	m	struct:Pallet
+ULD_Station	Old_MultiFMS_0526/stdafx.h	/^	int ULD_Station;$/;"	m	struct:Part
+ULD_Time	Old_MultiFMS_0526/stdafx.h	/^	int ULD_Time;$/;"	m	struct:Part
+Waiting_Time	Old_MultiFMS_0526/stdafx.h	/^	int Waiting_Time;$/;"	m	struct:Part
 _current_operation	include/Part.hpp	/^        int _current_operation;$/;"	m	class:Part
 _current_processing_time	include/Pallet.hpp	/^        int _current_processing_time;$/;"	m	class:Pallet
 _dependency	include/Part.hpp	/^        bool _dependency;$/;"	m	class:Part
@@ -123,10 +334,15 @@ _post_num_operation	include/Part.hpp	/^        int _post_num_operation;$/;"	m	cl
 _process_duration	include/Pallet.hpp	/^        int _process_duration;$/;"	m	class:Pallet
 _process_name	include/Pallet.hpp	/^        int _process_name;$/;"	m	class:Pallet
 _sim_time	include/Factory.hpp	/^        int _sim_time;$/;"	m	class:Factory
+_tmain	Old_MultiFMS_0526/Main.cpp	/^int _tmain(int argc, _TCHAR* argv[])$/;"	f
 _unloading_station_idx	include/Part.hpp	/^        std::vector<int> _unloading_station_idx;$/;"	m	class:History
 _unloading_time	include/Part.hpp	/^        std::vector<int> _unloading_time;$/;"	m	class:History
 alternative_machine	include/Definition.h	/^    std::vector<int> alternative_machine;$/;"	m	struct:MachiningInfo
+arydepend	Old_MultiFMS_0526/stdafx.h	/^	int ***arydepend;$/;"	m	struct:MatrixMin
+aryoper	Old_MultiFMS_0526/stdafx.h	/^	int ***aryoper;$/;"	m	struct:MatrixMin
+aryprocess	Old_MultiFMS_0526/stdafx.h	/^	int ***aryprocess;$/;"	m	struct:MatrixMin
 const	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^# define const$/;"	d	file:
+due	Old_MultiFMS_0526/stdafx.h	/^	int due; \/\/for finding min due $/;"	m	struct:mac
 features	build/CMakeFiles/feature_tests.c	/^  const char features[] = {"\\n"$/;"	v
 features	build/CMakeFiles/feature_tests.cxx	/^  const char features[] = {"\\n"$/;"	v
 info_arch	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
@@ -147,18 +363,36 @@ info_version	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^char const
 info_version	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
 info_version_internal	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^char const info_version_internal[] = {$/;"	v
 info_version_internal	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version_internal[] = {$/;"	v
+iter	Old_MultiFMS_0526/Function.h	/^	int iter;   \/\/total part count$/;"	m	class:Initialize
 loc	include/Definition.h	/^namespace loc{$/;"	n
+mac	Old_MultiFMS_0526/stdafx.h	/^	mac *mac;$/;"	m	struct:op
+mac	Old_MultiFMS_0526/stdafx.h	/^struct mac {$/;"	s
+mac_no	Old_MultiFMS_0526/stdafx.h	/^	int mac_no;$/;"	m	struct:mac
 main	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^int main(argc, argv) int argc; char *argv[];$/;"	f
 main	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	f
 main	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
 main	build/CMakeFiles/feature_tests.c	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
 main	build/CMakeFiles/feature_tests.cxx	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
 main	src/main.cpp	/^int main(int argc, char ** argv ){$/;"	f
+op	Old_MultiFMS_0526/stdafx.h	/^	std::vector<op> op;$/;"	m	struct:part
+op	Old_MultiFMS_0526/stdafx.h	/^struct op {$/;"	s
+op_index	Old_MultiFMS_0526/stdafx.h	/^	int op_index;$/;"	m	struct:part
+op_no	Old_MultiFMS_0526/stdafx.h	/^	int op_no;$/;"	m	struct:mac
+op_no	Old_MultiFMS_0526/stdafx.h	/^	int op_no;$/;"	m	struct:op
 pallet_list	include/Factory.hpp	/^        std::vector<Pallet*> pallet_list;$/;"	m	class:Factory
+pallet_no	Old_MultiFMS_0526/stdafx.h	/^	int pallet_no;$/;"	m	struct:MatrixMax
+pallet_no	Old_MultiFMS_0526/stdafx.h	/^	int pallet_no;$/;"	m	struct:mac
+part	Old_MultiFMS_0526/stdafx.h	/^	part *part;$/;"	m	struct:MatrixMax
+part	Old_MultiFMS_0526/stdafx.h	/^struct part {$/;"	s
 part_list	include/Factory.hpp	/^        std::vector<Part*> part_list;$/;"	m	class:Factory
+part_no	Old_MultiFMS_0526/stdafx.h	/^	int part_no;$/;"	m	struct:mac
+part_no	Old_MultiFMS_0526/stdafx.h	/^	int part_no;$/;"	m	struct:part
+processing_time	Old_MultiFMS_0526/stdafx.h	/^	int processing_time;$/;"	m	struct:mac
 processing_time	include/Definition.h	/^    std::vector<int> processing_time;$/;"	m	struct:MachiningInfo
 qnxnto	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
 qnxnto	build/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
+reminder	Old_MultiFMS_0526/Function.h	/^	int reminder;  \/\/나머지개수는 LU1로 몰아넣음$/;"	m	class:Algorithm
+state	Old_MultiFMS_0526/stdafx.h	/^	int state;$/;"	m	struct:DependPart
 volatile	build/CMakeFiles/3.14.5/CompilerIdC/CMakeCCompilerId.c	/^# define volatile$/;"	d	file:
 ~Factory	src/Factory.cpp	/^Factory::~Factory(){}$/;"	f	class:Factory
 ~Part	include/Part.hpp	/^        ~Part(){}$/;"	f	class:Part

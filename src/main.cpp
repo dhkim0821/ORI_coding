@@ -8,12 +8,11 @@
 int main(int argc, char ** argv ){
     printf("ORI test\n");
 
-    std::string file_name = THIS_COM"setup_file/multi_LU_fms.txt";
-    // Reading files and setup problem
+    std::string file_name = THIS_COM"input_data/TEST_DATA4_2.txt";
+   // Reading files and setup problem
     Factory factory(file_name);
 
-    // Construct Algorithm 
-    //Algorithm_Palletizing palletizing; 
+    // Construct Algorith
     //Algorithm_LoadingUnloading loading_unloading;
     //Algorithm_SetupAndMachining setup_and_machining;
 

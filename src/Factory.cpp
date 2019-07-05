@@ -3,7 +3,11 @@
 #include <Pallet.hpp>
 
 Factory::Factory(const std::string & file_name):_sim_time(-1){
-    // Read file name
+    // Read file
+    ifstream fin(file_name);
+    
+
+
 
     // TEST
     part_list.push_back(new Part(1, 2, 960)); // idx 0
