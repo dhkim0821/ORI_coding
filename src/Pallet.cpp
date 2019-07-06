@@ -35,8 +35,9 @@ void Pallet::OneStepForward(){
 void Pallet::printPalletInfo(int idx){
     printf("Pallet: %d \n", idx+1);
 
-    for(int i(0); i<NUM_FIXTURE_TYPE; ++i){
-   printf("fixture type: %d ", _fixture_type[i]);
-}
-printf("\n");//pallets in a vector ? 
+    printf("Loading Station %d, fixture type: ", _ini_station_idx);
+    for(int i(0); i<NUM_FIXTURE_TYPE; ++i) {
+        printf("%d,  " , _fixture_type[i]);
+    }
+    printf("\n");//pallets in a vector ? 
 }
