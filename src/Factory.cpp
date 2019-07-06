@@ -92,7 +92,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
         fin >> num_part;
         for(int j(0); j<num_part; ++j){
             fin >> due_date;
-            part_pt = new Part(part_type, num_operation, due_date, dependency);
+            part_pt = new Part(start_idx + j, part_type, num_operation, due_date, dependency);
             part_list.push_back(part_pt);
         }
 
@@ -162,12 +162,12 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     printf("Part (Num, Type): %d, %d \n", Num_Total_Part, Num_Parttype);
 
     for(int i(0);i < part_list.size(); ++i){
-        part_list[i]->printPartInfo(i);
+        part_list[i]->printInfo(i);
     }
 
 
     for(int i(0); i<pallet_list.size(); ++i){
-        pallet_list[i]->printPalletInfo(i);
+        pallet_list[i]->printInfo(i);
     }
 }
 

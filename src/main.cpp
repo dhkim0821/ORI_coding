@@ -4,6 +4,7 @@
 #include <Pallet.hpp>
 #include <Factory.hpp>
 #include <Configuration.h>
+#include <Algorithm_Palletizing.hpp>
 
 int main(int argc, char ** argv ){
     printf("ORI test\n");
@@ -13,20 +14,28 @@ int main(int argc, char ** argv ){
     Factory factory(file_name);
 
     // Construct Algorith
-    //Algorithm_Palletizing palletizing;
+    Algorithm_Palletizing palletizing;
     //Algorithm_LoadingUnloading loading_unloading;
     //Algorithm_SetupAndMachining setup_and_machining;
 
     // Simulation Starts
     while(!factory.All_Done()){
+        // Forward Onestep 
         factory.ForwardOneStep(); // 1 Tick
-        // Forward Onestep of all Pallets that are currrently under process
 
         // Palletizing
-        //palletizing.run(factory.part_list, factory.pallet_list);
+        palletizing.run(factory.part_list, factory.pallet_list);
+
+    //for(int i(0); i<factory.pallet_list.size(); ++i){
+        //factory.pallet_list[i]->printInfo(i);
+    //}
+    //for(int i(0); i<factory.part_list.size(); ++i){
+        //factory.part_list[i]->printInfo(i);
+    //}
+
 
         // Loading
-        //loading_unloading.run(factory.pallet_list);
+        loading_unloading.run(factory.pallet_list);
 
         // Moving and Machining 
         //setup_and_machining.run(factory.pallet_list);

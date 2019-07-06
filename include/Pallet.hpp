@@ -13,11 +13,12 @@ class Pallet{
 
         void OneStepForward();
 
-        void printPalletInfo(int idx);
+        void printInfo(int idx);
 
         // Variables
         int _ini_station_idx;
         std::vector<int> _fixture_type;
+        std::vector<int> _loaded_part_idx; // -1: empty, 0~ : part idx in part list
 
         bool _in_process;
         int _process_name;

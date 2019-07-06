@@ -26,14 +26,16 @@ class History{
 
 class Part{
     public:
-        Part(int type, int num_operation, int due_time, bool dependency);
+        Part(int idx, int type, int num_operation, int due_time, bool dependency);
         ~Part(){}
 
         bool IsDone();
 
-        void printPartInfo(int idx);
+        void printInfo(int idx);
     public:
+        int _part_idx;
         int _due_time;
+        int _part_loc;
 
         int _current_operation;
         int _part_type;
@@ -49,5 +51,14 @@ class Part{
         History _history;
 };
 
+struct DueDateCompare{
+    bool operator () (const Part & p1, const Part & p2) const {
+        return p1._due_time < p2._due_time; 
+    }
+
+    bool operator () (const Part * p1, const Part * p2) const {
+        return p1->_due_time < p2->_due_time; 
+    }
+};
 #endif
 

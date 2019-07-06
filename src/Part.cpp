@@ -1,10 +1,12 @@
 #include <Part.hpp>
 #include <iostream>
 
-Part::Part(int type, int num_operation, int due_time, bool dependency):
-    _part_type(type), _num_operation(num_operation), _due_time(due_time),
+Part::Part(int idx, int type, int num_operation, int due_time, bool dependency):
+    _part_idx(idx), _part_type(type), _num_operation(num_operation), _due_time(due_time),
     _dependency(dependency),
     _current_operation(0), _post_current_operation(0){
+
+    _part_loc = loc::Outside;
 
     //printf("Part generated. type: %d, num operation: %d, due_time: %d \n", 
             //_part_type, _num_operation, _due_time);
@@ -22,9 +24,9 @@ bool Part::IsDone(){
     return false;
 }
 
-void Part::printPartInfo(int idx){
-    printf("%dth part type: %d, num operation: %d, due_time: %d \n", 
-            idx, _part_type, _num_operation, _due_time);
+void Part::printInfo(int idx){
+    printf("%dth calling) %d part type: %d, num operation: %d, due_time: %d , part_loc: %d\n", 
+            idx, _part_idx, _part_type, _num_operation, _due_time, _part_loc);
 
     for(int i(0); i<_machining_info_list.size(); ++i){
         printf("%d th operation info: \n", i);
