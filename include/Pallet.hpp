@@ -6,9 +6,9 @@
 class Pallet{
     public:
         Pallet(int LU_station_idx, std::vector<int> fixture_type);
-        ~Pallet();
+        ~Pallet();      
 
-        bool IsProcessing(){ return _in_process; }
+        bool IsProcessing(){ re turn _in_process; }
         bool EngagePallet(int ProcessName, int ProcessDuration);
 
         void OneStepForward();
