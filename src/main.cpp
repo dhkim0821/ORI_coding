@@ -5,6 +5,8 @@
 #include <Factory.hpp>
 #include <Configuration.h>
 #include <Algorithm_Palletizing.hpp>
+#include <Algorithm_LoadingUnloading.hpp>
+
 
 int main(int argc, char ** argv ){
     printf("ORI test\n");
@@ -15,7 +17,7 @@ int main(int argc, char ** argv ){
 
     // Construct Algorith
     Algorithm_Palletizing palletizing;
-    //Algorithm_LoadingUnloading loading_unloading(factory);
+    Algorithm_LoadingUnloading loading_unloading(factory);
     //Algorithm_SetupAndMachining setup_and_machining;
 
     // Simulation Starts
@@ -35,7 +37,7 @@ int main(int argc, char ** argv ){
 
 
         // Loading
-        //loading_unloading.run(factory.pallet_list);
+        loading_unloading.run(factory.pallet_list);
 
         // Moving and Machining 
         //setup_and_machining.run(factory.pallet_list);
