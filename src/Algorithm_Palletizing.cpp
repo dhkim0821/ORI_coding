@@ -30,34 +30,35 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
 #endif 
 
     Pallet* check_pallet;
-    
+
     for(int i(0); i<pallet_list.size(); ++i){ // Check all pallet list
         check_pallet = pallet_list[i];
 
-        for(int fix_idx(0); fix_idx < check_pallet->_fixture_type.size(); ++fix_idx){
-           if(check_pallet->_loaded_part_idx[fix_idx] == -1) { // fixture is empty
-               int fixture_type = check_pallet->_fixture_type[fix_idx];
-               
-               // part type check
-               for(int pt_idx(0); pt_idx<sort_part_list.size(); ++pt_idx){
-                   if(sort_part_list[pt_idx]->_part_type == fixture_type){ 
-                       // Part type and fixture type matched
-                       if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
-                           // Part is in outside
-                           // Load Part
-                           check_pallet->_loaded_part_idx[fix_idx] = 
-                               sort_part_list[pt_idx]->_part_idx;
-                           // Part location update to Loading station
-                           sort_part_list[pt_idx]->_part_loc = loc::LoadingStation;
-                            // Delete the loaded part from the list
-                           sort_part_list.erase(sort_part_list.begin() + pt_idx);
-                      }
-                       break;
-                   }
-               } // Sort part list loop is end
+        if(!check_pallet->IsProcessing()){ // Pallet is waiting mode
+            for(int fix_idx(0); fix_idx < check_pallet->_fixture_type.size(); ++fix_idx){
+                if(check_pallet->_loaded_part_idx[fix_idx] == -1) { // fixture is empty
+                    int fixture_type = check_pallet->_fixture_type[fix_idx];
 
-           }
-        }
+                    // part type check
+                    for(int pt_idx(0); pt_idx<sort_part_list.size(); ++pt_idx){
+                        if(sort_part_list[pt_idx]->_part_type == fixture_type){ 
+                            // Part type and fixture type matched
+                            if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
+                                // Part is in outside
+                                // Loading Part
+                                check_pallet->_loaded_part_idx[fix_idx] = 
+                                    sort_part_list[pt_idx]->_part_idx;
+                                // Part location update to Loading station
+                                sort_part_list[pt_idx]->_part_loc = loc::LoadingStation;
+                                // Delete the loaded part from the list
+                                sort_part_list.erase(sort_part_list.begin() + pt_idx);
+                            }
+                            break;
+                        }
+                    } // End of Sort part list loop
+                }
+            } // End of Fixture loop
+        } // if( check_pallet->IsProcessing() )
     } // End of Pallet list loop
 }
 

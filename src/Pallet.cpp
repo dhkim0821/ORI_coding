@@ -4,7 +4,7 @@
 
 
 Pallet::Pallet(int LU_station_idx, std::vector<int> fixture_type): 
-    _ini_station_idx(LU_station_idx){
+    _ini_station_idx(LU_station_idx), _in_process(false){
         _fixture_type = fixture_type;
         _loaded_part_idx = fixture_type;
 
