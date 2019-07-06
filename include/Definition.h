@@ -11,6 +11,12 @@ namespace loc{
     constexpr int Machine = 3;
 };
 
+namespace process{
+    constexpr int Loading = 0;
+    constexpr int Unloading = 1;
+    constexpr int Machining = 2;
+};
+
 struct MachiningInfo{
     std::vector<int> machine_idx;
     std::vector<std::string> machine_name;

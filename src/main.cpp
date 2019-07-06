@@ -6,6 +6,7 @@
 #include <Configuration.h>
 #include <Algorithm_Palletizing.hpp>
 #include <Algorithm_LoadingUnloading.hpp>
+#include <Algorithm_SetupAndMachining.hpp>
 
 
 int main(int argc, char ** argv ){
@@ -18,7 +19,7 @@ int main(int argc, char ** argv ){
     // Construct Algorith
     Algorithm_Palletizing palletizing;
     Algorithm_LoadingUnloading loading_unloading(factory);
-    //Algorithm_SetupAndMachining setup_and_machining;
+    Algorithm_SetupAndMachining setup_and_machining;
 
     // Simulation Starts
     while(!factory.All_Done()){
@@ -27,21 +28,24 @@ int main(int argc, char ** argv ){
 
         // Palletizing
         palletizing.run(factory.part_list, factory.pallet_list);
+        for(int i(0); i<factory.pallet_list.size(); ++i){
+            factory.pallet_list[i]->printInfo(i);
+        }
 
+        // Loading
+        loading_unloading.run(factory.pallet_list);
+       
+
+        // Moving and Machining 
+        setup_and_machining.run(factory.pallet_list);
+    }
+ 
     //for(int i(0); i<factory.pallet_list.size(); ++i){
         //factory.pallet_list[i]->printInfo(i);
     //}
     //for(int i(0); i<factory.part_list.size(); ++i){
         //factory.part_list[i]->printInfo(i);
     //}
-
-
-        // Loading
-        loading_unloading.run(factory.pallet_list);
-
-        // Moving and Machining 
-        //setup_and_machining.run(factory.pallet_list);
-    }
 
     //for(int i(0); i<part_list.size(); ++i){
         //printf("tarty: %f\n", part_list[i]->_due_time - part_list[i]->_process_time);

@@ -5,10 +5,10 @@
 
 class Pallet{
     public:
-        Pallet(int LU_station_idx, std::vector<int> fixture_type);
-        ~Pallet();      
+        Pallet(int pallet_idx, int LU_station_idx, std::vector<int> fixture_type);
+        ~Pallet();
 
-        bool IsProcessing(){ re turn _in_process; }
+        bool IsProcessing(){ return _in_process; }
         bool EngagePallet(int ProcessName, int ProcessDuration);
 
         void OneStepForward();
@@ -17,7 +17,11 @@ class Pallet{
 
         // Variables
         int _ini_station_idx;
+        int _pallet_idx;
         bool _in_process;
+
+        bool _loaded;
+
         std::vector<int> _fixture_type;
         std::vector<int> _loaded_part_idx; // -1: empty, 0~ : part idx in part list
 

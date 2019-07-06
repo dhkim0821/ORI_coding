@@ -24,6 +24,15 @@ bool Part::IsDone(){
     return false;
 }
 
+void Part::CallOperationCompleted(){
+    ++_current_operation;
+    if(_current_operation == _num_operation){
+        if(_dependency){
+            _part_type = _dependent_part_type;
+        }
+    }
+}
+
 void Part::printInfo(int idx){
     printf("%dth calling) %d part type: %d, num operation: %d, due_time: %d , part_loc: %d\n", 
             idx, _part_idx, _part_type, _num_operation, _due_time, _part_loc);

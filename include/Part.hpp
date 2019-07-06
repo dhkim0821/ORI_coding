@@ -30,6 +30,7 @@ class Part{
         ~Part(){}
 
         bool IsDone();
+        void CallOperationCompleted();
 
         void printInfo(int idx);
     public:
@@ -44,6 +45,7 @@ class Part{
 
         // If this is dependent 
         bool _dependency;
+        int _dependent_part_type;
         int _post_current_operation;
         int _post_num_operation;
         std::vector<MachiningInfo> _post_machining_info_list;

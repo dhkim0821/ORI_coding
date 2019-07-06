@@ -13,8 +13,6 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> Part_Info_Size;
     fin >> Num_Parttype;
     fin >> Num_Pallet;
-    fin >> Num_Dependency;
-    fin >> Num_Total_Part;
     fin >> Num_Dependency_Pre; //dependency¼±Çà 
     fin >> Num_Dependency_Suc; //dependencyÈÄÇà
     fin >> LU_Time;
@@ -44,6 +42,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     int num_pallet;
     Pallet* pallet_pt;
     std::vector<int> fixture_type(NUM_FIXTURE_TYPE);
+    int pallet_idx(0);
     for(int LU_station_idx(0); LU_station_idx < Num_LU_Station; ++LU_station_idx){
         fin >> num_pallet;
         for(int i(0); i<num_pallet; ++i){
@@ -51,7 +50,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
             for(int j(0); j<NUM_FIXTURE_TYPE; ++j){
                 fin >> fixture_type[j];
             }
-            pallet_pt = new Pallet(LU_station_idx, fixture_type);
+            pallet_pt = new Pallet(pallet_idx, LU_station_idx, fixture_type);
+            ++pallet_idx;
             pallet_list.push_back(pallet_pt);
         }
     }
@@ -120,9 +120,9 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
             int depend_part_type, post_num_operation;
 
             fin >> depend_part_type;
-            if(depend_part_type != part_type){ 
-                printf("[error] part types are different\n"); 
-            }
+            //if(depend_part_type != part_type){ 
+                //printf("[error] part types are different\n"); 
+            //}
             fin >> post_num_operation;
             fin >> tmp;
             if(tmp != 0){
@@ -146,11 +146,12 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
             }
 
             for(int j(0); j<num_part; ++j){
+                part_list[start_idx + j]->_dependent_part_type = depend_part_type;
                 part_list[start_idx + j]->_post_num_operation = post_num_operation;
                 part_list[start_idx + j]->_post_machining_info_list = machine_info_list;
             }
-        }
-
+            ++i;
+        }// END of if(dependency)
         start_idx += num_part;
     }
 
@@ -178,7 +179,7 @@ bool Factory::All_Done(){
     if(_sim_time > 5){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
-        if(!part_list[i]->IsDone()){
+        if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
             return false;
         }
     }
