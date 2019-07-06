@@ -1,5 +1,5 @@
-#ifndef PALLETIZING_H
-#define PALLETIZING_H
+#ifndef ALGORITHM_PALLETIZING_H
+#define ALGORITHM_PALLETIZING_H
 
 #include <vector>
 

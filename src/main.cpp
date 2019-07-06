@@ -15,7 +15,7 @@ int main(int argc, char ** argv ){
 
     // Construct Algorith
     Algorithm_Palletizing palletizing;
-    //Algorithm_LoadingUnloading loading_unloading;
+    //Algorithm_LoadingUnloading loading_unloading(factory);
     //Algorithm_SetupAndMachining setup_and_machining;
 
     // Simulation Starts
@@ -35,7 +35,7 @@ int main(int argc, char ** argv ){
 
 
         // Loading
-        loading_unloading.run(factory.pallet_list);
+        //loading_unloading.run(factory.pallet_list);
 
         // Moving and Machining 
         //setup_and_machining.run(factory.pallet_list);
