@@ -13,6 +13,8 @@ class Pallet{
 
         void OneStepForward();
 
+        void printPalletInfo(int idx);
+
         // Variables
         int _ini_station_idx;
         std::vector<int> _fixture_type;

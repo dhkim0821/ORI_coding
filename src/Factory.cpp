@@ -18,7 +18,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> Num_Dependency_Pre; //dependency¼±Çà 
     fin >> Num_Dependency_Suc; //dependencyÈÄÇà
     fin >> LU_Time;
-
+    
     int Trans_temp;
     fin >> Trans_temp;
     TransTime = Trans_temp * 3; // Distance btw machines
@@ -165,9 +165,10 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
         part_list[i]->printPartInfo(i);
     }
 
-    //for(int i(0); i<pallet_list.size(); ++i){
-        //pallet_list[i]->printPalletInfo(i);
-    //}
+
+    for(int i(0); i<pallet_list.size(); ++i){
+        pallet_list[i]->printPalletInfo(i);
+    }
 }
 
 Factory::~Factory(){}
