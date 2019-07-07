@@ -2,6 +2,7 @@
 #define PALLET_H
 
 #include <vector> 
+class Part;
 
 class Pallet{
     public:
@@ -10,6 +11,10 @@ class Pallet{
 
         bool IsProcessing(){ return _in_process; }
         bool EngagePallet(int ProcessName, int ProcessDuration);
+        bool Loaded_Part_HalfDone();
+        bool IsThereLoadedPart();
+
+        void Empty_pallet();
 
         void OneStepForward();
 
@@ -18,12 +23,14 @@ class Pallet{
         // Variables
         int _ini_station_idx;
         int _pallet_idx;
+        int _pallet_loc;
         bool _in_process;
 
         bool _loaded;
 
         std::vector<int> _fixture_type;
-        std::vector<int> _loaded_part_idx; // -1: empty, 0~ : part idx in part list
+        //std::vector<int> _loaded_part_idx; // -1: empty, 0~ : part idx in part list
+        std::vector<Part*> _loaded_part; // NULL: empty,  others : part 
 
         int _process_name;
         int _process_duration;

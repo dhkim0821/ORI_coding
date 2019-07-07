@@ -7,10 +7,12 @@ Algorithm_LoadingUnloading::Algorithm_LoadingUnloading(const Factory & factory )
     _num_LU_station = factory.Num_LU_Station;
 
     LU_station_usage.clear();
+    LU_station_task_type.clear();
     LU_station_using_time.clear();
     LU_station_engaged_pallet_idx.clear();
 
     LU_station_usage.resize(_num_LU_station, false);
+    LU_station_task_type.resize(_num_LU_station, 0);
     LU_station_using_time.resize(_num_LU_station, 0);
     LU_station_engaged_pallet_idx.resize(_num_LU_station, -1);
     _LU_time = factory.LU_Time;
@@ -21,60 +23,111 @@ Algorithm_LoadingUnloading::~Algorithm_LoadingUnloading(){
 
 
 void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
-    _Update();
+    _Update(pallet_list);
     _FirstInFirstOut(pallet_list);
 
+    printInfo();
 }
-void Algorithm_LoadingUnloading::_Update(){
+void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
 
     for(int i(0); i< _num_LU_station; ++i){
         if(LU_station_usage[i]){ // LU station is used
             // Is there any completed LU task
-            if(LU_station_using_time[i] == _LU_time){
+            if(LU_station_using_time[i] == _LU_time ){
                 LU_station_usage[i] = false;
+                if(LU_station_task_type[i] == -1) {// If it was unloading
+                    pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_loc 
+                        = loc::Outside;
+                    pallet_list[LU_station_engaged_pallet_idx[i]]->Empty_pallet();
+
+                    LU_station_task_type[i] = 0;
+                }
+                if(LU_station_task_type[i] == 1) {// If it was loading
+                    pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_loc 
+                        = loc::Buffer;
+                    LU_station_task_type[i] = 0;
+                }
             }
             ++LU_station_using_time[i];
         }
     } //END of LU station loop
 
+    // Unloading ends: 
+    // Empty pallet
+    // if there is dependency, then switch it to post part
 }
 
 
 void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
         pallet_list){
-    printf("loading start\n");
+
+    //for(int i(0); i<pallet_list.size(); ++i){
+        //pallet_list[i]->printInfo(i);
+    //}
 
     for(int i(0); i< _num_LU_station; ++i){
         if(!LU_station_usage[i]){ // LU station is available
             // Unloading
+            std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+            while(pl_iter != pallet_list.end()){
+                if(  ( (*pl_iter)->_pallet_loc == loc::Buffer) && 
+                        (!(*pl_iter)->_in_process) ) {
 
-            // Loading
-            for(int pl_idx(0); pl_idx<pallet_list.size(); ++pl_idx){
-                if((pallet_list[pl_idx]->_ini_station_idx == i) && 
-                      (!pallet_list[pl_idx]->_in_process)  ){
-                    // LU station update 
-                    LU_station_usage[i] = true;
-                    LU_station_using_time[i] = 0;
-                    LU_station_engaged_pallet_idx[i] = pallet_list[pl_idx]->_pallet_idx;
-
-                    // Pallet update
-                    pallet_list[pl_idx]->_in_process = true;
-                    pallet_list[pl_idx]->_process_name = process::Loading;
-                    pallet_list[pl_idx]->_process_duration = _LU_time;
-                    pallet_list[pl_idx]->_current_processing_time = 0;
-                    break;
+                    if( (*pl_iter)->Loaded_Part_HalfDone() ){ // Unloading is required
+                        // LU station update
+                       LU_station_usage[i] = true;
+                       LU_station_task_type[i] = -1;
+                       LU_station_using_time[i] = 0;
+                       LU_station_engaged_pallet_idx[i] = (*pl_iter)->_pallet_idx;
+                       
+                       // Pallet update
+                       (*pl_iter)->_in_process = true;
+                       (*pl_iter)->_process_name = process::Unloading;
+                       (*pl_iter)->_process_duration = _LU_time;
+                       (*pl_iter)->_current_processing_time = 0;
+                       break;
+                    }
                 }
+                ++pl_iter;
             }
+        } // End of Unloading 
 
-        }
+
+        if(!LU_station_usage[i]){ // LU station is available
+            // Loading
+            std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+            while(pl_iter != pallet_list.end()){
+                if(  ( (*pl_iter)->_pallet_loc == loc::Outside) && 
+                        (!(*pl_iter)->_in_process) ) {
+
+                    if( (*pl_iter)->IsThereLoadedPart() ){ // Loading is required
+                        // LU station update
+                       LU_station_usage[i] = true;
+                       LU_station_task_type[i] = 1;
+                       LU_station_using_time[i] = 0;
+                       LU_station_engaged_pallet_idx[i] = (*pl_iter)->_pallet_idx;
+                       
+                       // Pallet update
+                       (*pl_iter)->_in_process = true;
+                       (*pl_iter)->_process_name = process::Loading;
+                       (*pl_iter)->_process_duration = _LU_time;
+                       (*pl_iter)->_current_processing_time = 0;
+                       break;
+                    }
+                }
+                ++pl_iter;
+            }
+        } // End of Loading
     } //END of LU station loop
-
-printf("hello!!!!!!!!!!!!!!!!!!!!!!\n");
 
     //for(int i(0); i<_num_LU_station; ++i){ printInfo(i); }
 }
 
-void Algorithm_LoadingUnloading::printInfo(int i){
-    printf("LU station %d, using_time: %d, engaged_pallet_idx:%d\n",
-            i, LU_station_using_time[i], LU_station_engaged_pallet_idx[i]);
+void Algorithm_LoadingUnloading::printInfo(){
+    for(int i(0); i<LU_station_usage.size(); ++i){
+        printf("LU station %d, task type: %d, using_time: %d, engaged_pallet_idx:%d\n",
+                i, LU_station_task_type[i], 
+                LU_station_using_time[i], 
+                LU_station_engaged_pallet_idx[i]);
+    }
 }

@@ -6,6 +6,7 @@ Part::Part(int idx, int type, int num_operation, int due_time, bool dependency):
     _dependency(dependency),
     _current_operation(0), _post_current_operation(0){
 
+        _pre_part_is_done = false;
     _part_loc = loc::Outside;
 
     //printf("Part generated. type: %d, num operation: %d, due_time: %d \n", 
@@ -13,24 +14,25 @@ Part::Part(int idx, int type, int num_operation, int due_time, bool dependency):
 }
 
 
-bool Part::IsDone(){
+bool Part::IsDone(bool half_done_is_done){
     if(_current_operation == _num_operation) {
-        if(_dependency){
-            if(_post_current_operation == _post_num_operation){ return true; }
-        }else{ 
-            return true; 
+        if(half_done_is_done) {
+            return true;
+        } else{
+            if(_dependency) { if(_pre_part_is_done) return true;}
+            else return true;
         }
     }
     return false;
 }
 
-void Part::CallOperationCompleted(){
-    ++_current_operation;
-    if(_current_operation == _num_operation){
-        if(_dependency){
-            _part_type = _dependent_part_type;
-        }
-    }
+void Part::SwitchToPostPart(){
+    if(!_dependency) printf("[Error] This is not dependent part\n");
+
+    _part_type = _dependent_part_type;
+    _current_operation = 0;
+    _num_operation = _post_num_operation;
+    _pre_part_is_done = true;
 }
 
 void Part::printInfo(int idx){

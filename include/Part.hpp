@@ -29,8 +29,8 @@ class Part{
         Part(int idx, int type, int num_operation, int due_time, bool dependency);
         ~Part(){}
 
-        bool IsDone();
-        void CallOperationCompleted();
+        bool IsDone(bool half_done_is_done = false);
+        void SwitchToPostPart();
 
         void printInfo(int idx);
     public:
@@ -45,6 +45,7 @@ class Part{
 
         // If this is dependent 
         bool _dependency;
+        bool _pre_part_is_done;
         int _dependent_part_type;
         int _post_current_operation;
         int _post_num_operation;

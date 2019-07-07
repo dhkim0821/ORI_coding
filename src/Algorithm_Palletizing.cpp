@@ -34,9 +34,10 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
     for(int i(0); i<pallet_list.size(); ++i){ // Check all pallet list
         check_pallet = pallet_list[i];
 
-        if(!check_pallet->IsProcessing()){ // Pallet is waiting mode
+        if((!check_pallet->IsProcessing()) && // Pallet is waiting mode
+                (check_pallet->_pallet_loc == loc::Outside ) ) { // Pallet is outside
             for(int fix_idx(0); fix_idx < check_pallet->_fixture_type.size(); ++fix_idx){
-                if(check_pallet->_loaded_part_idx[fix_idx] == -1) { // fixture is empty
+                if(check_pallet->_loaded_part[fix_idx] == NULL) { // fixture is empty
                     int fixture_type = check_pallet->_fixture_type[fix_idx];
 
                     // part type check
@@ -46,8 +47,7 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                             if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
                                 // Part is in outside
                                 // Loading Part
-                                check_pallet->_loaded_part_idx[fix_idx] = 
-                                    sort_part_list[pt_idx]->_part_idx;
+                                check_pallet->_loaded_part[fix_idx] = sort_part_list[pt_idx];
                                 // Part location update to Loading station
                                 sort_part_list[pt_idx]->_part_loc = loc::LoadingStation;
                                 // Delete the loaded part from the list

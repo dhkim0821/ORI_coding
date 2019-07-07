@@ -34,6 +34,7 @@ class Factory{
         //Trnasportation time
         int **Transportation_Time;
         int TransTime;
+        int MovingTime;
 
 
         // LU station available time

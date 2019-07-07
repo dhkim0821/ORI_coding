@@ -17,9 +17,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> Num_Dependency_Suc; //dependencyÈÄÇà
     fin >> LU_Time;
     
-    int Trans_temp;
-    fin >> Trans_temp;
-    TransTime = Trans_temp * 3; // Distance btw machines
+    fin >> MovingTime;
+    TransTime = MovingTime * 3; // Distance btw machines
 
     // Transportation time table
     Transportation_Time = new int *[Num_Machine + 1];
@@ -28,13 +27,13 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
         Transportation_Time[i] = new int[Num_Machine + 1];
         for (int j = 0; j < Num_Machine + 1; j++)
         {
-            Transportation_Time[i][j] = Trans_temp * i;
+            Transportation_Time[i][j] = MovingTime * i;
 
-            if (j > i) { Transportation_Time[i][j] = Trans_temp * (j + 1); }
+            if (j > i) { Transportation_Time[i][j] = MovingTime * (j + 1); }
             if (i == j) { Transportation_Time[i][j] = 0; }
-            if (j < i) { Transportation_Time[i][j] = Trans_temp * (i + 1); }
-            if (j == (Num_Machine) && i == (Num_Machine - 1)) { Transportation_Time[i][j] = Trans_temp * j; }
-            if (j == (Num_Machine - 1) && i == (Num_Machine)) { Transportation_Time[i][j] = Trans_temp * i; }
+            if (j < i) { Transportation_Time[i][j] = MovingTime * (i + 1); }
+            if (j == (Num_Machine) && i == (Num_Machine - 1)) { Transportation_Time[i][j] = MovingTime * j; }
+            if (j == (Num_Machine - 1) && i == (Num_Machine)) { Transportation_Time[i][j] = MovingTime * i; }
         }
     }
 
@@ -157,19 +156,13 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
 
     Num_Total_Part = part_list.size();
 
-    printf("Num of (LU station, Machine, Pallet): %d, %d, %d\n", 
-            Num_LU_Station, Num_Machine, Num_Pallet);
+    //for(int i(0);i < part_list.size(); ++i){
+        //part_list[i]->printInfo(i);
+    //}
 
-    printf("Part (Num, Type): %d, %d \n", Num_Total_Part, Num_Parttype);
-
-    for(int i(0);i < part_list.size(); ++i){
-        part_list[i]->printInfo(i);
-    }
-
-
-    for(int i(0); i<pallet_list.size(); ++i){
-        pallet_list[i]->printInfo(i);
-    }
+    //for(int i(0); i<pallet_list.size(); ++i){
+        //pallet_list[i]->printInfo(i);
+    //}
 }
 
 Factory::~Factory(){}
@@ -201,6 +194,6 @@ void Factory::ForwardOneStep(){
 
 
 void Factory::printInfo(){
-printf("TransTime%d\n", TransTime);
-
+    printf("\nFactory Information\n");
+    printf("MovingTime, TransTime: %d, %d \n", MovingTime, TransTime);
 }
