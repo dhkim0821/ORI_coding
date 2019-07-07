@@ -16,6 +16,7 @@ int main(int argc, char ** argv ){
    // Reading files and setup problem
     Factory factory(file_name);
 
+    factory.printInfo();
     // Construct Algorith
     Algorithm_Palletizing palletizing;
     Algorithm_LoadingUnloading loading_unloading(factory);

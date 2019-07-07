@@ -44,5 +44,7 @@ class Factory{
         int _num_loading_station;
 
         int _sim_time;
+
+        void printInfo();
 };
 #endif

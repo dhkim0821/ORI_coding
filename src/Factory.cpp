@@ -198,3 +198,9 @@ void Factory::ForwardOneStep(){
 
     printf("[Factor] Simulation Time: %d\n", _sim_time);
 }
+
+
+void Factory::printInfo(){
+printf("TransTime%d\n", TransTime);
+
+}
