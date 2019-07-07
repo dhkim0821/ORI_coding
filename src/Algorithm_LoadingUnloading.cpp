@@ -26,7 +26,7 @@ void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
     _Update(pallet_list);
     _FirstInFirstOut(pallet_list);
 
-    printInfo();
+    //printInfo();
 }
 void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
 
@@ -47,6 +47,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
                         = loc::Buffer;
                     LU_station_task_type[i] = 0;
                 }
+                continue;
             }
             ++LU_station_using_time[i];
         }
