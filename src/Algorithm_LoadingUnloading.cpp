@@ -69,6 +69,8 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
         }
     } //END of LU station loop
 
+printf("hello!!!!!!!!!!!!!!!!!!!!!!\n");
+
     //for(int i(0); i<_num_LU_station; ++i){ printInfo(i); }
 }
 
