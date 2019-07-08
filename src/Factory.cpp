@@ -171,7 +171,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 2000){return true;}
+    if(_sim_time > 3000){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
@@ -211,4 +211,12 @@ void Factory::printAllPalletStatus(){
 void Factory::printInfo(){
     printf("\nFactory Information\n");
     printf("MovingTime, TransTime: %d, %d \n", MovingTime, TransTime);
+}
+
+void Factory::printTardiness(){
+    for(int i(0); i<part_list.size(); ++i){
+        printf("part %d, sim time/due date: %d/%d, tardiness: %d\n", 
+                part_list[i]->_part_idx, _sim_time, part_list[i]->_due_time,
+                _sim_time - part_list[i]->_due_time);
+    }
 }

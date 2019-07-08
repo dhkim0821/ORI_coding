@@ -42,6 +42,9 @@ int main(int argc, char ** argv ){
             factory.printAllPalletStatus();
         }
         printf("\n");
-    }
+    }// End of Sim loop
+
+    printf("****** Simulation is done\n");
+    factory.printTardiness();
      return 0;
 }

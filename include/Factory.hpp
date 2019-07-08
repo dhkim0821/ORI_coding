@@ -17,6 +17,7 @@ class Factory{
 
         void printAllPartStatus();
         void printAllPalletStatus();
+        void printTardiness();
 
         // Variables
         std::vector<Part*> part_list;
