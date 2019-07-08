@@ -47,9 +47,14 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                             if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
                                 // Part is in outside
                                 // Loading Part
-                                check_pallet->_loaded_part[fix_idx] = sort_part_list[pt_idx];
+                                check_pallet->_loaded_part[fix_idx] = 
+                                    sort_part_list[pt_idx];
                                 // Part location update to Loading station
-                                sort_part_list[pt_idx]->_part_loc = loc::LoadingStation;
+                                sort_part_list[pt_idx]->_part_loc 
+                                    = loc::LoadingStation;
+                                // Part gets pallet idx
+                                sort_part_list[pt_idx]->_pallet_idx = 
+                                    check_pallet->_pallet_idx;
                                 // Delete the loaded part from the list
                                 sort_part_list.erase(sort_part_list.begin() + pt_idx);
                             }

@@ -4,6 +4,7 @@
 #include <vector>
 
 class Pallet;
+class Part;
 class Factory;
 
 class Algorithm_SetupAndMachining{
@@ -21,10 +22,11 @@ class Algorithm_SetupAndMachining{
         std::vector<int> machine_processing_time;
         std::vector<int> machine_current_time;
         std::vector<int> machine_engaged_pallet_idx;
-        std::vector<int> machine_processing_part_idx;
+        std::vector<Part*> machine_processing_part;
 
 
-        void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list);
+        void _OperationTime(const std::vector<Pallet*> & pallet_list);
+        //void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list);
         void _Update(const std::vector<Pallet*> & pallet_list);
 };
 #endif

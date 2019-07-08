@@ -12,6 +12,7 @@ namespace loc{
 };
 
 namespace process{
+    constexpr int Nothing = -1;
     constexpr int Loading = 0;
     constexpr int Unloading = 1;
     constexpr int Machining = 2;

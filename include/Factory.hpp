@@ -40,10 +40,6 @@ class Factory{
         // LU station available time
         std::vector<int> Machine_Schedule;
 
-        int _num_pallet;
-        int _num_machine;
-        int _num_loading_station;
-
         int _sim_time;
 
         void printInfo();

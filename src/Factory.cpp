@@ -106,6 +106,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
                 fin >> machine_info.machine_name[j];
                 fin >> machine_info.processing_time[j];
                 fin >> machine_info.machine_idx[j];
+                machine_info.machine_idx[j] -= 1; // idx starts from 0
             }
             machine_info_list[k] = machine_info;
         }
@@ -140,6 +141,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
                     fin >> machine_info.machine_name[j];
                     fin >> machine_info.processing_time[j];
                     fin >> machine_info.machine_idx[j];
+                    machine_info.machine_idx[j] -= 1; // idx starts from 0
                 }
                 machine_info_list[k] = machine_info;
             }
@@ -169,7 +171,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 5){return true;}
+    if(_sim_time > 12){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
@@ -183,12 +185,14 @@ void Factory::ForwardOneStep(){
     ++_sim_time; // Tick
 
     // Increase Pallet time only when it is in process
-    for(int i(0); i<_num_pallet; ++i){
+    for(int i(0); i<Num_Pallet; ++i){
+        //pallet_list[i]->printInfo(i);
+
         if(pallet_list[i]->IsProcessing()){
             pallet_list[i]->OneStepForward();
         }
-    }
 
+    }
     printf("[Factor] Simulation Time: %d\n", _sim_time);
 }
 

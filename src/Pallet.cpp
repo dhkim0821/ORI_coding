@@ -5,7 +5,8 @@
 
 Pallet::Pallet(int pallet_idx, int LU_station_idx, std::vector<int> fixture_type): 
     _pallet_idx(pallet_idx), _ini_station_idx(LU_station_idx), _in_process(false), 
-    _loaded(false), _pallet_loc(loc::Outside){
+    _pallet_loc(loc::Outside){
+        _process_name = -1;
         _fixture_type = fixture_type;
         _loaded_part.resize(fixture_type.size());
 
@@ -13,7 +14,14 @@ Pallet::Pallet(int pallet_idx, int LU_station_idx, std::vector<int> fixture_type
             _loaded_part[i] = NULL;
         }
 }
-
+void Pallet::LocationUpdate(int loc){
+    _pallet_loc = loc;
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
 Pallet::~Pallet(){  }
 
 bool Pallet::EngagePallet(int ProcessName, int ProcessDuration){
@@ -33,6 +41,8 @@ void Pallet::Empty_pallet(){
     while (part_iter != _loaded_part.end()){
         if( (*part_iter) ){ // there is loaded part
             (*part_iter)->_part_loc = loc::Outside;
+            (*part_iter)->_pallet_idx = -1;
+
             if( ((*part_iter)->_dependency) && (! (*part_iter)->_pre_part_is_done) ){
                 (*part_iter)->SwitchToPostPart();
             }
@@ -80,9 +90,17 @@ void Pallet::OneStepForward(){
 
 
 void Pallet::printInfo(int idx){
-    printf("%dth call) Pallet: %d \n", idx, _pallet_idx);
+    printf("%dth call) Pallet IDX %d\n", idx, _pallet_idx); 
+    std::string process_name;
+    if(_process_name == process::Nothing){ process_name = "Nothing";  }
+    if(_process_name == process::Loading){ process_name = "Loading";  }
+    if(_process_name == process::Unloading){ process_name = "Unloading";  }
+    if(_process_name == process::Machining){ process_name = "Machining";  }
 
-    printf("Loading Station %d, (fixture type, laoded part idx): ", _ini_station_idx);
+    printf("Processing, Name: %d, %s \n", _in_process, process_name.c_str());
+    printf("Time current/end %d/%d ) \n", _current_processing_time, _process_duration);
+
+    printf("Location: %d, (fixture type, laoded part idx): ", _pallet_loc);
     for(int i(0); i<NUM_FIXTURE_TYPE; ++i) {
         int part_idx(-1);
         if(_loaded_part[i]){ part_idx = _loaded_part[i]->_part_idx; }

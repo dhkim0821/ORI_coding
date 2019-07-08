@@ -17,6 +17,7 @@ class Pallet{
         void Empty_pallet();
 
         void OneStepForward();
+        void LocationUpdate(int loc);
 
         void printInfo(int idx);
 
@@ -26,10 +27,7 @@ class Pallet{
         int _pallet_loc;
         bool _in_process;
 
-        bool _loaded;
-
         std::vector<int> _fixture_type;
-        //std::vector<int> _loaded_part_idx; // -1: empty, 0~ : part idx in part list
         std::vector<Part*> _loaded_part; // NULL: empty,  others : part 
 
         int _process_name;

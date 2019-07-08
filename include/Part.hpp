@@ -33,10 +33,14 @@ class Part{
         void SwitchToPostPart();
 
         void printInfo(int idx);
+        int getProcessingTime(int operation_idx, int machine);
+
     public:
         int _part_idx;
         int _due_time;
         int _part_loc;
+
+        int _pallet_idx; // -1: unloaded from pallet, other: pallet idx
 
         int _current_operation;
         int _part_type;

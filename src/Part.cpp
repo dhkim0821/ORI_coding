@@ -6,8 +6,9 @@ Part::Part(int idx, int type, int num_operation, int due_time, bool dependency):
     _dependency(dependency),
     _current_operation(0), _post_current_operation(0){
 
+        _pallet_idx = -1;
         _pre_part_is_done = false;
-    _part_loc = loc::Outside;
+        _part_loc = loc::Outside;
 
     //printf("Part generated. type: %d, num operation: %d, due_time: %d \n", 
             //_part_type, _num_operation, _due_time);
@@ -34,10 +35,21 @@ void Part::SwitchToPostPart(){
     _num_operation = _post_num_operation;
     _pre_part_is_done = true;
 }
+int Part::getProcessingTime(int operation_idx, int machine){
+    MachiningInfo m_info = _machining_info_list[operation_idx];
+
+    for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
+        if(m_info.machine_idx[m_idx] == machine){
+            return m_info.processing_time[m_idx];
+        }
+    }
+    printf("[Error] No Matched operation idx and machine: %d, %d\n", operation_idx, machine);
+    return -1;
+}
 
 void Part::printInfo(int idx){
-    printf("%dth calling) %d part type: %d, num operation: %d, due_time: %d , part_loc: %d\n", 
-            idx, _part_idx, _part_type, _num_operation, _due_time, _part_loc);
+    printf("%dth calling) part idx: %d, type: %d, current/num operation: %d/%d, due_time: %d , part_loc: %d\n", 
+            idx, _part_idx, _part_type, _current_operation, _num_operation, _due_time, _part_loc);
 
     for(int i(0); i<_machining_info_list.size(); ++i){
         printf("%d th operation info: \n", i);
