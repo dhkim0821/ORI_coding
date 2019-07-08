@@ -26,6 +26,7 @@ int main(int argc, char ** argv ){
     while(!factory.All_Done()){
         // Forward Onestep 
         factory.ForwardOneStep(); // 1 Tick
+        printf("Simulation Time: %d\n", factory._sim_time);
 
         // Palletizing
         palletizing.run(factory.part_list, factory.pallet_list);
@@ -35,17 +36,12 @@ int main(int argc, char ** argv ){
 
         // Moving and Machining 
         setup_and_machining.run(factory.pallet_list);
-    }
- 
-    //for(int i(0); i<factory.pallet_list.size(); ++i){
-        //factory.pallet_list[i]->printInfo(i);
-    //}
-    //for(int i(0); i<factory.part_list.size(); ++i){
-        //factory.part_list[i]->printInfo(i);
-    //}
 
-    //for(int i(0); i<part_list.size(); ++i){
-        //printf("tarty: %f\n", part_list[i]->_due_time - part_list[i]->_process_time);
-    //}
-    return 0;
+        if(factory._sim_time % 10 == 0){
+            factory.printAllPartStatus();
+            factory.printAllPalletStatus();
+        }
+        printf("\n");
+    }
+     return 0;
 }

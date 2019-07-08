@@ -10,7 +10,7 @@ class Algorithm_LoadingUnloading {
         ~Algorithm_LoadingUnloading();
 
         void run(const std::vector<Pallet*> & pallet_list);
-        void printInfo();
+        void print_LUStationInfo();
     private:
         std::vector<bool> LU_station_usage;
         std::vector<int> LU_station_task_type; // 1:Loading, -1 Unloading, other: 0

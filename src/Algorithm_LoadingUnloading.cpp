@@ -26,10 +26,7 @@ void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
     _Update(pallet_list);
     _FirstInFirstOut(pallet_list);
 
-    printInfo();
-    for(int i(0); i<pallet_list.size(); ++i){
-        pallet_list[i]->printInfo(i);
-    }
+    //print_LUStationInfo();
 }
 void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
 
@@ -38,6 +35,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
             // Is there any completed LU task
             if(LU_station_using_time[i] == _LU_time ){
                 LU_station_usage[i] = false;
+                // Unloading
                 if(LU_station_task_type[i] == -1) {// If it was unloading
                     pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_loc 
                         = loc::Outside;
@@ -45,6 +43,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
 
                     LU_station_task_type[i] = 0;
                 }
+                // Loading
                 if(LU_station_task_type[i] == 1) {// If it was loading
                     pallet_list[LU_station_engaged_pallet_idx[i]]->
                         LocationUpdate(loc::Buffer);
@@ -89,6 +88,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        (*pl_iter)->_process_name = process::Unloading;
                        (*pl_iter)->_process_duration = _LU_time;
                        (*pl_iter)->_current_processing_time = 0;
+                       (*pl_iter)->LocationUpdate(loc::LoadingStation);
                        break;
                     }
                 }
@@ -116,6 +116,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        (*pl_iter)->_process_name = process::Loading;
                        (*pl_iter)->_process_duration = _LU_time;
                        (*pl_iter)->_current_processing_time = 0;
+                       (*pl_iter)->LocationUpdate(loc::LoadingStation);
                        break;
                     }
                 }
@@ -127,7 +128,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
     //for(int i(0); i<_num_LU_station; ++i){ printInfo(i); }
 }
 
-void Algorithm_LoadingUnloading::printInfo(){
+void Algorithm_LoadingUnloading::print_LUStationInfo(){
     for(int i(0); i<LU_station_usage.size(); ++i){
         printf("LU station %d, task type: %d, using_time: %d, engaged_pallet_idx:%d\n",
                 i, LU_station_task_type[i], 

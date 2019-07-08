@@ -9,6 +9,16 @@ namespace loc{
     constexpr int LoadingStation = 1;
     constexpr int Buffer = 2;
     constexpr int Machine = 3;
+
+    inline std::string printLocation(int loc){
+        std::string pallet_loc_str;
+        if(loc == loc::Outside) { pallet_loc_str = "Outside"; }
+        if(loc == loc::LoadingStation) { pallet_loc_str = "LoadingStation"; }
+        if(loc == loc::Buffer) { pallet_loc_str = "Buffer"; }
+        if(loc == loc::Machine) { pallet_loc_str = "Machine"; }
+
+        return pallet_loc_str;
+    }
 };
 
 namespace process{

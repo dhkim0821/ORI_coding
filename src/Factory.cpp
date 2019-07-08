@@ -171,7 +171,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 12){return true;}
+    if(_sim_time > 2000){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
@@ -193,7 +193,18 @@ void Factory::ForwardOneStep(){
         }
 
     }
-    printf("[Factor] Simulation Time: %d\n", _sim_time);
+}
+
+void Factory::printAllPartStatus(){
+    for (int i(0); i<part_list.size(); ++i){
+        part_list[i]->print_PartStatus(i);
+    }
+}
+
+void Factory::printAllPalletStatus(){
+    for (int i(0); i<pallet_list.size(); ++i){
+        pallet_list[i]->print_PalletInfo(i);
+    }
 }
 
 

@@ -47,7 +47,7 @@ int Part::getProcessingTime(int operation_idx, int machine){
     return -1;
 }
 
-void Part::printInfo(int idx){
+void Part::print_PartInfo(int idx){
     printf("%dth calling) part idx: %d, type: %d, current/num operation: %d/%d, due_time: %d , part_loc: %d\n", 
             idx, _part_idx, _part_type, _current_operation, _num_operation, _due_time, _part_loc);
 
@@ -75,5 +75,16 @@ void Part::printInfo(int idx){
         }
 
     }
+    printf("\n");
+}
+
+void Part::print_PartStatus(int idx){
+    printf("(%dth calling) part idx: %d, type: %d, ", idx, _part_idx, _part_type);
+    printf("current/num operation: %d/%d, due_time: %d , part_loc: %s, ", 
+            _current_operation, _num_operation, _due_time, 
+            loc::printLocation(_part_loc).c_str() );
+    printf("Dependency (completed): (%d, %d),  ", _dependency, _pre_part_is_done);
+
+    printf("All Done: %d", IsDone(false));
     printf("\n");
 }

@@ -83,13 +83,14 @@ bool Pallet::IsThereLoadedPart(){
 void Pallet::OneStepForward(){
     if(_current_processing_time == _process_duration){
         _in_process = false;
+        _process_name = process::Nothing;
     }else{
         ++_current_processing_time;
     }
 }
 
 
-void Pallet::printInfo(int idx){
+void Pallet::print_PalletInfo(int idx){
     printf("%dth call) Pallet IDX %d\n", idx, _pallet_idx); 
     std::string process_name;
     if(_process_name == process::Nothing){ process_name = "Nothing";  }
@@ -97,16 +98,11 @@ void Pallet::printInfo(int idx){
     if(_process_name == process::Unloading){ process_name = "Unloading";  }
     if(_process_name == process::Machining){ process_name = "Machining";  }
 
-    if(_pallet_loc == 0) printf("(Outside)");
-    if(_pallet_loc == 1) printf("(LoadingStation)");
-    if(_pallet_loc == 2) printf("(Buffer)");
-    if(_pallet_loc == 3) printf("(Machine)");
-
 
     printf("Processing, Name: %d, %s \n", _in_process, process_name.c_str());
-    printf("Time current/end %d/%d ) \n", _current_processing_time, _process_duration);
+    printf("Time current/end: (%d/%d) \n", _current_processing_time, _process_duration);
 
-    printf("Location: %d, (fixture type, laoded part idx): ", _pallet_loc);
+    printf("Location: %s, (fixture type, laoded part idx): ", loc::printLocation(_pallet_loc).c_str() );
     for(int i(0); i<NUM_FIXTURE_TYPE; ++i) {
         int part_idx(-1);
         if(_loaded_part[i]){ part_idx = _loaded_part[i]->_part_idx; }

@@ -4,7 +4,7 @@
 #include <Factory.hpp>
 #include <Definition.h>
 
-#define SHOW_DEBUG_MESSAGE 1
+#define SHOW_DEBUG_MESSAGE 0
 
 Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory){
     _num_Machine = factory.Num_Machine;
@@ -29,13 +29,10 @@ void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
     _OperationTime(pallet_list);
     //_MovingAndOperationTime(pallet_list);
     //_MovingAndOperationAndWaitingTime();
-
-    //printInfo();
 }
 
 
 void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pallet_list){
-    printf("Setup and Machining\n");
 
     std::vector<Part*> candidate_part_list;
 
@@ -51,13 +48,21 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                     for(int pt_idx(0); pt_idx<(*pl_iter)->_loaded_part.size(); ++pt_idx){
                         if( (*pl_iter)->_loaded_part[pt_idx]){ // There is loaded part
                             Part* check_part = (*pl_iter)->_loaded_part[pt_idx];
-                            // check machine info
-                            MachiningInfo m_info = 
-                                check_part->_machining_info_list[check_part->_current_operation];
+                            printf("1\n");
+                            if(check_part->IsDone(true)){ 
+                                printf("2\n");
+                                check_part->print_PartInfo(pt_idx);
+                                continue; 
+                            }
+                            else {
+                                // check machine info
+                                MachiningInfo m_info = 
+                                    check_part->_machining_info_list[check_part->_current_operation];
 
-                            for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
-                                if(m_info.machine_idx[m_idx] == i){
-                                    candidate_part_list.push_back(check_part);
+                                for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
+                                    if(m_info.machine_idx[m_idx] == i){
+                                        candidate_part_list.push_back(check_part);
+                                    }
                                 }
                             }
                         }
@@ -66,9 +71,9 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 ++pl_iter;
             } // End of Pallet loop
 #if (SHOW_DEBUG_MESSAGE)
-            //printf("*** [Machine %d] Selected Candidate *** \n", i);
-            //for(int i(0); i<candidate_part_list.size(); ++i ) 
-            //candidate_part_list[i]->printInfo(i);
+            printf("*** [Machine %d] Selected Candidate *** \n", i);
+            for(int i(0); i<candidate_part_list.size(); ++i ) 
+            candidate_part_list[i]->printInfo(i);
 #endif
 
             if(candidate_part_list.size() > 0){
@@ -105,6 +110,7 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 // Machine Starts
                 machine_usage[i] = true;
                 machine_processing_time[i] = shortest_processing_time;
+                printf("short process time: %d\n", shortest_processing_time);
                 machine_current_time[i] = 0;
                 machine_engaged_pallet_idx[i] = selected_pallet->_pallet_idx;
                 machine_processing_part[i] = selected_part;
@@ -115,7 +121,9 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
 #endif
 
             } else{
+#if (SHOW_DEBUG_MESSAGE)
                 printf("No candidate part\n");
+#endif
             }// End of if(candidate_part_list.size() > 0)
 
         } // End of if(!machine_usage[i])
@@ -136,6 +144,8 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
                 pallet_list[machine_engaged_pallet_idx[i]]->_in_process = false;
                 pallet_list[machine_engaged_pallet_idx[i]]->LocationUpdate(loc::Buffer);
 
+                machine_current_time[i] = 0;
+                machine_usage[i] = false;
                 continue;
             }
             ++machine_current_time[i];

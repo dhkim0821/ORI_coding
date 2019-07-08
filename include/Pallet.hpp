@@ -19,7 +19,7 @@ class Pallet{
         void OneStepForward();
         void LocationUpdate(int loc);
 
-        void printInfo(int idx);
+        void print_PalletInfo(int idx);
 
         // Variables
         int _ini_station_idx;

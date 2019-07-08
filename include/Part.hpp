@@ -32,7 +32,8 @@ class Part{
         bool IsDone(bool half_done_is_done = false);
         void SwitchToPostPart();
 
-        void printInfo(int idx);
+        void print_PartInfo(int idx);
+        void print_PartStatus(int idx);
         int getProcessingTime(int operation_idx, int machine);
 
     public:

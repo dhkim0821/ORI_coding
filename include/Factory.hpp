@@ -15,6 +15,9 @@ class Factory{
         bool All_Done();
         void ForwardOneStep();
 
+        void printAllPartStatus();
+        void printAllPalletStatus();
+
         // Variables
         std::vector<Part*> part_list;
         std::vector<Pallet*> pallet_list;

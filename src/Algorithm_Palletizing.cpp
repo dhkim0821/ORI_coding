@@ -42,7 +42,8 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
 
                     // part type check
                     for(int pt_idx(0); pt_idx<sort_part_list.size(); ++pt_idx){
-                        if(sort_part_list[pt_idx]->_part_type == fixture_type){ 
+                        if( (sort_part_list[pt_idx]->_part_type == fixture_type) &&
+                             (!sort_part_list[pt_idx]->IsDone(false))   ){ 
                             // Part type and fixture type matched
                             if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
                                 // Part is in outside
@@ -51,7 +52,7 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                                     sort_part_list[pt_idx];
                                 // Part location update to Loading station
                                 sort_part_list[pt_idx]->_part_loc 
-                                    = loc::LoadingStation;
+                                    = check_pallet->_pallet_loc;
                                 // Part gets pallet idx
                                 sort_part_list[pt_idx]->_pallet_idx = 
                                     check_pallet->_pallet_idx;
