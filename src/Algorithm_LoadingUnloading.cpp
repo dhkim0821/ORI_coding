@@ -16,6 +16,7 @@ Algorithm_LoadingUnloading::Algorithm_LoadingUnloading(const Factory & factory )
     LU_station_using_time.resize(_num_LU_station, 0);
     LU_station_engaged_pallet_idx.resize(_num_LU_station, -1);
     _LU_time = factory.LU_Time;
+    _moving_time = factory.MovingTime;
 }
 
 Algorithm_LoadingUnloading::~Algorithm_LoadingUnloading(){
@@ -26,12 +27,12 @@ void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
     _Update(pallet_list);
     _FirstInFirstOut(pallet_list);
 
-    //print_LUStationInfo();
+    print_LUStationInfo();
 }
 void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
-
     for(int i(0); i< _num_LU_station; ++i){
-        if(LU_station_usage[i]){ // LU station is used
+        if(LU_station_usage[i]){ // LU station is usedi
+
             // Is there any completed LU task
             if(LU_station_using_time[i] == _LU_time ){
                 LU_station_usage[i] = false;
@@ -64,9 +65,11 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
 void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
         pallet_list){
 
-    //for(int i(0); i<pallet_list.size(); ++i){
-        //pallet_list[i]->printInfo(i);
-    //}
+    for(int i(0); i<pallet_list.size(); ++i){
+        // pallet_list[i]->printInfo(i);
+        // pallet_list[i]->print_PalletInfo(i);
+
+    }
 
     for(int i(0); i< _num_LU_station; ++i){
         if(!LU_station_usage[i]){ // LU station is available
@@ -130,8 +133,8 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
 
 void Algorithm_LoadingUnloading::print_LUStationInfo(){
     for(int i(0); i<LU_station_usage.size(); ++i){
-        printf("LU station %d, task type: %d, using_time: %d, engaged_pallet_idx:%d\n",
-                i, LU_station_task_type[i], 
+        printf("LU station %d,  task type: %d, using_time: %d, engaged_pallet_idx:%d\n",
+                i, LU_station_task_type[i],  
                 LU_station_using_time[i], 
                 LU_station_engaged_pallet_idx[i]);
     }

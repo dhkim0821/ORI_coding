@@ -27,22 +27,26 @@ int main(int argc, char ** argv ){
         // Forward Onestep 
         factory.ForwardOneStep(); // 1 Tick
         printf("Simulation Time: %d\n", factory._sim_time);
-
+        printf("---------------------------1Tick  start!\n");
+        
         // Palletizing
+        printf("---------------------------Palletizing  start!\n");
         palletizing.run(factory.part_list, factory.pallet_list);
 
         // Loading
+        printf("---------------------------laoding start!\n");
         loading_unloading.run(factory.pallet_list);
 
         // Moving and Machining 
+        printf("---------------------------Machining start!\n");
         setup_and_machining.run(factory.pallet_list);
 
-        if(factory._sim_time % 10 == 0){
+        if(factory._sim_time % factory.LU_Time  == 0){
             factory.printAllPartStatus();
             factory.printAllPalletStatus();
         }
         printf("\n");
-    }// End of Sim loop
+        }// End of Sim loop
 
     printf("****** Simulation is done\n");
     factory.printTardiness();

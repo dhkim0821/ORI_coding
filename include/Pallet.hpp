@@ -20,6 +20,7 @@ class Pallet{
         void LocationUpdate(int loc);
 
         void print_PalletInfo(int idx);
+        void print_PalletMac(int idx);
 
         // Variables
         int _ini_station_idx;
@@ -33,6 +34,11 @@ class Pallet{
         int _process_name;
         int _process_duration;
         int _current_processing_time;
+
+        int _pre_mac; 
+        int _current_mac;
+        int _post_mac; 
+
 };
 
 #endif

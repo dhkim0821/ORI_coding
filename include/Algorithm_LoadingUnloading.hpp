@@ -18,6 +18,7 @@ class Algorithm_LoadingUnloading {
         std::vector<int> LU_station_engaged_pallet_idx;
         int _LU_time;
         int _num_LU_station;
+        int _moving_time;
 
         void _FirstInFirstOut(const std::vector<Pallet*> & pallet_list);
         void _Update(const std::vector<Pallet*> & pallet_list);

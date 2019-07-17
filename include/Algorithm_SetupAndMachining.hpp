@@ -26,7 +26,7 @@ class Algorithm_SetupAndMachining{
 
 
         void _OperationTime(const std::vector<Pallet*> & pallet_list);
-        //void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list);
+        void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list);
         void _Update(const std::vector<Pallet*> & pallet_list);
 };
 #endif

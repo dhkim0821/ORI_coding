@@ -27,7 +27,8 @@ void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
     _OperationTime(pallet_list);
-    //_MovingAndOperationTime(pallet_list);
+
+   // _MovingAndOperationTime(pallet_list);
     //_MovingAndOperationAndWaitingTime();
 }
 
@@ -73,21 +74,19 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
 #if (SHOW_DEBUG_MESSAGE)
             printf("*** [Machine %d] Selected Candidate *** \n", i);
             for(int i(0); i<candidate_part_list.size(); ++i ) 
-            candidate_part_list[i]->printInfo(i);
+            candidate_)art_list[i]->printInfo(i);
 #endif
-
             if(candidate_part_list.size() > 0){
                 // Pick a machine with shortest operation time
                 int selected_pt_idx(0); // Find this
-
                 Part* ch_pt = candidate_part_list[0];
+           
                 int shortest_processing_time = 
                     ch_pt->getProcessingTime(ch_pt->_current_operation, i);
 
                 int processing_time(0);
                 for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
                     ch_pt = candidate_part_list[pt_idx];
-
                     processing_time = ch_pt->getProcessingTime(ch_pt->_current_operation, i);
 
                     if(shortest_processing_time > processing_time){
@@ -95,7 +94,6 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                         selected_pt_idx = pt_idx;
                     }
                 }
-
                 // Operation (machining) starts
                 Part* selected_part = candidate_part_list[selected_pt_idx];
                 Pallet* selected_pallet = pallet_list[selected_part->_pallet_idx];
@@ -111,6 +109,7 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 machine_usage[i] = true;
                 machine_processing_time[i] = shortest_processing_time;
                 printf("short process time: %d\n", shortest_processing_time);
+
                 machine_current_time[i] = 0;
                 machine_engaged_pallet_idx[i] = selected_pallet->_pallet_idx;
                 machine_processing_part[i] = selected_part;
@@ -119,6 +118,26 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 selected_part->printInfo(0);
                 selected_pallet->printInfo(0);
 #endif
+
+                //------------------------------
+                printf("\n*** [Machine %d] Selected Part & Pallet *** \n", i);
+                selected_part->print_PartInfo(0);
+                selected_pallet->print_PalletMac(0);
+                
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while (pl_iter != pallet_list.end()){
+                    if ((*pl_iter)->_pallet_idx == selected_pallet[0]._pallet_idx )
+                    {
+                        //그 팔렛의 post mac에 i 저장 selected_pallet 루프 못벗어나니까 factory pallet_list에 표시 
+                        (*pl_iter)->_post_mac = i;
+                        printf("i got same pallet%d!!!\n",(*pl_iter)->_pallet_idx);
+                        printf("we will work in mac%d\n", (*pl_iter)->_post_mac);
+                    }
+                    pl_iter++;
+                }
+
+                //------------------------------
+
 
             } else{
 #if (SHOW_DEBUG_MESSAGE)
@@ -129,14 +148,42 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
         } // End of if(!machine_usage[i])
 
     } //End of Machine Loop
+
+    //----------------------------------
+    //2. 전체 팔렛 post mac 검색 되므로 이제 다음 회전때 post mca->pre mac으로 바꾸는 방법 생각할 차례!!!!!!!!!!!!!!!!!
+    //3. post mac -> pre mac 으로 바꾼뒤 update에서 같은지/다른지 비교하여 이동시간 추가 
+    std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+    while (pl_iter != pallet_list.end()){
+        {
+            //그 팔렛의 post mac에 i 저장 selected_pallet 루프 못벗어나니까 factory pallet_list에 표시 
+            //  printf("[mac off] pallet%d\n",(*pl_iter)->_pallet_idx);
+            //  printf("_post_ mac%d\n", (*pl_iter)->_post_mac);
+        }
+        pl_iter++;
+    }
+    //  _MovingAndOperationTime(pallet_list);
+    //---------------------------------------
 }
 
 void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
-
+  //if there is no moving
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){
             if(machine_processing_time[i] == machine_current_time[i]){  // Machining is done
-                
+               //--------------------------
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while(pl_iter != pallet_list.end()){
+                    printf("--------!!!aa!----pallet%d\n", (*pl_iter)->_pallet_idx);
+                    (*pl_iter)->_pre_mac = (*pl_iter)->_post_mac;
+                    (*pl_iter)->_post_mac = 0; 
+
+                    printf("----!!!aa-------post mac%d\n", (*pl_iter)->_post_mac);
+                    printf("----!!aa!-------pre mac%d\n", (*pl_iter)->_pre_mac);
+                    pl_iter++;
+                }
+
+
+               //--------------------------
                 // Part: current operaiton +1
                 machine_processing_part[i]->_current_operation++; 
 
@@ -151,6 +198,21 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
             ++machine_current_time[i];
         }
     } // End of machine loop
+
+
+  //if there is moving -> call '_MovingAndOperationTime' funtion
+
+    printf("Add the moving time!\n");
+
+}
+
+
+void Algorithm_SetupAndMachining::_MovingAndOperationTime(const std::vector<Pallet*> & pallet_list){
+//pallet loc이 방금 loc과 같으면 (같은머신이었으면) 이동시간 추가 안함
+//다른 loc이면 추가 
+//
+//1. 일단은 버퍼<->machine area로 옮겨질때마다 바꿔보자 -> 가공시간에 MovingTime 추가하면됨
+//2. 머신간 이동있을때 바꿔보자 
 }
 
 void Algorithm_SetupAndMachining::printInfo(){

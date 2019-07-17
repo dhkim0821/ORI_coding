@@ -13,6 +13,8 @@ class Algorithm_Palletizing{
 
         void run(const std::vector<Part*> & part_list, 
                 std::vector<Pallet*> & pallet_list);
+        void print_PalletizingInfo(int part_type);
+
 
     private:
         void _EariestDueDateMethod(const std::vector<Part*> & part_list, 

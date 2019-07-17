@@ -35,6 +35,7 @@ void Part::SwitchToPostPart(){
     _num_operation = _post_num_operation;
     _pre_part_is_done = true;
 }
+
 int Part::getProcessingTime(int operation_idx, int machine){
     MachiningInfo m_info = _machining_info_list[operation_idx];
 

@@ -110,3 +110,7 @@ void Pallet::print_PalletInfo(int idx){
     }
     printf("\n");//pallets in a vector ? 
 }
+
+void Pallet::print_PalletMac(int idx){
+printf("Pallet idx%d\n", _pallet_idx );
+}
