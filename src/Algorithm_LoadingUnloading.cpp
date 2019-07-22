@@ -27,7 +27,7 @@ void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
     _Update(pallet_list);
     _FirstInFirstOut(pallet_list);
 
-    print_LUStationInfo();
+    //print_LUStationInfo();
 }
 void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
     for(int i(0); i< _num_LU_station; ++i){
