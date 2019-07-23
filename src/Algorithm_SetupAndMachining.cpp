@@ -22,10 +22,15 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
     machine_engaged_pallet_idx.resize(_num_Machine, -1);
     machine_processing_part.resize(_num_Machine, NULL);
 
+    //-----------------------------------------
+    machine_pre_pallet_idx.clear();
+    machine_pre_pallet_idx.resize(_num_Machine, 0); 
+    //-----------------------------------------
+
 }
 void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
-    _Update(pallet_list, selected_pallet_update);
+    _Update(pallet_list);
     _OperationTime(pallet_list);
 
     //_MovingAndOperationTime(pallet_list);
@@ -46,9 +51,6 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
             while (pl_iter != pallet_list.end()){
                 if((!(*pl_iter)->_in_process) && 
                         ((*pl_iter)->_pallet_loc == loc::Buffer) ){
-                    //------------------------------------------
-                    //  (*pl_iter)->_pre_mac = i;
-                    //------------------------------------------
 
                     for(int pt_idx(0); pt_idx<(*pl_iter)->_loaded_part.size(); ++pt_idx){
                         if( (*pl_iter)->_loaded_part[pt_idx]){ // There is loaded part
@@ -101,6 +103,14 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 // Operation (machining) starts
                 Part* selected_part = candidate_part_list[selected_pt_idx];
                 Pallet* selected_pallet = pallet_list[selected_part->_pallet_idx];
+            
+                //-------------------------------------------
+                // Pallet*  selected_pallet_update = pallet_list[selected_part->_pallet_idx];
+                // selected_pallet_update->_in_process = true;
+                // selected_pallet_update->_process_name = process::Machining;
+                // selected_pallet_update->_process_duration = shortest_processing_time;
+                // selected_pallet_update->_current_processing_time = 0;
+                //-------------------------------------------
 
                 // Pallet process starts
                 selected_pallet->_in_process = true;
@@ -129,15 +139,17 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 selected_part->print_PartInfo(0);
                 selected_pallet->print_PalletMac(0); 
 
-                printf("selected_pallet%d\n", selected_pallet[0]._pallet_idx);
-               
+
                 std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
                 while (pl_iter != pallet_list.end()){
                     if ((*pl_iter)->_pallet_idx == selected_pallet[0]._pallet_idx )
                     {
-                        //그 팔렛의 post mac에 i 저장 selected_pallet 루프 못벗어나니까 factory.pallet_list에 표시 
-                        (*pl_iter)->_post_mac = i;
+                        (*pl_iter)->_pre_mac = i;    //update에서 확인할 방금 막 가공 끝난 팔렛의 직전머신(_pre_mac)에 i 저장 selected_pallet 루프 못벗어나니까 factory.pallet_list에 표시 
+                        machine_pre_pallet_idx[i] = (*pl_iter)->_pallet_idx;  //update에서 확인할  방금 막 가공끝난 머신의 팔렛 저장
+
+
                         printf("i got a pallet%d!!!\n",(*pl_iter)->_pallet_idx);
+                        printf("machine pre pallet idx? %d\n", machine_pre_pallet_idx[i]);
                         printf("we will work in mac%d\n", (*pl_iter)->_post_mac);
                     }
                     pl_iter++;
@@ -145,47 +157,47 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
 
                 //------------------------------
 
-
             } else{
 #if (SHOW_DEBUG_MESSAGE)
                 printf("No candidate part\n");
 #endif
             }// End of if(candidate_part_list.size() > 0)
-
+       
         } // End of if(!machine_usage[i])
 
     } //End of Machine Loop
 
 
 
-    //--------------------------------------
+   
+    //---------------------------------------
     //1. _post_mac : machine to start processing, _pre_mac : machine just finished processing
     //   (팔렛class에 이제 가공시작할머신과 방금 가공끝난머신 정보저장)
-    //2. update에서 방금 막 가공 끝난 팔렛 찾는다.
-    //3. update에서 방금 막 가공 끝난 팔렛의 _post_mac, _pre_mac  같은지/다른지 비교하여 이동시간 추가
+    //2. update에서 방금 막 가공 끝난 팔렛 찾는다 -> _current_pallet_idx
+    //3. update에서 방금 막 가공 끝난 팔렛의 _post_mac, _pre_mac  같은지/다른지 비교하여
+    // 다르면 이동시간 추가
+    // 같으면  이동시간 추가 x
     //---------------------------------------
 }
 
-void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list,
-        const std::vector<Pallet*> & selected_pallet_update){
+void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
     //----------------------------------------
-    //is there machine transportation?
+    //is there machine transportation? 
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){
             if(machine_processing_time[i] == machine_current_time[i]){  // Machining is done
-                printf("update information\n");
+                printf("===============update(moving) information================\n");
+                printf("just finished pallet%d at mac%d\n", machine_pre_pallet_idx[i], i); //방금 끝난 팔렛 
+               
                 std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
                 while(pl_iter != pallet_list.end()){
-                   // if( (*pl_iter)->_in_process == true && (*pl_iter)->_process_name == process::Machining){
-                        printf("pallet idx%d :  ", (*pl_iter)->_pallet_idx);
-                        (*pl_iter)->_pre_mac = i;
-                        //(*pl_iter)->_pre_mac = (*pl_iter)->_post_mac;
-                        //(*pl_iter)->_post_mac = 0;
-                        printf("post mac%d, ", (*pl_iter)->_post_mac);
-                        printf("pre mac%d\n", (*pl_iter)->_pre_mac);
-                   // }    방금 가공 끝낸 팔렛 찾기 
+                    //if ((*pl_iter)->_in_process 
+                    (*pl_iter)->_post_mac = i; //새로 선택된 팔렛이 가공될 머신
+                    printf("pallet idx%d :  ", (*pl_iter)->_pallet_idx); //새로 선택된 팔렛을 여기서 찍어야함!!!!!!!!!!!!알고리즘에서 팔렛 선택하는부분 여기서 다시 한번( 미리) 계산해보기!!!!!!!!!!!!!!!!
+                    printf("pre mac%d, post mac%d\n ", (*pl_iter)->_pre_mac, (*pl_iter)->_post_mac); //새로 선택된 팔렛의 이전머신,새로 가공될 머신 
                     pl_iter++;
                 }
+                printf("===========================================================\n");
             }
         }
     }
