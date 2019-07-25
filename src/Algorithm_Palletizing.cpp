@@ -25,10 +25,10 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
     std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());
 
     // Debug) Show sorted part list
-    //       for(int i(0); i<sort_part_list.size(); ++i){
-    //            sort_part_list[i]->print_PartStatus(i);
-    //        }
-    //
+          // for(int i(0); i<sort_part_list.size(); ++i){
+          //      sort_part_list[i]->print_PartStatus(i);
+          //  }
+    
 
 #if (PRINT_DEBUG)
     // Debug) Show sorted part list

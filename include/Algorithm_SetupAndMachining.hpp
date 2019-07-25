@@ -15,6 +15,7 @@ class Algorithm_SetupAndMachining{
         void run(const std::vector<Pallet*> & pallet_list);
         void printInfo();
 
+ 
     private:
         int _num_Machine;
         int _MovingTime;
@@ -27,11 +28,14 @@ class Algorithm_SetupAndMachining{
         //-------------------------------
         std::vector<int> machine_pre_pallet_idx;
         std::vector<int> machine_post_pallet_idx;
-        //------------------------------
+        //-------------------------------
 
 
-        void _OperationTime(const std::vector<Pallet*> & pallet_list);
+        void _OperationTime(const std::vector<Pallet*> & pallet_list); 
         void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list);
         void _Update(const std::vector<Pallet*> & pallet_list);
+        //------------------------------
+        void _PredictNextPallet(const std::vector<Pallet*> & pallet_list);
+        //-----------------------------
 };
 #endif
