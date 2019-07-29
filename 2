@@ -18,11 +18,11 @@ Pallet::Pallet(int pallet_idx, int LU_station_idx, std::vector<int> fixture_type
 
 //-------------------------------------
 void Pallet::LocationUpdate(int loc, int plt_idx){
-
-    printf("(location update) plt_idx%d, pre_loc : %s, current_loc : %s\n",
+  
+      printf("(location update) plt_idx%d, pre_loc : %s, current_loc : %s\n",
             plt_idx, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
-    printf("_pre_mac : %s\n", loc::printLocation(_pre_mac).c_str());
     _pallet_loc = loc;
+    printf("pre_mac%s\n",loc::printLocation(_pre_mac).c_str());
 
     for(int i(0); i<_loaded_part.size(); ++i){
         if(_loaded_part[i]){

@@ -13,8 +13,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> Part_Info_Size;
     fin >> Num_Parttype;
     fin >> Num_Pallet;
-    fin >> Num_Dependency_Pre; //dependency¼±Çà 
-    fin >> Num_Dependency_Suc; //dependencyÈÄÇà
+    fin >> Num_Dependency_Pre; //dependency (pre)
+    fin >> Num_Dependency_Suc; //dependency (successor)
     fin >> LU_Time;
     
     fin >> MovingTime;
@@ -173,7 +173,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 100000){return true;}
+    if(_sim_time > 250){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

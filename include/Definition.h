@@ -10,6 +10,12 @@ namespace loc{
     constexpr int LoadingStation = 1;
     constexpr int Buffer = 2;
     constexpr int Machine = 3;
+    //---------------------------------------------------
+    constexpr int Machine0 = 4;  //follow variable 'Machine = 3'
+    constexpr int Machine1 = 5;
+    constexpr int Machine2 = 6; 
+    //---------------------------------------------------
+
 
     inline std::string printLocation(int loc){
         std::string pallet_loc_str;
@@ -17,6 +23,11 @@ namespace loc{
         if(loc == loc::LoadingStation) { pallet_loc_str = "LoadingStation"; }
         if(loc == loc::Buffer) { pallet_loc_str = "Buffer"; }
         if(loc == loc::Machine) { pallet_loc_str = "Machine"; }
+        //--------------------------------------------------
+        if(loc == loc::Machine0) { pallet_loc_str = "Machine 0"; }
+        if(loc == loc::Machine1) { pallet_loc_str = "Machine 1"; }
+        if(loc == loc::Machine2) { pallet_loc_str = "Machine 2"; }
+        //---------------------------------------------------
 
         return pallet_loc_str;
     }

@@ -47,7 +47,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
                 // Loading
                 if(LU_station_task_type[i] == 1) {// If it was loading
                     pallet_list[LU_station_engaged_pallet_idx[i]]->
-                        LocationUpdate(loc::Buffer);
+                        LocationUpdate(loc::Buffer, pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_idx);  //---------------------------------
                     LU_station_task_type[i] = 0;
                 }
                 continue;
@@ -91,7 +91,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        (*pl_iter)->_process_name = process::Unloading;
                        (*pl_iter)->_process_duration = _LU_time;
                        (*pl_iter)->_current_processing_time = 0;
-                       (*pl_iter)->LocationUpdate(loc::LoadingStation);
+                       (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx); //-------------------
                        break;
                     }
                 }
@@ -119,7 +119,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        (*pl_iter)->_process_name = process::Loading;
                        (*pl_iter)->_process_duration = _LU_time;
                        (*pl_iter)->_current_processing_time = 0;
-                       (*pl_iter)->LocationUpdate(loc::LoadingStation);
+                       (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx);  //------------------------
                        break;
                     }
                 }

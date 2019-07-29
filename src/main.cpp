@@ -17,7 +17,7 @@ int main(int argc, char ** argv ){
 
 
     //factory.printInfo();
-    // Construct Algorith
+    // Construct Algorithm
     Algorithm_Palletizing palletizing;
     Algorithm_LoadingUnloading loading_unloading(factory);
     Algorithm_SetupAndMachining setup_and_machining(factory);
