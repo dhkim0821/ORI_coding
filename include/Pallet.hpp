@@ -18,6 +18,12 @@ class Pallet{
 
         void OneStepForward();
         void LocationUpdate(int loc, int plt_idx);
+        //----------------------------
+        void LocationUpdate_Mac1(int loc, int plt_idx, int shortest_processing_time);
+        void LocationUpdate_Mac2(int loc, int plt_idx, int shortest_processing_time);
+        void LocationUpdate_Mac3(int loc, int plt_idx, int shortest_processing_time);
+        //----------------------------
+
 
         void print_PalletInfo(int idx);
         void print_PalletMac(int idx);
@@ -36,7 +42,7 @@ class Pallet{
         int _current_processing_time;
         //----------
         int _pre_mac;
-        int _current_mac;
+        // int _current_mac;
         //----------
 };
 

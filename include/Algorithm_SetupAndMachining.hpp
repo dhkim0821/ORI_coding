@@ -15,7 +15,9 @@ class Algorithm_SetupAndMachining{
         void run(const std::vector<Pallet*> & pallet_list);
         void printInfo();
 
- 
+        //-------------
+        int shortest_processing_time;
+        //------------
     private:
         int _num_Machine;
         int _MovingTime;

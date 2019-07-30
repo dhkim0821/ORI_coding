@@ -19,9 +19,15 @@ Pallet::Pallet(int pallet_idx, int LU_station_idx, std::vector<int> fixture_type
 //-------------------------------------
 void Pallet::LocationUpdate(int loc, int plt_idx){
 
-    printf("(location update) plt_idx%d, pre_loc : %s, current_loc : %s\n",
-            plt_idx, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
-    printf("_pre_mac : %s\n", loc::printLocation(_pre_mac).c_str());
+    printf("(location update) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
+            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
+
+    for(int i(4); i<6; ++i){
+        if ( _pre_mac == i ){
+            printf("_pre_mac %s\n", loc::printLocation(_pre_mac).c_str());
+        }
+    }
+
     _pallet_loc = loc;
 
     for(int i(0); i<_loaded_part.size(); ++i){
@@ -30,6 +36,90 @@ void Pallet::LocationUpdate(int loc, int plt_idx){
         }
     }
 }
+
+void Pallet::LocationUpdate_Mac1(int loc, int plt_idx, int shortest_processing_time){
+    int movingtime = 5;
+    printf("(location update_Mac0) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
+            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
+  
+    //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
+    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+        printf("there is pallet transportation\n");
+        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
+        shortest_processing_time = shortest_processing_time + movingtime;
+    }
+    else if (_pre_mac == loc){
+        printf("there is no pallet transportation\n");
+        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
+    }
+
+    printf("shortest processing time 에 추가됫냐 %d\n", shortest_processing_time);
+
+    _pallet_loc = loc;
+
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
+
+void Pallet::LocationUpdate_Mac2(int loc, int plt_idx, int shortest_processing_time){
+   int movingtime = 5;
+
+    printf("(location update_Mac1) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
+            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
+
+    //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
+    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+        printf("there is pallet transportation\n");
+        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
+        shortest_processing_time = shortest_processing_time + movingtime;
+    }
+    else if (_pre_mac == loc){
+        printf("there is no pallet transportation\n");
+        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
+    }
+
+
+    _pallet_loc = loc;
+
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
+
+
+void Pallet::LocationUpdate_Mac3(int loc, int plt_idx, int shortest_processing_time){
+   int movingtime = 5;
+
+    printf("(location update_Mac2) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
+            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
+   
+    //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
+    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+        printf("there is pallet transportation\n");
+        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
+        shortest_processing_time = shortest_processing_time + movingtime;
+    }
+    else if (_pre_mac == loc){
+        printf("there is no pallet transportation\n");
+        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
+    }
+
+
+    _pallet_loc = loc;
+
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
+
+
 //----------------------------------------
 
 /*void Pallet::LocationUpdate(int loc){

@@ -112,44 +112,50 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 selected_pallet->_in_process = true;
                 selected_pallet->_process_name = process::Machining;
                 
-                //---------------------------------------------------
-                /* if (i == 0) {
-                    selected_pallet->_pallet_loc = loc::Machine0;
-                    selected_pallet->LocationUpdate(loc::Machine0, selected_pallet->_pallet_idx); //-------------
-                }
-                else  if (i == 1) {
-                    selected_pallet->_pallet_loc = loc::Machine1;
-                    selected_pallet->LocationUpdate(loc::Machine1, selected_pallet->_pallet_idx); // -----------
-                }
-                else if (i == 2) {
-                    selected_pallet->_pallet_loc = loc::Machine2;
-                    selected_pallet->LocationUpdate(loc::Machine2, selected_pallet->_pallet_idx); //-----------
-                }*/
-                //---------------------------------------------------
                 selected_pallet->_process_duration = shortest_processing_time;
                 selected_pallet->_current_processing_time = 0;
-
-                //---------------------------------------------------
+                //Mac의 LocationUpdate, 여기서 이동시간 추가할지말지 결정--------------------------
                 if (i == 0) {
                     selected_pallet->_pallet_loc = loc::Machine0;
-                     selected_pallet->_pre_mac = loc::Machine0; 
-                    // selected_pallet->LocationUpdate(loc::Machine0, selected_pallet->_pallet_idx); //-------------
+                    // selected_pallet->_pre_mac = loc::Machine0; 
+                    printf("shortest_processing_time (before LocationUpate_mac1) %d\n", shortest_processing_time);
+                    selected_pallet->LocationUpdate_Mac1(loc::Machine0, selected_pallet->_pallet_idx, 
+                            shortest_processing_time);
+
+                    /*
+                       1. Pallet::LocationUpdate_Mac1 에서 shortest_processing_time + moving_time 한거
+                       다시 Algorithm_SetupAndMachining::_OperationTime으로 연결하는부분!!!!!!!!!!!!!!!!!!!!!
+                       2. 여기shortest_processing_time 연결되면 Machine Starts 부분에 shortest_processing_time 수정*/
+
+
+                    /* if (selected_pallet->_pre_mac != 4) 정 안되면 여기서 
+                       {
+                       printf("smaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n");
+                       shortest_processing_time = shortest_processing_time + _MovingTime;
+                       }*/
+
+                    printf("shortest_processing_time (after LocationUpdate_mac1) %d\n", shortest_processing_time);
                 }
                 else  if (i == 1) {
                     selected_pallet->_pallet_loc = loc::Machine1;
-                     selected_pallet->_pre_mac = loc::Machine1; 
-                    // selected_pallet->LocationUpdate(loc::Machine1, selected_pallet->_pallet_idx); // -----------
+                    // selected_pallet->_pre_mac = loc::Machine1; 
+                    printf("shortest_processing_time (before LocationUpate_mac2) %d\n", shortest_processing_time);
+                    selected_pallet->LocationUpdate_Mac2(loc::Machine1, selected_pallet->_pallet_idx, shortest_processing_time);
+                    printf("shortest_processing_time (after LocationUpdate_mac2) %d\n", shortest_processing_time);
                 }
                 else if (i == 2) {
                     selected_pallet->_pallet_loc = loc::Machine2;
-                     selected_pallet->_pre_mac = loc::Machine2; 
-                    // selected_pallet->LocationUpdate(loc::Machine2, selected_pallet->_pallet_idx); //-----------
+                    // selected_pallet->_pre_mac = loc::Machine2; 
+
+                    printf("shortest_processing_time (before LocationUpate_mac3) %d\n", shortest_processing_time);
+                    selected_pallet->LocationUpdate_Mac3(loc::Machine2, selected_pallet->_pallet_idx, shortest_processing_time);
+                    printf("shortest_processing_time (after LocationUpdate_mac3) %d\n", shortest_processing_time);
                 }
-                //---------------------------------------------------
+                //-------------------------------------------------------------------------------
 
                 // Machine Starts
                 machine_usage[i] = true;
-                machine_processing_time[i] = shortest_processing_time;
+                machine_processing_time[i] = shortest_processing_time;  
                 printf("short process time: %d\n", shortest_processing_time);
 
                 machine_current_time[i] = 0;
@@ -161,11 +167,25 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 selected_pallet->printInfo(0);
 #endif
 
-                //----------------------------------------------------------------
+                //pre mac 저장하는 부분(_pre_mac과 loc을 비교)------------------
                 printf("\n*** [Machine %d] Selected Part & Pallet *** \n", i);
                 selected_part->print_PartInfo(0);
                 selected_pallet->print_PalletMac(0); 
-                //---------------------------------------------------------------
+
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while (pl_iter != pallet_list.end()){
+                    if ((*pl_iter)->_pallet_idx == selected_pallet[0]._pallet_idx ){
+                       if( i == 0 )
+                           (*pl_iter)->_pre_mac = 4; // machine0=4, machine1=5, machine2=6 (Definition.hpp)
+                       else if( i == 1 )
+                           (*pl_iter)->_pre_mac = 5;
+                       else if (i == 2)
+                           (*pl_iter)->_pre_mac = 6;
+
+                    }
+                    ++pl_iter;
+                }
+                //--------------------------------------------------------------
 
             } else{
 #if (SHOW_DEBUG_MESSAGE)
@@ -181,6 +201,22 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
 
 
 void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
+
+
+    /*post mac저장 하는 부분--------------
+    for(int i(0); i<_num_Machine; ++i){
+        if(machine_usage[i]){
+            if(machine_processing_time[i] == machine_current_time[i]){  // Machining is done
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while(pl_iter != pallet_list.end()){
+                    (*pl_iter)->_post_mac = i; 
+                    printf("post mac %d\n", (*pl_iter)->_post_mac);
+                    pl_iter++;
+                }
+            }
+        }
+    }*/
+
 
     //simulation time 2188  
 
