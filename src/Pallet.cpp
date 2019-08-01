@@ -37,78 +37,75 @@ void Pallet::LocationUpdate(int loc, int plt_idx){
     }
 }
 
-void Pallet::LocationUpdate_Mac1(int loc, int plt_idx, int shortest_processing_time){
-    int movingtime = 5;
-    printf("(location update_Mac0) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
-            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
-  
+void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
+    int movingtime =5*2;
+
+    printf("(location update_Mac0) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+            selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
+    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
         printf("there is pallet transportation\n");
-        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
         shortest_processing_time = shortest_processing_time + movingtime;
     }
-    else if (_pre_mac == loc){
+    else if (_pre_mac == loc && selected_plt->_pallet_idx == pre_pallet){
         printf("there is no pallet transportation\n");
-        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
     }
-
-    printf("shortest processing time 에 추가됫냐 %d\n", shortest_processing_time);
-
-    _pallet_loc = loc;
-
-    for(int i(0); i<_loaded_part.size(); ++i){
-        if(_loaded_part[i]){
-            _loaded_part[i]->_part_loc = loc;
-        }
-    }
-}
-
-void Pallet::LocationUpdate_Mac2(int loc, int plt_idx, int shortest_processing_time){
-   int movingtime = 5;
-
-    printf("(location update_Mac1) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
-            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
-
-    //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
-        printf("there is pallet transportation\n");
-        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
-        shortest_processing_time = shortest_processing_time + movingtime;
-    }
-    else if (_pre_mac == loc){
-        printf("there is no pallet transportation\n");
-        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
-    }
-
-
-    _pallet_loc = loc;
-
-    for(int i(0); i<_loaded_part.size(); ++i){
-        if(_loaded_part[i]){
-            _loaded_part[i]->_part_loc = loc;
-        }
-    }
-}
-
-
-void Pallet::LocationUpdate_Mac3(int loc, int plt_idx, int shortest_processing_time){
-   int movingtime = 5;
-
-    printf("(location update_Mac2) plt_idx%d, _pre_mac : %d, pre_loc : %s, current_loc : %s\n",
-            plt_idx, _pre_mac, loc::printLocation(_pallet_loc).c_str(), loc::printLocation(loc).c_str());
    
+    selected_plt->_spt_temp = shortest_processing_time;
+
+    _pallet_loc = loc;
+
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
+
+void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
+  int movingtime =5*2;
+
+    printf("(location update_Mac1) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+            selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
+    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc){ // 현재 머신에  선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
         printf("there is pallet transportation\n");
-        printf("_pre_mac %d, loc %d, pt %d\n", _pre_mac, loc, shortest_processing_time);
         shortest_processing_time = shortest_processing_time + movingtime;
     }
-    else if (_pre_mac == loc){
+    else if (_pre_mac == loc && selected_plt->_pallet_idx == pre_pallet){
         printf("there is no pallet transportation\n");
-        //shortest processing time에 movingtime안더한거 _OperationTime에 연결하기 
+    }
+   
+    selected_plt->_spt_temp = shortest_processing_time;
+
+    _pallet_loc = loc;
+
+    for(int i(0); i<_loaded_part.size(); ++i){
+        if(_loaded_part[i]){
+            _loaded_part[i]->_part_loc = loc;
+        }
+    }
+}
+
+
+void Pallet::LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
+    int movingtime =5*2;
+
+    printf("(location update_Mac3) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+            selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
+    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
+    //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+        printf("there is pallet transportation\n");
+        shortest_processing_time = shortest_processing_time + movingtime;
+    }
+    else if (_pre_mac == loc && selected_plt->_pallet_idx == pre_pallet){
+        printf("there is no pallet transportation\n");
     }
 
+    selected_plt->_spt_temp = shortest_processing_time;
 
     _pallet_loc = loc;
 
