@@ -18,7 +18,6 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> LU_Time;
     
     fin >> MovingTime;
-    TransTime = MovingTime * 3; // Distance btw machines
 
     LU_Time +=MovingTime;
 
@@ -173,7 +172,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 1000){return true;}
+    if(_sim_time > 100000){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

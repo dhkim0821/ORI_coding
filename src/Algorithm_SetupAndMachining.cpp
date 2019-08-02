@@ -116,46 +116,51 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 selected_pallet->_current_processing_time = 0;
                 //Mac의 LocationUpdate, 여기서 이동시간 추가할지말지 결정-------------------------------------------
                 if (i == 0) {
-                    selected_pallet->_pallet_loc = loc::Machine0;
                     printf("shortest_processing_time (before LocationUpate_mac1) %d\n", shortest_processing_time);
-                    selected_pallet->LocationUpdate_Mac1(loc::Machine0, selected_pallet, machine_pre_pallet[i], shortest_processing_time);
-                    /*
-                       1. Pallet::LocationUpdate_Mac1 에서 shortest_processing_time + moving_time 한거
-                       다시 Algorithm_SetupAndMachining::_OperationTime으로 연결하는부분!!!!!!!!!!!!!!!!!!!!!
-                       2. 여기shortest_processing_time 연결되면 Machine Starts 부분에 shortest_processing_time 수정*/
-                   // -complete-
-                   /*
-                      0. pre pallet 과 현재 팔렛이 같은지 비교 
-                      1. shortest_processing_time에 연결 
-                      2. chagne moving time '5' ->  variable 
-                      3. 코드정리 하면서 잘 연결되는지 체크 
-                   */
+                    selected_pallet->LocationUpdate_Mac1(loc::Machine0, selected_pallet,
+                            machine_pre_pallet[i], shortest_processing_time);
+                   
+                    /* Frame of transporation time
+                       1. Pallet::LocationUpdate_Mac1 에서 이동시간을 추가할지 판단 후, 필요시 추가하여 
+                       다시 Algorithm_SetupAndMachining::_OperationTime으로 연결
+                       2. 여기shortest_processing_time 연결되면 Machine Starts 부분에 shortest_processing_time */
 
-                    /* if (selected_pallet->_pre_mac != 4) 정 안되면 여기서 
-                       {
-                       printf("smaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n");
-                       shortest_processing_time = shortest_processing_time + _MovingTime;
-                       }*/
+                    /* Code Logic
+                       1. LocationUpdate_Mac1함수에서 selected_pallet(현재 선택된팔렛)이 직전에 가공했던 머신(_pre_mac)과 현재위치(loc::Machine0)을 비교
+                       2. machine i에서 selected_pallet과 해당 머신(i)에서 직전에 가공된 팔렛(machine_pre_pallet[i])를 비교
+                       3. 이동시간 발생 시, selected_plt->spt_temp  =  shortest_processing_time + movingtime
+                       4. 이동시간이 추가된 spt_temp를 _OperationTime에 연결 
+                       (shortest_processing_time를 받는 포인트는 _processing_duration,  machine_processing_time[i]) */
 
-                    printf("shortest_processing_time (after LocationUpdate_mac1) %d\n", shortest_processing_time);
-                    printf("shortest_processing_time (selected_plt->_spt_temp) %d\n",selected_pallet->_spt_temp);
+                    /* Today tasks
+                       1. shortest_processing_time에 추가된 이동시간(spt_temp) 옮기기
+                       2. shortest_processing_time 받는 포인트 바꾸기 
+                       3. Debuggin
+                       -complete-
+                       4. chagne moving time '5' ->  variable */
+
+                    /* Question
+                       1. shortest_processing_time을 받는 변수가 machine_processing_time[i], selected_pallet->_process_duration 두개 있는데,
+                       두개중 machine_processing_time[i]에만 넣음. _process_duration은 영향 안받는것으로 보인는데 맞는건지..?
+                       2. simulation time 
+                       */
                 }
                 else  if (i == 1) {
-                    selected_pallet->_pallet_loc = loc::Machine1;
                     printf("shortest_processing_time (before LocationUpate_mac2) %d\n", shortest_processing_time);
-                    selected_pallet->LocationUpdate_Mac2(loc::Machine1, selected_pallet, machine_pre_pallet[i], shortest_processing_time);
-                    printf("shortest_processing_time (after LocationUpdate_mac2) %d\n", shortest_processing_time);
-                    printf("shortest_processing_time (selected_plt->_spt_temp) %d\n",selected_pallet->_spt_temp);
+                    selected_pallet->LocationUpdate_Mac2(loc::Machine1, selected_pallet,
+                            machine_pre_pallet[i], shortest_processing_time);
                 }
                 else if (i == 2) {
-                    selected_pallet->_pallet_loc = loc::Machine2;
                     printf("shortest_processing_time (before LocationUpate_mac3) %d\n", shortest_processing_time);
-                    selected_pallet->LocationUpdate_Mac3(loc::Machine2, selected_pallet, machine_pre_pallet[i], shortest_processing_time);
-                    printf("shortest_processing_time (after LocationUpdate_mac3) %d\n", shortest_processing_time);
-                    printf("shortest_processing_time (selected_plt->_spt_temp) %d\n",selected_pallet->_spt_temp);
-                    printf("000000000000000000000000pallet pre completed : %d\n", machine_pre_pallet[i]);
+                    selected_pallet->LocationUpdate_Mac3(loc::Machine2, selected_pallet,
+                            machine_pre_pallet[i], shortest_processing_time);
                 }
+               
+                shortest_processing_time = selected_pallet->_spt_temp;
+                printf("shortest_processing_time (after LcationUpdate_macs) %d\n", shortest_processing_time); 
+
                 //----------------------------------------------------------------------------------------------------
+
 
                 // Machine Starts
                 machine_usage[i] = true;
@@ -230,7 +235,7 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
     }*/
 
 
-    //simulation time 2188  
+    //simulation time 2188 -> simulation time 2725 (after adding movingtime)
     machine_pre_pallet.resize(3);
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){
