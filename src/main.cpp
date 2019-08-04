@@ -41,8 +41,9 @@ int main(int argc, char ** argv ){
         printf("---------------------------Machining start!\n");
         setup_and_machining.run(factory.pallet_list);
 
-        if(factory._sim_time % factory.LU_Time  == 0){
-            factory.printAllPartStatus();
+        if(factory._sim_time % (factory.LU_Time-18)  == 0){
+        //if(factory._sim_time % factory.LU_Time  == 0){
+           // factory.printAllPartStatus();
             factory.printAllPalletStatus();
         }
         printf("\n");
