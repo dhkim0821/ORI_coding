@@ -53,7 +53,8 @@ void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, 
         printf("there is no pallet transportation\n");
     }
    
-    selected_plt->_spt_temp = shortest_processing_time;
+    selected_plt->_spt_temp = shortest_processing_time -1 ;
+    //adjusting simulation time by adding shortest_processing_time plus 1
 
     _pallet_loc = loc;
 
@@ -74,13 +75,13 @@ void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
     if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
         printf("there is pallet transportation\n");
-        shortest_processing_time = shortest_processing_time + movingtime;
+        shortest_processing_time  = shortest_processing_time + movingtime;
     }
     else if (_pre_mac == loc && selected_plt->_pallet_idx == pre_pallet){
         printf("there is no pallet transportation\n");
     }
    
-    selected_plt->_spt_temp = shortest_processing_time;
+    selected_plt->_spt_temp = shortest_processing_time -1;
 
     _pallet_loc = loc;
 
@@ -102,13 +103,13 @@ void Pallet::LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
     if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
         printf("there is pallet transportation\n");
-        shortest_processing_time = shortest_processing_time + movingtime;
+        shortest_processing_time  = shortest_processing_time + movingtime;
     }
     else if (_pre_mac == loc && selected_plt->_pallet_idx == pre_pallet){
         printf("there is no pallet transportation\n");
     }
 
-    selected_plt->_spt_temp = shortest_processing_time;
+    selected_plt->_spt_temp = shortest_processing_time -1;
 
     _pallet_loc = loc;
 

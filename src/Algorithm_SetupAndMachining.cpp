@@ -236,6 +236,7 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
 
 
     //simulation time 2188 -> simulation time 2725 (after adding movingtime)
+    //-> simulation time 2733 (after adjusting simulation time)
     machine_pre_pallet.resize(3);
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){

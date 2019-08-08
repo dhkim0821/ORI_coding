@@ -44,7 +44,7 @@ int main(int argc, char ** argv ){
         if(factory._sim_time % (factory.LU_Time-18)  == 0){
         //if(factory._sim_time % factory.LU_Time  == 0){
            // factory.printAllPartStatus();
-            factory.printAllPalletStatus();
+           // factory.printAllPalletStatus();               !!!!잠시끔
         }
         printf("\n");
         }// End of Sim loop

@@ -4,7 +4,10 @@
 #include <fstream>
 #include <Definition.h>
 
-Factory::Factory(const std::string & file_name):_sim_time(-1){
+Factory::Factory(const std::string & file_name):_sim_time(-2){
+//Factory::Factory(const std::string & file_name):_sim_time(-1){
+/* simulation time 이 어떨때  +1, +2, +3 이 되는지 찾기 */
+    
     // Read file
     std::ifstream fin(file_name);
 
@@ -61,7 +64,6 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     while(true)	 {
         fin >> Mac_temp;
         Machine_Schedule.push_back(Mac_temp);
-
         if (Mac_temp == -1) {
             break;
         }
@@ -172,7 +174,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 700){return true;}
+    if(_sim_time > 100000){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
