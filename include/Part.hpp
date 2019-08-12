@@ -40,12 +40,16 @@ class Part{
         int _part_idx;
         int _due_time;
         int _part_loc;
+        // ------------
+        int _sum_pt;  // for sum of all processing time for a part
+        // ------------
 
         int _pallet_idx; // -1: unloaded from pallet, other: pallet idx
 
         int _current_operation;
         int _part_type;
         int _num_operation;
+     
         std::vector<MachiningInfo> _machining_info_list; // length: num operation
 
         // If this is dependent 
@@ -68,5 +72,17 @@ struct DueDateCompare{
         return p1->_due_time < p2->_due_time; 
     }
 };
+
+/*Part별 가공시간 다 더한거 파트 클래스에 저장해놓고 여기서를 비교 */
+struct ProcessingCompare{
+    bool operator () (const Part & p1, const Part & p2) const {
+        return p1._sum_pt < p2._sum_pt; 
+    }
+
+    bool operator () (const Part * p1, const Part * p2) const {
+        return p1->_sum_pt < p2->_sum_pt;
+    }
+};
+
 #endif
 

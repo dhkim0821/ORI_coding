@@ -34,7 +34,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
         if(LU_station_usage[i]){ // LU station is usedi
 
             // Is there any completed LU task
-            if(LU_station_using_time[i] == _LU_time ){
+            if(LU_station_using_time[i] == _LU_time -3 ){
                 LU_station_usage[i] = false;
                 // Unloading
                 if(LU_station_task_type[i] == -1) {// If it was unloading

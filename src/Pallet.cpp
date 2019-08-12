@@ -40,9 +40,10 @@ void Pallet::LocationUpdate(int loc, int plt_idx){
 void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
     int movingtime =5*2;
 
-    printf("(location update_Mac0) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+    printf("(location update_Mac0) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d \n",
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
-   
+    printf("machine processing end!!!!\n"); 
+
     //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
     if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
@@ -68,9 +69,10 @@ void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, 
 void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
   int movingtime =5*2;
 
-    printf("(location update_Mac1) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+    printf("(location update_Mac1) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d \n",
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
-  
+    printf("machine processing end!!!!\n"); 
+
     //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
     if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
@@ -96,9 +98,10 @@ void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, 
 void Pallet::LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time){
     int movingtime =5*2;
 
-    printf("(location update_Mac3) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d\n",
+    printf("(location update_Mac3) current(selected) pallet : %d, pre pallet : %d, current loc : %s, pre mac : %d \n",
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
-    
+    printf("machine processing end!!!!\n"); 
+
     //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
     if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면

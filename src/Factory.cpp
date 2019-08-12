@@ -23,7 +23,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
     fin >> MovingTime;
 
     LU_Time += (MovingTime *2);
-
+    
     // Transportation time table
     Transportation_Time = new int *[Num_Machine + 1];
     for (int i = 0; i < Num_Machine + 1; i++)
@@ -60,10 +60,12 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
     }
 
     //LU Station available time
+    printf("mac_temp\n");
     int Mac_temp;
     while(true)	 {
         fin >> Mac_temp;
         Machine_Schedule.push_back(Mac_temp);
+        printf("%d ", Mac_temp);
         if (Mac_temp == -1) {
             break;
         }
@@ -96,7 +98,11 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
             fin >> due_date;
             part_pt = new Part(start_idx + j, part_type, num_operation, due_date, dependency);
             part_list.push_back(part_pt);
+
         }
+        //-------------
+        int sum_pt_temp = 0;
+        //-------------
 
         machine_info_list.resize(num_operation);
         for(int k(0); k<num_operation; ++k){
@@ -106,16 +112,35 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
             machine_info.processing_time.resize(num_alternative_machine);
 
             for(int j(0); j<num_alternative_machine; ++j){
+
                 fin >> machine_info.machine_name[j];
                 fin >> machine_info.processing_time[j];
                 fin >> machine_info.machine_idx[j];
                 machine_info.machine_idx[j] -= 1; // idx starts from 0
+           
+           //-----------------------------
+           /* 1) 파트별로 모든 대안머신의 가공시간 다 더한거 각 파트클래스에저장
+              2) 납기대신 파트별 가공시간합이 적은 파트를 팔렛에 올리도록*/
+                
+           sum_pt_temp += machine_info.processing_time[j]; 
+           printf(" %d ", sum_pt_temp);
+           //-----------------------------
             }
             machine_info_list[k] = machine_info;
         }
+       
+        //---------------------------
+        for (int j(0); j<num_part; ++j){
+            part_list[start_idx + j]->_sum_pt = sum_pt_temp;
 
+            printf("part idx : %d, PT : %d for sum of PT per part\n",
+                    part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_sum_pt);
+        }
+        //------------------------------
+       
         for(int j(0); j<num_part; ++j){
             part_list[start_idx + j]->_machining_info_list = machine_info_list;
+
         }
 
         // IF DEFENDENCY
@@ -132,6 +157,10 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
                 printf("[error] this is not post part\n");
              }
 
+            //-------------
+            int sum_pt_temp2 = 0;
+            //-------------
+
             machine_info_list.resize(post_num_operation);
 
             for(int k(0); k<post_num_operation; ++k){
@@ -145,9 +174,26 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
                     fin >> machine_info.processing_time[j];
                     fin >> machine_info.machine_idx[j];
                     machine_info.machine_idx[j] -= 1; // idx starts from 0
+         
+                    //------------------------------
+                    /* 1) 파트별로 모든 대안머신의 가공시간 다 더한거 각 파트클래스에저장
+                       2) 납기대신 파트별 가공시간합이 적은 파트를 팔렛에 올리도록*/
+
+                    sum_pt_temp2 += machine_info.processing_time[j];
+                    printf(" %d ", sum_pt_temp2);
+                    //-------------------------------
                 }
                 machine_info_list[k] = machine_info;
             }
+            //---------------------------
+            printf("\n");
+            for (int j(0); j<num_part; ++j){
+                part_list[start_idx + j]->_sum_pt = sum_pt_temp2;
+
+                printf("part idx : %d, PT : %d for sum of PT per part (Dependency) \n",
+                        part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_sum_pt);
+            }
+            //------------------------------
 
             for(int j(0); j<num_part; ++j){
                 part_list[start_idx + j]->_dependent_part_type = depend_part_type;
@@ -157,7 +203,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-2){
             ++i;
         }// END of if(dependency)
         start_idx += num_part;
-    }
+    }// END of for(Num_Parttype)
 
     Num_Total_Part = part_list.size();
 
@@ -174,7 +220,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 100000){return true;}
+    if(_sim_time > 250){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

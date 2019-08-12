@@ -38,7 +38,6 @@ void Part::SwitchToPostPart(){
 
 int Part::getProcessingTime(int operation_idx, int machine){
     MachiningInfo m_info = _machining_info_list[operation_idx];
-
     for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
         if(m_info.machine_idx[m_idx] == machine){
             return m_info.processing_time[m_idx];

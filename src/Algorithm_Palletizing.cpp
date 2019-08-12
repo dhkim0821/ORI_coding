@@ -14,15 +14,19 @@ void Algorithm_Palletizing::run(const std::vector<Part*> & part_list,
         std::vector<Pallet*> & pallet_list){
     _EariestDueDateMethod(part_list, pallet_list);
     //_Method2(part_list, pallet_list);
-
-
 }
+
 
 void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & part_list, 
         std::vector<Pallet*> & pallet_list){
     // part list sorting
     std::vector<Part*> sort_part_list = part_list;
-    std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());
+  
+    //palletizing rules---------------------
+    // std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());
+    std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());
+
+    //--------------------------------------
 
     // Debug) Show sorted part list
           // for(int i(0); i<sort_part_list.size(); ++i){

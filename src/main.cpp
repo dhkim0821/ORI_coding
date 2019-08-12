@@ -11,7 +11,7 @@
 
 int main(int argc, char ** argv ){
 
-    std::string file_name = THIS_COM"input_data/TEST_DATA4_2.txt";
+    std::string file_name = THIS_COM"input_data/TEST_DATA_0808.txt";
    // Reading files and setup problem
     Factory factory(file_name);
 
@@ -27,6 +27,8 @@ int main(int argc, char ** argv ){
         // Forward Onestep 
         factory.ForwardOneStep(); // 1 Tick
         printf("Simulation Time: %d\n", factory._sim_time);
+       // if(factory._sim_time == Machine_Schedule )
+       
         printf("---------------------------1Tick  start!\n");
         
         // Palletizing
@@ -41,10 +43,10 @@ int main(int argc, char ** argv ){
         printf("---------------------------Machining start!\n");
         setup_and_machining.run(factory.pallet_list);
 
-        if(factory._sim_time % (factory.LU_Time-18)  == 0){
+        if(factory._sim_time % (factory.LU_Time-19)  == 0){
         //if(factory._sim_time % factory.LU_Time  == 0){
            // factory.printAllPartStatus();
-           // factory.printAllPalletStatus();               !!!!잠시끔
+            factory.printAllPalletStatus();
         }
         printf("\n");
         }// End of Sim loop
