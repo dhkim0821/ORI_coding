@@ -220,7 +220,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 250){return true;}
+    if(_sim_time > 550){return true;}
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

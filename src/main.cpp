@@ -11,7 +11,7 @@
 
 int main(int argc, char ** argv ){
 
-    std::string file_name = THIS_COM"input_data/TEST_DATA_0808.txt";
+    std::string file_name = THIS_COM"input_data/TEST_DATA4_2.txt";
    // Reading files and setup problem
     Factory factory(file_name);
 
@@ -22,33 +22,48 @@ int main(int argc, char ** argv ){
     Algorithm_LoadingUnloading loading_unloading(factory);
     Algorithm_SetupAndMachining setup_and_machining(factory);
 
+    int s = 0;
+
     // Simulation Starts
     while(!factory.All_Done()){
         // Forward Onestep 
         factory.ForwardOneStep(); // 1 Tick
+
         printf("Simulation Time: %d\n", factory._sim_time);
-       // if(factory._sim_time == Machine_Schedule )
-       
         printf("---------------------------1Tick  start!\n");
-        
-        // Palletizing
-        printf("---------------------------Palletizing  start!\n");
-        palletizing.run(factory.part_list, factory.pallet_list);
 
-        // Loading
-        printf("---------------------------laoding start!\n");
-        loading_unloading.run(factory.pallet_list);
+        if (s%2 == 0){ 
+            printf("worker available\n");
 
-        // Moving and Machining 
-        printf("---------------------------Machining start!\n");
-        setup_and_machining.run(factory.pallet_list);
+            // Palletizing
+            printf("---------------------------Palletizing  start!\n");
+            palletizing.run(factory.part_list, factory.pallet_list);
 
-        if(factory._sim_time % (factory.LU_Time-19)  == 0){
-        //if(factory._sim_time % factory.LU_Time  == 0){
-           // factory.printAllPartStatus();
-            factory.printAllPalletStatus();
-        }
-        printf("\n");
+            // Loading
+            printf("---------------------------laoding start!\n");
+            loading_unloading.run(factory.pallet_list);
+
+            // Moving and Machining 
+            printf("---------------------------Machining start!\n");
+            setup_and_machining.run(factory.pallet_list);
+
+            if(factory._sim_time % (factory.LU_Time-19)  == 0){
+                //if(factory._sim_time % factory.LU_Time  == 0){
+                // factory.printAllPartStatus();
+                factory.printAllPalletStatus();
+            }
+            printf("\n");
+            }
+            else if(s%2 == 1) {
+                printf("worker unavailable\n");
+            }
+
+            //---------------
+            if (factory._sim_time == factory.Machine_Schedule[s]){
+                s++;
+            }
+            //---------------
+
         }// End of Sim loop
 
     printf("****** Simulation is done\n");
