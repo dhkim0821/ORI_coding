@@ -27,13 +27,14 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
 void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
-    _OperationTime(pallet_list);
-
+    _OperationTime1(pallet_list); //SPT
+    // _OperationTime2(pallet_list); //EDD
+   
     //_MovingAndOperationTime(pallet_list);
 }
 
 
-void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pallet_list){
+void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & pallet_list){
 
     std::vector<Part*> candidate_part_list;
 
@@ -82,15 +83,18 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 // Pick a machine with shortest operation time
                 int selected_pt_idx(0); // Find this
                 Part* ch_pt = candidate_part_list[0];
-           
+
                 int shortest_processing_time = 
                     ch_pt->getProcessingTime(ch_pt->_current_operation, i);
+
+                printf("!!!!!!!!!shortest_processing_time %d\n", shortest_processing_time);
+
 
                 int processing_time(0);
                 for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
                     ch_pt = candidate_part_list[pt_idx];
                     processing_time = ch_pt->getProcessingTime(ch_pt->_current_operation, i);
-
+                    printf("!!!!!!!!!processing_time %d\n", processing_time);
                     if(shortest_processing_time > processing_time){
                         shortest_processing_time = processing_time;
                         selected_pt_idx = pt_idx;
@@ -170,6 +174,10 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
                 machine_current_time[i] = 0;
                 machine_engaged_pallet_idx[i] = selected_pallet->_pallet_idx;
                 machine_processing_part[i] = selected_part;
+
+
+                //printf("======================>part idx : %d, due date : %d \n", selected_part->_part_idx, selected_part->_due_time );
+
 #if (SHOW_DEBUG_MESSAGE)
                 printf("\n*** [Machine %d] Selected Part & Pallet *** \n", i);
                 selected_part->printInfo(0);
@@ -215,6 +223,77 @@ void Algorithm_SetupAndMachining::_OperationTime(const std::vector<Pallet*> & pa
     } //End of Machine Loop
 
 } 
+
+//-----------------------------
+void Algorithm_SetupAndMachining::_OperationTime2(const std::vector<Pallet*> & pallet_list){
+
+    std::vector<Part*>candidate_part_list;
+
+    for(int i(0); i< _num_Machine; ++i){
+        if(!machine_usage[i]){ //Machine is available
+
+            candidate_part_list.clear();
+
+            //gather all pallets (part) that can be oprated in this machine
+            std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+            while(pl_iter != pallet_list.end()){
+                if((!(*pl_iter)->_in_process) &&
+                        ((*pl_iter)->_pallet_loc == loc::Buffer) ){
+
+                    for(int pt_idx(0); pt_idx<(*pl_iter)->_loaded_part.size(); ++pt_idx){
+                        if( (*pl_iter)->_loaded_part[pt_idx]){ // There is loaded part
+                            Part* check_part = (*pl_iter)->_loaded_part[pt_idx];
+                            printf("1\n");
+                            if (check_part->IsDone(true)){
+                                printf("2\n");
+                                check_part->print_PartInfo(pt_idx);
+                                continue;
+                            }
+                            else { 
+                                //check machine info
+                                MachiningInfo m_info = 
+                                    check_part->_machining_info_list[check_part->_current_operation];
+
+                                for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
+                                    if(m_info.machine_idx[m_idx] == i){
+                                        candidate_part_list.push_back(check_part);
+                                    }
+                                }
+                            }
+                        }
+                    } //End of loaded part loop
+                }
+                ++pl_iter;
+            } //End of Pallet loop
+#if (SHOW_DEBUG_MESSAGE)
+            printf("*** [Machine %d] Selected Candidate *** \n", i );
+            for(int i(0); i<candidate_part_list.size(); ++i)
+                candidate_part_list[i]->printInfo(i);
+#endif
+            if(candidate_part_list.size() > 0){
+                //Pick a machine with shortest operation time
+                int selected_pt_idx(0);  //Find this
+                Part* ch_pt = candidate_part_list[0];
+
+                int earliest_due_date = ch_pt->getDueDate(ch_pt->_current_operation, i);
+//여기 하는중
+//해당 팔렛에 올라와있는 파트별 납기 다 받아서 
+//가장 납기 빠른 파트 (shortest_processing_time 자리) 선택해서
+//shortest_processing_time 만큼 가공시간 돌아가듯이 
+//선택된 파트의 이번차례 오퍼레이션의 가공시간만큼 머신가공시간에 인풋 
+
+            }
+        }
+    }
+
+
+
+
+
+
+}
+//-----------------------------
+
 
 
 void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
@@ -266,11 +345,11 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
 }
 
 
-void Algorithm_SetupAndMachining::_MovingAndOperationTime(const std::vector<Pallet*> & pallet_list){
-
-}
-
-
 void Algorithm_SetupAndMachining::printInfo(){
     printf("Num of Machine: %d\n", _num_Machine);
 }
+
+
+
+
+

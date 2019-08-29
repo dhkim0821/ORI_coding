@@ -35,6 +35,10 @@ class Part{
         void print_PartInfo(int idx);
         void print_PartStatus(int idx);
         int getProcessingTime(int operation_idx, int machine);
+        //------------
+        int getDueDate(int operation_idx, int machine);
+        //-----------
+
 
     public:
         int _part_idx;
