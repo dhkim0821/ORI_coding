@@ -49,8 +49,7 @@ int Part::getProcessingTime(int operation_idx, int machine){
 
 //----------------------------------
 int Part::getDueDate(int operation_idx, int machine){
-
-
+    
 }
 
 //--------------------------------

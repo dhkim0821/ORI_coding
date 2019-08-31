@@ -27,8 +27,8 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
 void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
-    _OperationTime1(pallet_list); //SPT
-    // _OperationTime2(pallet_list); //EDD
+   // _OperationTime1(pallet_list); //SPT (original)
+    _OperationTime2(pallet_list); //EDD
    
     //_MovingAndOperationTime(pallet_list);
 }
@@ -88,7 +88,6 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
                     ch_pt->getProcessingTime(ch_pt->_current_operation, i);
 
                 printf("!!!!!!!!!shortest_processing_time %d\n", shortest_processing_time);
-
 
                 int processing_time(0);
                 for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
@@ -224,6 +223,7 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
 
 } 
 
+
 //-----------------------------
 void Algorithm_SetupAndMachining::_OperationTime2(const std::vector<Pallet*> & pallet_list){
 
@@ -275,23 +275,137 @@ void Algorithm_SetupAndMachining::_OperationTime2(const std::vector<Pallet*> & p
                 int selected_pt_idx(0);  //Find this
                 Part* ch_pt = candidate_part_list[0];
 
-                int earliest_due_date = ch_pt->getDueDate(ch_pt->_current_operation, i);
+
 //여기 하는중
 //해당 팔렛에 올라와있는 파트별 납기 다 받아서 
 //가장 납기 빠른 파트 (shortest_processing_time 자리) 선택해서
 //shortest_processing_time 만큼 가공시간 돌아가듯이 
 //선택된 파트의 이번차례 오퍼레이션의 가공시간만큼 머신가공시간에 인풋 
 
-            }
-        }
-    }
 
+                // int earliest_due_date = ch_pt->getDueDate(ch_pt->_current_operation, i);
+                int earliest_due_date = ch_pt->_due_time; 
+                
+                printf("!!!!!!!!!!!!!!!!!!!!!duedate %d\n", ch_pt->_due_time);
+                printf("!!!!!!!!!!earliest due date %d\n", earliest_due_date);
 
+                int due_date(0);
+                for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
+                    ch_pt = candidate_part_list[pt_idx];
+                    due_date = ch_pt->_due_time;
+                    printf("!!!!!!!!!!!due_date %d\n", due_date);
+                    if(earliest_due_date > due_date){
+                        earliest_due_date = due_date;
+                        selected_pt_idx = pt_idx;
+                    }
+                }
+             // Operation (machining) starts
+             Part* selected_part = candidate_part_list[selected_pt_idx];
+             Pallet* selected_pallet = pallet_list[selected_part->_pallet_idx];
 
+             //Pallet process starts
+             selected_pallet->_in_process = true;
+             selected_pallet->_process_name = process::Machining;
 
+             // 가공시간 인풋
+             int process_time(0);
+             process_time = selected_part->getProcessingTime(selected_part->_current_operation, i);
 
+             selected_pallet->_process_duration = process_time;
+             selected_pallet->_current_processing_time = 0;
 
+             //Mac의 LocationUpdate, 여기서 이동시간 추가할지말지 결정-------------------------------------------
+                if (i == 0) {
+                    printf("process_time (before LocationUpate_mac1) %d\n", process_time);
+                    selected_pallet->LocationUpdate_Mac1(loc::Machine0, selected_pallet,
+                            machine_pre_pallet[i], process_time);
+                   
+                    /* Frame of transporation time
+                       1. Pallet::LocationUpdate_Mac1 에서 이동시간을 추가할지 판단 후, 필요시 추가하여 
+                       다시 Algorithm_SetupAndMachining::_OperationTime으로 연결
+                       2. 여기shortest_processing_time 연결되면 Machine Starts 부분에 shortest_processing_time */
+
+                    /* Code Logic
+                       1. LocationUpdate_Mac1함수에서 selected_pallet(현재 선택된팔렛)이 직전에 가공했던 머신(_pre_mac)과 현재위치(loc::Machine0)을 비교
+                       2. machine i에서 selected_pallet과 해당 머신(i)에서 직전에 가공된 팔렛(machine_pre_pallet[i])를 비교
+                       3. 이동시간 발생 시, selected_plt->spt_temp  =  shortest_processing_time + movingtime
+                       4. 이동시간이 추가된 spt_temp를 _OperationTime에 연결 
+                       (shortest_processing_time를 받는 포인트는 _processing_duration,  machine_processing_time[i]) */
+
+                    /* Today tasks
+                       1. shortest_processing_time에 추가된 이동시간(spt_temp) 옮기기
+                       2. shortest_processing_time 받는 포인트 바꾸기 
+                       3. Debuggin
+                       -complete-
+                       4. chagne moving time '5' ->  variable */
+
+                    /* Question
+                       1. shortest_processing_time을 받는 변수가 machine_processing_time[i], selected_pallet->_process_duration 두개 있는데,
+                       두개중 machine_processing_time[i]에만 넣음. _process_duration은 영향 안받는것으로 보인는데 맞는건지..?
+                       2. simulation time 
+                       */
+                }
+                else  if (i == 1) {
+                    printf("process_time (before LocationUpate_mac2) %d\n", process_time);
+                    selected_pallet->LocationUpdate_Mac2(loc::Machine1, selected_pallet,
+                            machine_pre_pallet[i], process_time);
+                }
+                else if (i == 2) {
+                    printf("process_time (before LocationUpate_mac3) %d\n", process_time);
+                    selected_pallet->LocationUpdate_Mac3(loc::Machine2, selected_pallet,
+                            machine_pre_pallet[i], process_time);
+                }
+               
+                process_time = selected_pallet->_spt_temp;
+                printf("process_time (after LcationUpdate_macs) %d\n", process_time); 
+
+                //----------------------------------------------------------------------------------------------------
+
+                // Machine Stats
+                machine_usage[i] = true;
+                machine_processing_time[i] = process_time;
+                printf("process time : %d\n", process_time);
+
+                machine_current_time[i] = 0;
+                machine_engaged_pallet_idx[i] = selected_pallet->_pallet_idx;
+                machine_processing_part[i] = selected_part;
+
+#if (SHOW_DEBUG_MESSAGE)
+                printf("\n***[Machine %d] Selected Part & Pallet *** \n", i);
+                selected_part->printInfo(0);
+                selected_pallet->printInfo(0);
+#endif
+                //pre mac 저장하는 부분 (_pre_mac과 loc을 비교) ------------------
+                printf("\n *** [Machine %d] Selected Part & Pallet *** \n", i);
+                selected_part->print_PartInfo(0);
+                selected_pallet->print_PalletMac(0);
+                
+
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while (pl_iter != pallet_list.end()){
+                    if((*pl_iter)->_pallet_idx == selected_pallet[0]._pallet_idx){
+                        if( i == 0 ){
+                            (*pl_iter)->_pre_mac = 4; //machine0 = 4
+                        }
+                        else if( i == 1){
+                            (*pl_iter)->_pre_mac = 5;
+                        }
+                        else if( i == 2){
+                            (*pl_iter)->_pre_mac = 6;
+                        } 
+                    }
+                    ++pl_iter;
+                }
+                //---------------------------------------
+            } else{
+#if (SHOW_DEBUG_MESSAGE)
+                printf("No candidate part\n");
+#endif
+            } //End of if(candidate_part_list.size() > 0 
+        } // End of if(!machine_usage[i])
+    } //End of Machine Loop
 }
+
 //-----------------------------
 
 
