@@ -11,7 +11,7 @@
 
 int main(int argc, char ** argv ){
 
-    std::string file_name = THIS_COM"input_data/TEST_DATA4_2.txt";
+    std::string file_name = THIS_COM"input_data/TEST_DATA_0901.txt";
    // Reading files and setup problem
     Factory factory(file_name);
 

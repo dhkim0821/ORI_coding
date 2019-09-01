@@ -54,7 +54,7 @@ void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, 
         printf("there is no pallet transportation\n");
     }
    
-    selected_plt->_spt_temp = shortest_processing_time -1 ;
+    selected_plt->_spt_temp = shortest_processing_time;
     //adjusting simulation time by adding shortest_processing_time plus 1
 
     _pallet_loc = loc;
@@ -83,7 +83,7 @@ void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, 
         printf("there is no pallet transportation\n");
     }
    
-    selected_plt->_spt_temp = shortest_processing_time -1;
+    selected_plt->_spt_temp = shortest_processing_time;
 
     _pallet_loc = loc;
 
@@ -112,7 +112,7 @@ void Pallet::LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, 
         printf("there is no pallet transportation\n");
     }
 
-    selected_plt->_spt_temp = shortest_processing_time -1;
+    selected_plt->_spt_temp = shortest_processing_time;
 
     _pallet_loc = loc;
 
