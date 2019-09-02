@@ -4,7 +4,7 @@
 #include <fstream>
 #include <Definition.h>
 
-Factory::Factory(const std::string & file_name):_sim_time(-2){
+Factory::Factory(const std::string & file_name):_sim_time(-1){
 //Factory::Factory(const std::string & file_name):_sim_time(-1){
 /* simulation time 이 어떨때  +1, +2, +3 이 되는지 찾기 */
     
@@ -220,7 +220,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 300){return true;}
+    if(_sim_time > 300){return true;}  //event 발생시 다음 time에 할당
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

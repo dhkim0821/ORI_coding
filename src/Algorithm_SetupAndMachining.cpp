@@ -433,7 +433,7 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
     machine_pre_pallet.resize(3);
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){
-            if(machine_processing_time[i] == machine_current_time[i]){  // Machining is done
+            if(machine_processing_time[i] -1  == machine_current_time[i]){  // Machining is done
 
                // Part: current operaiton +1
                 machine_processing_part[i]->_current_operation++; 
