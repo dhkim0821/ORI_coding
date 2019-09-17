@@ -27,9 +27,10 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
 void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
-   // _OperationTime1(pallet_list); //SPT (original)
-    _OperationTime2(pallet_list); //EDD
-   
+    _OperationTime1(pallet_list); //SPT (original)
+   // _OperationTime2(pallet_list); //EDD
+    // _OperationTime3(pallet_list); //STPT
+    
     //_MovingAndOperationTime(pallet_list);
 }
 
@@ -87,13 +88,13 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
                 int shortest_processing_time = 
                     ch_pt->getProcessingTime(ch_pt->_current_operation, i);
 
-                printf("!!!!!!!!!shortest_processing_time %d\n", shortest_processing_time);
+                printf("--->shortest_processing_time %d\n", shortest_processing_time);
 
                 int processing_time(0);
                 for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
                     ch_pt = candidate_part_list[pt_idx];
                     processing_time = ch_pt->getProcessingTime(ch_pt->_current_operation, i);
-                    printf("!!!!!!!!!processing_time %d\n", processing_time);
+                    printf("--->processing_time %d\n", processing_time);
                     if(shortest_processing_time > processing_time){
                         shortest_processing_time = processing_time;
                         selected_pt_idx = pt_idx;
@@ -379,7 +380,7 @@ void Algorithm_SetupAndMachining::_OperationTime2(const std::vector<Pallet*> & p
                 printf("\n *** [Machine %d] Selected Part & Pallet *** \n", i);
                 selected_part->print_PartInfo(0);
                 selected_pallet->print_PalletMac(0);
-                
+               
 
                 std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
                 while (pl_iter != pallet_list.end()){
@@ -408,7 +409,142 @@ void Algorithm_SetupAndMachining::_OperationTime2(const std::vector<Pallet*> & p
 
 //-----------------------------
 
+//------------------------------
+void Algorithm_SetupAndMachining::_OperationTime3(const std::vector<Pallet*> & pallet_list){
 
+    std::vector<Part*> candidate_part_list;
+
+    for(int i(0); i< _num_Machine ; ++i){
+        if(!machine_usage[i]){ // Machine is available
+
+            candidate_part_list.clear(); 
+
+            //gather all pallets (part) that can be operated in this machine
+            std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+            while(pl_iter != pallet_list.end()){
+                if((!(*pl_iter)->_in_process) && 
+                        ((*pl_iter)->_pallet_loc == loc::Buffer)){
+                    for(int pt_idx(0); pt_idx< (*pl_iter)->_loaded_part.size(); ++pt_idx){
+                        if((*pl_iter)->_loaded_part[pt_idx]){  //There is loaded part 
+                            Part* check_part = (*pl_iter)->_loaded_part[pt_idx];
+                            printf("1\n"); 
+                            if(check_part->IsDone(true)){
+                                printf("2\n");
+                                check_part->print_PartInfo(pt_idx);
+                                continue;
+                            }
+                            else{
+                                //check machine info 
+                                MachiningInfo m_info =
+                                    check_part->_machining_info_list[check_part->_current_operation];
+
+                                for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
+                                    if(m_info.machine_idx[m_idx] == i){
+                                        candidate_part_list.push_back(check_part); 
+                                    }
+                                }
+                            }
+                        }
+                    } //End of part loop  
+                }
+                ++pl_iter;
+            } //End of pallet loop
+#if (SHOW_DEBUG_MESAGE)
+            printf("*** [Machine %d] Selected Candidate *** \n", i);
+            for(int i(0); i<candidaet_part_list.size() ; ++i)
+                candidate_part_list[i]->printInfo(i);
+#endif
+            if(candidate_part_list.size() > 0){
+                //Pirck a macine with operation time 
+                int selected_pt_idx(0);
+                Part* ch_pt = candidate_part_list[0];
+
+                int shortest_total_processing_time = ch_pt->_sum_pt;
+                int total_processing_time(0); 
+                for(int pt_idx(1); pt_idx<candidate_part_list.size(); ++pt_idx){
+                    ch_pt = candidate_part_list[pt_idx];
+                    total_processing_time = ch_pt->_sum_pt;
+                    printf("--->total processing time %d\n",total_processing_time);
+                    if(shortest_total_processing_time > total_processing_time){
+                        shortest_total_processing_time = total_processing_time;
+                        selected_pt_idx = pt_idx;
+                    }
+                }
+                printf(" --->shortest total processing time %d\n", shortest_total_processing_time);        
+
+                //Operation (macing) starts
+                Part* selected_part = candidate_part_list[selected_pt_idx];
+                Pallet* selected_pallet = pallet_list[selected_part->_pallet_idx];
+
+                //Pallet process starts
+                selected_pallet->_in_process = true;
+                selected_pallet->_process_name = process::Machining;
+
+                int processing_time(0);  //STPT인 파트의 가공시간 맞는지체크하기 
+                processing_time = selected_part->getProcessingTime(selected_part->_current_operation, i);
+
+                selected_pallet->_process_duration = processing_time;
+                selected_pallet->_current_processing_time = 0;
+
+                //Transportation time
+                if(i ==0){
+                    selected_pallet->LocationUpdate_Mac1(loc::Machine0, selected_pallet,
+                            machine_pre_pallet[i], processing_time);
+                }
+                else if(i==1){
+                    selected_pallet->LocationUpdate_Mac2(loc::Machine1, selected_pallet, 
+                            machine_pre_pallet[i], processing_time);
+                }
+                else if(i==2){
+                    selected_pallet->LocationUpdate_Mac3(loc::Machine2, selected_pallet,
+                            machine_pre_pallet[i], processing_time);
+                }
+                processing_time = selected_pallet->_spt_temp; //spt_temp:processing time with trans time
+                printf("processing_time(after LocationUpdate) : %d\n", processing_time);
+
+                //Machine Starts
+                machine_usage[i] = true; 
+                machine_processing_time[i] = processing_time;
+                printf("selected processing time %d\n", machine_processing_time[i]);
+
+                machine_current_time[i] = 0;
+                machine_engaged_pallet_idx[i] = selected_pallet->_pallet_idx;
+                machine_processing_part[i] = selected_part;
+
+#if (SHOW_DEBUG_MESSAGE)
+                printf("\n*** [Machine %d] Selected Part & Pallet *** \n", i);
+                selected_part->printInfo(0);
+                selected_pallet->printInfo(0);
+#endif 
+                //record _pre_mac for adding transportation time
+                printf("\n *** [Machine %d] Selected Part & Pallet *** \n", i);
+                selected_part->print_PartInfo(0);
+                selected_pallet->print_PalletMac(0);
+
+                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
+                while (pl_iter != pallet_list.end()){
+                    if ((*pl_iter)->_pallet_idx == selected_pallet[0]._pallet_idx){
+                        if(i==0){
+                            (*pl_iter)->_pre_mac = 4;
+                        }
+                        else if(i==1){
+                            (*pl_iter)->_pre_mac = 5;
+                        }
+                        else if(i==2){
+                            (*pl_iter)->_pre_mac = 6;
+                        }
+                    }
+                    ++pl_iter;
+                }
+            } else{
+#if (SHOW_DEBUG_MESSAGE)
+                printf("No candidate part\n");
+#endif
+            } //End of if(candidated_part_list.size() > 0)
+        } //End of Machine usage
+    } //End of Machine loop
+}
+//------------------------------
 
 void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
 
@@ -462,7 +598,6 @@ void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_li
 void Algorithm_SetupAndMachining::printInfo(){
     printf("Num of Machine: %d\n", _num_Machine);
 }
-
 
 
 

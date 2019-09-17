@@ -78,15 +78,14 @@ struct DueDateCompare{
 };
 
 /*Part별 가공시간 다 더한거 파트 클래스에 저장해놓고 여기서를 비교 */
-struct ProcessingCompare{
+struct ProcessingCompare{ 
     bool operator () (const Part & p1, const Part & p2) const {
-        return p1._sum_pt < p2._sum_pt; 
+        return p1._sum_pt < p2._sum_pt;
     }
 
     bool operator () (const Part * p1, const Part * p2) const {
         return p1->_sum_pt < p2->_sum_pt;
     }
-};
+}; //dependency? _sum_pt2
 
 #endif
-

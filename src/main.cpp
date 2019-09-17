@@ -11,7 +11,7 @@
 
 int main(int argc, char ** argv ){
 
-    std::string file_name = THIS_COM"input_data/TEST_DATA_0901.txt";
+    std::string file_name = THIS_COM"input_data/TEST_DATA_0909.txt";
    // Reading files and setup problem
     Factory factory(file_name);
 
@@ -70,3 +70,4 @@ int main(int argc, char ** argv ){
     factory.printTardiness();
      return 0;
 }
+

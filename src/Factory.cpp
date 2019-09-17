@@ -60,12 +60,12 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     }
 
     //LU Station available time
-    printf("mac_temp\n");
+    // printf("mac_temp\n");
     int Mac_temp;
     while(true)	 {
         fin >> Mac_temp;
         Machine_Schedule.push_back(Mac_temp);
-        printf("%d ", Mac_temp);
+       // printf("%d ", Mac_temp);
         if (Mac_temp == -1) {
             break;
         }
@@ -123,14 +123,14 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
               2) 납기대신 파트별 가공시간합이 적은 파트를 팔렛에 올리도록*/
                 
            sum_pt_temp += machine_info.processing_time[j]; 
-           printf(" %d ", sum_pt_temp);
+           // printf(" %d ", sum_pt_temp);
            //-----------------------------
             }
             machine_info_list[k] = machine_info;
         }
        
         //---------------------------
-        for (int j(0); j<num_part; ++j){
+         for (int j(0); j<num_part; ++j){
             part_list[start_idx + j]->_sum_pt = sum_pt_temp;
 
             printf("part idx : %d, PT : %d for sum of PT per part\n",
@@ -180,7 +180,7 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
                        2) 납기대신 파트별 가공시간합이 적은 파트를 팔렛에 올리도록*/
 
                     sum_pt_temp2 += machine_info.processing_time[j];
-                    printf(" %d ", sum_pt_temp2);
+                    //printf(" %d ", sum_pt_temp2);
                     //-------------------------------
                 }
                 machine_info_list[k] = machine_info;
@@ -220,7 +220,7 @@ Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 300){return true;}  //event 발생시 다음 time에 할당
+    if(_sim_time > 20000){return true;}  //event 발생시 다음 time에 할당
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){
@@ -269,3 +269,4 @@ void Factory::printTardiness(){
                 _sim_time - part_list[i]->_due_time);
     }
 }
+

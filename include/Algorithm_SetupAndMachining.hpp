@@ -31,7 +31,9 @@ class Algorithm_SetupAndMachining{
 
         void _OperationTime1(const std::vector<Pallet*> & pallet_list); //SPT 
         void _OperationTime2(const std::vector<Pallet*> & pallet_list); //EDD
+        void _OperationTime3(const std::vector<Pallet*> & pallet_list); //STPT
         void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list); //for movingtime
         void _Update(const std::vector<Pallet*> & pallet_list);
 };
 #endif
+

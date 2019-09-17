@@ -228,3 +228,6 @@ void Pallet::print_PalletInfo(int idx){
 void Pallet::print_PalletMac(int idx){
 printf("Pallet idx%d\n", _pallet_idx );
 }
+
+
+

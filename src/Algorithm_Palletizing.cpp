@@ -22,8 +22,13 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
     std::vector<Part*> sort_part_list = part_list;
   
     //palletizing rules---------------------
-    // std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD 
+    //std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD (original)
     std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());  //SPT
+
+    //print _sum_pt-----------------------
+    for( int z(0); z<sort_part_list.size(); z++ ){
+        printf("part%d, _sum_pt%d\n", sort_part_list[z]->_part_idx, sort_part_list[z]->_sum_pt);
+    }
     //--------------------------------------
 
     // Debug) Show sorted part list
@@ -77,6 +82,5 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
         } // if( check_pallet->IsProcessing() )
     } // End of Pallet list loop
 }
-
 
 

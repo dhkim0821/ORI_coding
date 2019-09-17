@@ -48,10 +48,8 @@ int Part::getProcessingTime(int operation_idx, int machine){
 }
 
 //----------------------------------
-int Part::getDueDate(int operation_idx, int machine){
-    
-}
-
+//int Part::getDueDate(int operation_idx, int machine){  
+//}
 //--------------------------------
 
 void Part::print_PartInfo(int idx){
@@ -95,3 +93,4 @@ void Part::print_PartStatus(int idx){
     printf("All Done: %d", IsDone(false));
     printf("\n");
 }
+

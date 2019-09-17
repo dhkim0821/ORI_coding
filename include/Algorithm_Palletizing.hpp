@@ -22,3 +22,4 @@ class Algorithm_Palletizing{
 };
 
 #endif
+
