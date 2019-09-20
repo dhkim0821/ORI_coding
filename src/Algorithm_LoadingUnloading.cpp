@@ -31,10 +31,10 @@ void Algorithm_LoadingUnloading::run(const std::vector<Pallet*> & pallet_list) {
 }
 void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_list){
     for(int i(0); i< _num_LU_station; ++i){
-        if(LU_station_usage[i]){ // LU station is usedi
+        if(LU_station_usage[i]){ // LU station is used
 
             // Is there any completed LU task
-            if(LU_station_using_time[i] == _LU_time - 2 ){
+            if(LU_station_using_time[i] == _LU_time - 1){
                 LU_station_usage[i] = false;
                 // Unloading
                 if(LU_station_task_type[i] == -1) {// If it was unloading
@@ -47,7 +47,7 @@ void Algorithm_LoadingUnloading::_Update(const std::vector<Pallet*> & pallet_lis
                 // Loading
                 if(LU_station_task_type[i] == 1) {// If it was loading
                     pallet_list[LU_station_engaged_pallet_idx[i]]->
-                        LocationUpdate(loc::Buffer, pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_idx);  //---------------------------------
+                        LocationUpdate(loc::Buffer, pallet_list[LU_station_engaged_pallet_idx[i]]->_pallet_idx);  
                     LU_station_task_type[i] = 0;
                 }
                 continue;
@@ -89,7 +89,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        // Pallet update
                        (*pl_iter)->_in_process = true;
                        (*pl_iter)->_process_name = process::Unloading;
-                       (*pl_iter)->_process_duration = _LU_time;
+                       (*pl_iter)->_process_duration = _LU_time - 1;
                        (*pl_iter)->_current_processing_time = 0;
                        (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx); //-------------------
                        break;
@@ -117,7 +117,7 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        // Pallet update
                        (*pl_iter)->_in_process = true;
                        (*pl_iter)->_process_name = process::Loading;
-                       (*pl_iter)->_process_duration = _LU_time;
+                       (*pl_iter)->_process_duration = _LU_time - 1;
                        (*pl_iter)->_current_processing_time = 0;
                        (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx);  //------------------------
                        break;

@@ -44,9 +44,10 @@ void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, 
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
     printf("machine processing end!!!!\n"); 
 
-    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
+    //compare current pallet with pre pallet in these machine,
+    //and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){  // if the current machine is not same with the pre machine in terms of the current pallet
         printf("there is pallet transportation\n");
         shortest_processing_time = shortest_processing_time + movingtime;
     }
@@ -55,7 +56,6 @@ void Pallet::LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, 
     }
    
     selected_plt->_spt_temp = shortest_processing_time;
-    //adjusting simulation time by adding shortest_processing_time plus 1
 
     _pallet_loc = loc;
 
@@ -73,9 +73,10 @@ void Pallet::LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, 
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
     printf("machine processing end!!!!\n"); 
 
-    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
+    //compare current pallet with pre pallet in these machine, 
+    //and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){  // if the current machine is not same with the pre machine in terms of the current pallet 
         printf("there is pallet transportation\n");
         shortest_processing_time  = shortest_processing_time + movingtime;
     }
@@ -102,9 +103,10 @@ void Pallet::LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, 
             selected_plt->_pallet_idx, pre_pallet, loc::printLocation(loc).c_str(), _pre_mac);
     printf("machine processing end!!!!\n"); 
 
-    //compare current pallet with pre pallet in these machine, and just processed machine of current pallet with selected machine of selected pallet to be processed 
+    //compare current pallet with pre pallet in these machine, 
+    //and just processed machine of current pallet with selected machine of selected pallet to be processed 
     //_pre_mac : machine0 = 4, machine1 = 5, machine2 = 6 (Definition.hpp)
-    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // 현재 머신에 선택된 팔렛이 바로 직전에 작업했던 머신이랑 다르면
+    if (_pre_mac != loc || selected_plt->_pallet_idx != pre_pallet ){ // if the current machine is not same with the pre machine in terms of the current pallet 
         printf("there is pallet transportation\n");
         shortest_processing_time  = shortest_processing_time + movingtime;
     }
@@ -150,6 +152,9 @@ bool Pallet::EngagePallet(int ProcessName, int ProcessDuration){
     return true;
 }
 void Pallet::Empty_pallet(){
+//if pallet is empty, ready at outside.
+//if the part in pallet is post dependency part, do SwitchTOPostPart function
+
     std::vector<Part*>::iterator part_iter = _loaded_part.begin();
     while (part_iter != _loaded_part.end()){
         if( (*part_iter) ){ // there is loaded part

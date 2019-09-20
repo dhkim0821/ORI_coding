@@ -34,6 +34,11 @@ void Part::SwitchToPostPart(){
     _current_operation = 0;
     _num_operation = _post_num_operation;
     _pre_part_is_done = true;
+    //--------------------
+    printf("@@@@ switching part\n");
+    _sum_pt = _post_sum_pt; // sum of all processing time of a part
+    _machining_info_list = _post_machining_info_list;
+    //-------------------
 }
 
 int Part::getProcessingTime(int operation_idx, int machine){

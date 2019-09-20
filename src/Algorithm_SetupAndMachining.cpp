@@ -27,9 +27,9 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
 void Algorithm_SetupAndMachining::run(const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
-    _OperationTime1(pallet_list); //SPT (original)
+   // _OperationTime1(pallet_list); //SPT (original)
    // _OperationTime2(pallet_list); //EDD
-    // _OperationTime3(pallet_list); //STPT
+    _OperationTime3(pallet_list); //STPT
     
     //_MovingAndOperationTime(pallet_list);
 }
@@ -54,7 +54,7 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
                         if( (*pl_iter)->_loaded_part[pt_idx]){ // There is loaded part
                             Part* check_part = (*pl_iter)->_loaded_part[pt_idx];
                            printf("1\n");
-                            if(check_part->IsDone(true)){ 
+                           if(check_part->IsDone(true)){ 
                                 printf("2\n");
                                 check_part->print_PartInfo(pt_idx);
                                 continue; 
@@ -472,6 +472,7 @@ void Algorithm_SetupAndMachining::_OperationTime3(const std::vector<Pallet*> & p
                 }
                 printf(" --->shortest total processing time %d\n", shortest_total_processing_time);        
 
+
                 //Operation (macing) starts
                 Part* selected_part = candidate_part_list[selected_pt_idx];
                 Pallet* selected_pallet = pallet_list[selected_part->_pallet_idx];
@@ -548,24 +549,6 @@ void Algorithm_SetupAndMachining::_OperationTime3(const std::vector<Pallet*> & p
 
 void Algorithm_SetupAndMachining::_Update(const std::vector<Pallet*> & pallet_list){
 
-
-    /*post mac저장 하는 부분--------------
-    for(int i(0); i<_num_Machine; ++i){
-        if(machine_usage[i]){
-            if(machine_processing_time[i] == machine_current_time[i]){  // Machining is done
-                std::vector<Pallet*>::const_iterator pl_iter = pallet_list.begin();
-                while(pl_iter != pallet_list.end()){
-                    (*pl_iter)->_post_mac = i; 
-                    printf("post mac %d\n", (*pl_iter)->_post_mac);
-                    pl_iter++;
-                }
-            }
-        }
-    }*/
-
-
-    //simulation time 2188 -> simulation time 2725 (after adding movingtime)
-    //-> simulation time 2733 (after adjusting simulation time)
     machine_pre_pallet.resize(3);
     for(int i(0); i<_num_Machine; ++i){
         if(machine_usage[i]){

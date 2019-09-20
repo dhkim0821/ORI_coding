@@ -22,12 +22,18 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
     std::vector<Part*> sort_part_list = part_list;
   
     //palletizing rules---------------------
-    //std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD (original)
-    std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());  //SPT
+     std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD (original)
+   // std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());  //SPT
 
-    //print _sum_pt-----------------------
+    //--------------------------------------
     for( int z(0); z<sort_part_list.size(); z++ ){
-        printf("part%d, _sum_pt%d\n", sort_part_list[z]->_part_idx, sort_part_list[z]->_sum_pt);
+        printf("type%d, part%d, _sum_pt%d",
+                sort_part_list[z]->_part_type, sort_part_list[z]->_part_idx, sort_part_list[z]->_sum_pt);
+
+        if (sort_part_list[z]->_dependency)
+            printf("(dependency)");
+
+        printf("\n");
     }
     //--------------------------------------
 
@@ -82,5 +88,9 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
         } // if( check_pallet->IsProcessing() )
     } // End of Pallet list loop
 }
+
+//1.dependency추가 하려면 factory에서 general part: _sum_pt, post dependency part: _sum_pt_depend 저장후
+//2.여기에서 general part이면 _sum_pt, dependency 후행part 로딩할 차례면 _sum_pt_depend를 return 한다.
+//  (c체크는 bool함수인 dependency로)
 
 

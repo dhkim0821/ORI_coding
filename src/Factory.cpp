@@ -188,10 +188,10 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
             //---------------------------
             printf("\n");
             for (int j(0); j<num_part; ++j){
-                part_list[start_idx + j]->_sum_pt = sum_pt_temp2;
+                part_list[start_idx + j]->_post_sum_pt = sum_pt_temp2;
 
-                printf("part idx : %d, PT : %d for sum of PT per part (Dependency) \n",
-                        part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_sum_pt);
+               printf("part idx : %d, PT : %d for sum of PT per part (Dependency) \n",
+                       part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_post_sum_pt);
             }
             //------------------------------
 
@@ -213,14 +213,25 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
 
     //for(int i(0); i<pallet_list.size(); ++i){
         //pallet_list[i]->printInfo(i);
-    //}
+        //}
+       
+   /* printf(" part idx : %d, PT : %d\n", part_list[0]->_part_idx, part_list[0]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[1]->_part_idx, part_list[1]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[2]->_part_idx, part_list[2]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[3]->_part_idx, part_list[3]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[4]->_part_idx, part_list[4]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[5]->_part_idx, part_list[5]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[6]->_part_idx, part_list[6]->_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[0]->_part_idx, part_list[0]->_post_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[1]->_part_idx, part_list[1]->_post_sum_pt);
+    printf(" part idx : %d, PT : %d\n", part_list[2]->_part_idx, part_list[2]->_post_sum_pt);*/
 }
 
 Factory::~Factory(){}
 
 bool Factory::All_Done(){
     // TEST
-    if(_sim_time > 20000){return true;}  //event 발생시 다음 time에 할당
+    if(_sim_time > 100000){return true;}  //event 발생시 다음 time에 할당
 
     for(int i(0); i<Num_Total_Part; ++i){
         if(!(part_list[i]->IsDone() && (part_list[i]->_part_loc == loc::Outside)) ){

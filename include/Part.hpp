@@ -63,6 +63,9 @@ class Part{
         int _post_current_operation;
         int _post_num_operation;
         std::vector<MachiningInfo> _post_machining_info_list;
+        //-----------
+        int _post_sum_pt;
+        //----------
 
         History _history;
 };
@@ -86,6 +89,6 @@ struct ProcessingCompare{
     bool operator () (const Part * p1, const Part * p2) const {
         return p1->_sum_pt < p2->_sum_pt;
     }
-}; //dependency? _sum_pt2
+};
 
 #endif
