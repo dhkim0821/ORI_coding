@@ -9,7 +9,7 @@ class Algorithm_LoadingUnloading {
         Algorithm_LoadingUnloading(const Factory & factory);
         ~Algorithm_LoadingUnloading();
 
-        void run(const std::vector<Pallet*> & pallet_list);
+        void run(int curr_time, const std::vector<Pallet*> & pallet_list);
         void print_LUStationInfo();
     private:
         std::vector<bool> LU_station_usage;
@@ -21,7 +21,7 @@ class Algorithm_LoadingUnloading {
         int _moving_time;
 
         void _FirstInFirstOut(const std::vector<Pallet*> & pallet_list);
-        void _Update(const std::vector<Pallet*> & pallet_list);
+        void _Update(int curr_time, const std::vector<Pallet*> & pallet_list);
 };
 
 #endif

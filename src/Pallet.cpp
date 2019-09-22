@@ -151,7 +151,7 @@ bool Pallet::EngagePallet(int ProcessName, int ProcessDuration){
 
     return true;
 }
-void Pallet::Empty_pallet(){
+void Pallet::Empty_pallet(int curr_time){
 //if pallet is empty, ready at outside.
 //if the part in pallet is post dependency part, do SwitchTOPostPart function
 
@@ -160,6 +160,7 @@ void Pallet::Empty_pallet(){
         if( (*part_iter) ){ // there is loaded part
             (*part_iter)->_part_loc = loc::Outside;
             (*part_iter)->_pallet_idx = -1;
+            (*part_iter)->_history._unloading_time.push_back(curr_time);
 
             if( ((*part_iter)->_dependency) && (! (*part_iter)->_pre_part_is_done) ){
                 (*part_iter)->SwitchToPostPart();

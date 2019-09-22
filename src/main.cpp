@@ -32,7 +32,7 @@ int main(int argc, char ** argv ){
         palletizing.run(factory.part_list, factory.pallet_list);
 
         // Loading
-        loading_unloading.run(factory.pallet_list);
+        loading_unloading.run(factory._sim_time, factory.pallet_list);
 
         // Moving and Machining 
         setup_and_machining.run(factory.pallet_list);

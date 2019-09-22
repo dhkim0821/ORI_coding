@@ -275,9 +275,10 @@ void Factory::printInfo(){
 
 void Factory::printTardiness(){
     for(int i(0); i<part_list.size(); ++i){
-        printf("part %d, sim time/due date: %d/%d, tardiness: %d\n", 
+        printf("part %d, sim time/due date: %d/%d, tardiness: %d, unloading_time:%d \n", 
                 part_list[i]->_part_idx, _sim_time, part_list[i]->_due_time,
-                _sim_time - part_list[i]->_due_time);
+                _sim_time - part_list[i]->_due_time,
+                part_list[i]->_history._unloading_time[0]);
     }
 }
 

@@ -14,7 +14,7 @@ class Pallet{
         bool Loaded_Part_HalfDone();
         bool IsThereLoadedPart();
 
-        void Empty_pallet();
+        void Empty_pallet(int curr_time);
 
         void OneStepForward();
         void LocationUpdate(int loc, int plt_idx);
