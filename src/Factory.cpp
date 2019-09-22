@@ -275,10 +275,38 @@ void Factory::printInfo(){
 
 void Factory::printTardiness(){
     for(int i(0); i<part_list.size(); ++i){
-        printf("part %d, sim time/due date: %d/%d, tardiness: %d, unloading_time:%d \n", 
+        /*printf("part %d, sim time/due date: %d/%d, tardiness: %d, unloading_time:%d \n", 
                 part_list[i]->_part_idx, _sim_time, part_list[i]->_due_time,
                 _sim_time - part_list[i]->_due_time,
-                part_list[i]->_history._unloading_time[0]);
+                part_list[i]->_history._unloading_time[0]); */
+
+        //-----------------------
+        //dependency
+        if(part_list[i]->_history._unloading_time.size() > 1){ 
+            printf("part %d, unloading_time/due date: %d/%d, tardiness: %d(dependency) \n",
+                    part_list[i]->_part_idx,
+                    part_list[i]->_history._unloading_time[1],
+                    part_list[i]->_due_time,
+                    part_list[i]->_history._unloading_time[1] - part_list[i]->_due_time);
+        }
+        //general
+        if(part_list[i]->_history._unloading_time.size() == 1){
+            printf("part %d, unloading_time/due date: %d/%d, tardiness: %d\n",
+                    part_list[i]->_part_idx,
+                    part_list[i]->_history._unloading_time[0],
+                    part_list[i]->_due_time,
+                    part_list[i]->_history._unloading_time[0] - part_list[i]->_due_time);
+        }
+        //----------------------
     }
+
+    //---------------------
+    printf("\n");
+    for(int i(0); i<part_list.size(); ++i){
+        printf("part %d, loading_time: %d\n", 
+                part_list[i]->_part_idx,
+                part_list[i]->_history._loading_time[0]);
+    }
+    //---------------------
 }
 

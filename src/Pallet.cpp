@@ -171,6 +171,18 @@ void Pallet::Empty_pallet(int curr_time){
     }
 }
 
+//--------------------
+void Pallet::SaveCallingTime(int curr_time){
+    std::vector<Part*>::iterator part_iter = _loaded_part.begin();
+    while (part_iter != _loaded_part.end()){
+        if( (*part_iter) ){ //there is loaded part
+            (*part_iter)->_history._loading_time.push_back(curr_time);
+        }
+    ++part_iter;
+    }
+}
+//---------------------
+
 bool Pallet::Loaded_Part_HalfDone(){
     int num_of_done(0);
     int num_loaded_part(0);

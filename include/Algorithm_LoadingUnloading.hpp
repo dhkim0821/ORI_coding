@@ -20,7 +20,7 @@ class Algorithm_LoadingUnloading {
         int _num_LU_station;
         int _moving_time;
 
-        void _FirstInFirstOut(const std::vector<Pallet*> & pallet_list);
+        void _FirstInFirstOut(int curr_time, const std::vector<Pallet*> & pallet_list);
         void _Update(int curr_time, const std::vector<Pallet*> & pallet_list);
 };
 

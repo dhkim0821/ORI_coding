@@ -22,7 +22,9 @@ class Pallet{
         void LocationUpdate_Mac1(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time);
         void LocationUpdate_Mac2(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time);
         void LocationUpdate_Mac3(int loc, Pallet* selected_plt, int pre_pallet, int shortest_processing_time);
+        void SaveCallingTime(int curr_time);
         //----------------------------
+
 
         void print_PalletInfo(int idx);
         void print_PalletMac(int idx);

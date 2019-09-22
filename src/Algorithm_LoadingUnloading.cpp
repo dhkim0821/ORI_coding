@@ -25,7 +25,7 @@ Algorithm_LoadingUnloading::~Algorithm_LoadingUnloading(){
 
 void Algorithm_LoadingUnloading::run(int curr_time, const std::vector<Pallet*> & pallet_list) {
     _Update(curr_time, pallet_list);
-    _FirstInFirstOut(pallet_list);
+    _FirstInFirstOut(curr_time, pallet_list);
 
     //print_LUStationInfo();
 }
@@ -62,7 +62,7 @@ void Algorithm_LoadingUnloading::_Update(int curr_time, const std::vector<Pallet
 }
 
 
-void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
+void Algorithm_LoadingUnloading::_FirstInFirstOut(int curr_time, const std::vector<Pallet*> &
         pallet_list){
 
     for(int i(0); i<pallet_list.size(); ++i){
@@ -119,7 +119,13 @@ void Algorithm_LoadingUnloading::_FirstInFirstOut(const std::vector<Pallet*> &
                        (*pl_iter)->_process_name = process::Loading;
                        (*pl_iter)->_process_duration = _LU_time - 1;
                        (*pl_iter)->_current_processing_time = 0;
-                       (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx);  //------------------------
+                       (*pl_iter)->LocationUpdate(loc::LoadingStation, (*pl_iter)->_pallet_idx);
+                     //------------------------
+                     //여기에서  curr time 을 끌어와서  history에 loading time에  저장해 
+                     //그럼 일단 모든 언로딩시간이 다 들어갈꺼야. 그중에서 제일 마지막 언로딩 시간들을 출력하면 되
+                       (*pl_iter)->SaveCallingTime(curr_time);
+                     //-----------------------
+
                        break;
                     }
                 }
