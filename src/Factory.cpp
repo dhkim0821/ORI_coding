@@ -274,13 +274,20 @@ void Factory::printInfo(){
 }
 
 void Factory::printTardiness(){
-    for(int i(0); i<part_list.size(); ++i){
-        /*printf("part %d, sim time/due date: %d/%d, tardiness: %d, unloading_time:%d \n", 
+   
+   /* for(int i(0); i<part_list.size(); ++i){
+        printf("part %d, sim time/due date: %d/%d, tardiness: %d, unloading_time:%d \n", 
                 part_list[i]->_part_idx, _sim_time, part_list[i]->_due_time,
                 _sim_time - part_list[i]->_due_time,
-                part_list[i]->_history._unloading_time[0]); */
+                part_list[i]->_history._unloading_time[0]);}*/
 
-        //-----------------------
+    //-----------------------
+    int makespan = 0;
+    int total_tardiness = 0; 
+    makespan = _sim_time; 
+    printf("makespan(completion time): %d\n", makespan);
+
+    for(int i(0); i<part_list.size(); ++i){
         //dependency
         if(part_list[i]->_history._unloading_time.size() > 1){ 
             printf("part %d, unloading_time/due date: %d/%d, tardiness: %d(dependency) \n",
@@ -288,6 +295,7 @@ void Factory::printTardiness(){
                     part_list[i]->_history._unloading_time[1],
                     part_list[i]->_due_time,
                     part_list[i]->_history._unloading_time[1] - part_list[i]->_due_time);
+            total_tardiness += part_list[i]->_history._unloading_time[1] - part_list[i]->_due_time;
         }
         //general
         if(part_list[i]->_history._unloading_time.size() == 1){
@@ -296,12 +304,12 @@ void Factory::printTardiness(){
                     part_list[i]->_history._unloading_time[0],
                     part_list[i]->_due_time,
                     part_list[i]->_history._unloading_time[0] - part_list[i]->_due_time);
+            total_tardiness += part_list[i]->_history._unloading_time[0] - part_list[i]->_due_time;
         }
-        //----------------------
-    }
 
-    //---------------------
-    printf("\n");
+    }
+    printf("total tardiness : %d\n", total_tardiness);
+
     for(int i(0); i<part_list.size(); ++i){
         printf("part %d, loading_time: %d\n", 
                 part_list[i]->_part_idx,
