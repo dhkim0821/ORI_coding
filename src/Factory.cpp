@@ -284,8 +284,9 @@ void Factory::printTardiness(){
     //-----------------------
     int makespan = 0;
     int total_tardiness = 0; 
+    int total_flow_time = 0;
     makespan = _sim_time; 
-    printf("makespan(completion time): %d\n", makespan);
+    printf("*makespan(completion time): %d\n", makespan);
 
     for(int i(0); i<part_list.size(); ++i){
         //dependency
@@ -308,13 +309,29 @@ void Factory::printTardiness(){
         }
 
     }
-    printf("total tardiness : %d\n", total_tardiness);
+    printf("*total tardiness : %d\n", total_tardiness);
 
     for(int i(0); i<part_list.size(); ++i){
-        printf("part %d, loading_time: %d\n", 
-                part_list[i]->_part_idx,
-                part_list[i]->_history._loading_time[0]);
+        //dependency 
+        if(part_list[i]->_history._unloading_time.size() > 1){
+            printf("part %d, loading_time: %d, unloading_time: %d, flow_time: %d(dependency) \n",
+                    part_list[i]->_part_idx,
+                    part_list[i]->_history._loading_time[0], 
+                    part_list[i]->_history._unloading_time[1],
+                    part_list[i]->_history._unloading_time[1] - part_list[i]->_history._loading_time[0]);
+            total_flow_time += part_list[i]->_history._unloading_time[1] - part_list[i]->_history._loading_time[0];
+        }
+        //general
+        if(part_list[i]->_history._unloading_time.size() == 1){
+            printf("part %d, loading_time: %d, unloading_time: %d, flow_time: %d(dependency) \n",
+                    part_list[i]->_part_idx,
+                    part_list[i]->_history._loading_time[0], 
+                    part_list[i]->_history._unloading_time[0],
+                    part_list[i]->_history._unloading_time[0] - part_list[i]->_history._loading_time[0]);
+            total_flow_time += part_list[i]->_history._unloading_time[0] - part_list[i]->_history._loading_time[0];
+        }
     }
+    printf("*total flow time : %d\n", total_flow_time);
     //---------------------
 }
 
