@@ -12,7 +12,7 @@ class Algorithm_SetupAndMachining{
         Algorithm_SetupAndMachining(const Factory & factory);
         ~Algorithm_SetupAndMachining(){}
 
-        void run(const std::vector<Pallet*> & pallet_list);
+        void run(int curr_time, const std::vector<Pallet*> & pallet_list);
         void printInfo();
 
     private:
@@ -34,6 +34,7 @@ class Algorithm_SetupAndMachining{
         void _OperationTime2(const std::vector<Pallet*> & pallet_list); //EDD
         void _OperationTime3(const std::vector<Pallet*> & pallet_list); //STPT
         void _OperationTime4(const std::vector<Pallet*> & pallet_list); //MWKR
+        void _OperationTime5(int curr_time, const std::vector<Pallet*> & pallet_list); //MDD
         void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list); //for movingtime
         void _Update(const std::vector<Pallet*> & pallet_list);
 };

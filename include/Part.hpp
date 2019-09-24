@@ -46,7 +46,8 @@ class Part{
         int _part_loc;
         // ------------
         int _sum_pt;  // for the sum of all processing time for a part
-        int _remaining_pt_avg; // for the remaining processing time for a part
+        int _remaining_pt_avg; // for the average of remaining processing time for a part = w(i,j)
+        int _comparing_var; // temp variable for comparing something
         // ------------
 
         int _pallet_idx; // -1: unloaded from pallet, other: pallet idx

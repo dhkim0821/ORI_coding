@@ -35,7 +35,7 @@ int main(int argc, char ** argv ){
         loading_unloading.run(factory._sim_time, factory.pallet_list);
 
         // Moving and Machining 
-        setup_and_machining.run(factory.pallet_list);
+        setup_and_machining.run(factory._sim_time, factory.pallet_list);
 
         if(factory._sim_time % (factory.LU_Time-19) == 0){
             factory.printAllPartStatus();
