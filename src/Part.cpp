@@ -52,10 +52,6 @@ int Part::getProcessingTime(int operation_idx, int machine){
     return -1;
 }
 
-//----------------------------------
-//int Part::getDueDate(int operation_idx, int machine){  
-//}
-//--------------------------------
 
 void Part::print_PartInfo(int idx){
     printf("%dth calling) part idx: %d, type: %d, current/num operation: %d/%d, due_time: %d , part_loc: %d\n", 

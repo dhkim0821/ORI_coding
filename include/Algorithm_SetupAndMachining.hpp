@@ -30,12 +30,12 @@ class Algorithm_SetupAndMachining{
         Part* current_part;
         //------------------
 
-        void _OperationTime1(const std::vector<Pallet*> & pallet_list); //SPT 
+        void _OperationTime1(const std::vector<Pallet*> & pallet_list); //SOPT 
         void _OperationTime2(const std::vector<Pallet*> & pallet_list); //EDD
         void _OperationTime3(const std::vector<Pallet*> & pallet_list); //STPT
         void _OperationTime4(const std::vector<Pallet*> & pallet_list); //MWKR
-        void _OperationTime5(int curr_time, const std::vector<Pallet*> & pallet_list); //MDD
-        void _MovingAndOperationTime(const std::vector<Pallet*> & pallet_list); //for movingtime
+        void _OperationTime5(int curr_time, const std::vector<Pallet*> & pallet_list); //MST
+        void _OperationTime6(int curr_time, const std::vector<Pallet*> & pallet_list); //MDD
         void _Update(const std::vector<Pallet*> & pallet_list);
 };
 #endif

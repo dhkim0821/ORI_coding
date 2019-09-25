@@ -25,7 +25,6 @@ class Pallet{
         void SaveCallingTime(int curr_time);
         //----------------------------
 
-
         void print_PalletInfo(int idx);
         void print_PalletMac(int idx);
 
@@ -41,7 +40,9 @@ class Pallet{
         int _process_name;
         int _process_duration;
         int _current_processing_time;
+       
         //----------
+        //transportation time
         int _spt_temp;
         int _pre_mac;
         //----------

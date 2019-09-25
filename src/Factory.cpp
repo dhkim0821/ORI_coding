@@ -16,8 +16,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
     fin >> Part_Info_Size;
     fin >> Num_Parttype;
     fin >> Num_Pallet;
-    fin >> Num_Dependency_Pre; //dependency (pre)
-    fin >> Num_Dependency_Suc; //dependency (successor)
+    fin >> Num_Dependency_Pre; 
+    fin >> Num_Dependency_Suc;
     fin >> LU_Time;
     
     fin >> MovingTime;
@@ -215,16 +215,6 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
         //pallet_list[i]->printInfo(i);
         //}
        
-   /* printf(" part idx : %d, PT : %d\n", part_list[0]->_part_idx, part_list[0]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[1]->_part_idx, part_list[1]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[2]->_part_idx, part_list[2]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[3]->_part_idx, part_list[3]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[4]->_part_idx, part_list[4]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[5]->_part_idx, part_list[5]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[6]->_part_idx, part_list[6]->_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[0]->_part_idx, part_list[0]->_post_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[1]->_part_idx, part_list[1]->_post_sum_pt);
-    printf(" part idx : %d, PT : %d\n", part_list[2]->_part_idx, part_list[2]->_post_sum_pt);*/
 }
 
 Factory::~Factory(){}

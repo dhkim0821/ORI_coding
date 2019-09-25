@@ -30,9 +30,9 @@ class Factory{
         int Num_Pallet;
         int Num_Dependency;
         int Num_Total_Part;
-        int Num_Dependency_Pre;  //dependencyÆÄÆ®¼±Çà
-        int Num_Dependency_Suc;  //dependencyÆÄÆ®¼±Çà
-        int General_Parttype;    //generalÆÄÆ®
+        int Num_Dependency_Pre;  //dependency predecessor
+        int Num_Dependency_Suc;  //dependency successor
+        int General_Parttype;    //general 
         int LU_Time;
         
         //Trnasportation time

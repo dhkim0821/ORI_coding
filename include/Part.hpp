@@ -35,9 +35,6 @@ class Part{
         void print_PartInfo(int idx);
         void print_PartStatus(int idx);
         int getProcessingTime(int operation_idx, int machine);
-        //------------
-        int getDueDate(int operation_idx, int machine);
-        //-----------
 
 
     public:
@@ -47,6 +44,7 @@ class Part{
         // ------------
         int _sum_pt;  // for the sum of all processing time for a part
         int _remaining_pt_avg; // for the average of remaining processing time for a part = w(i,j)
+        int _slack_time;
         int _comparing_var; // temp variable for comparing something
         // ------------
 
