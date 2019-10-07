@@ -36,6 +36,9 @@ class Part{
         void print_PartStatus(int idx);
         int getProcessingTime(int operation_idx, int machine);
 
+        //-----------------
+         bool _in_process;
+         //----------------
 
     public:
         int _part_idx;

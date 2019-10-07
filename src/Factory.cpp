@@ -133,8 +133,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
          for (int j(0); j<num_part; ++j){
             part_list[start_idx + j]->_sum_pt = sum_pt_temp;
 
-            printf("part idx : %d, PT : %d for sum of PT per part\n",
-                    part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_sum_pt);
+            //printf("part idx : %d, PT : %d for sum of PT per part\n",
+            //        part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_sum_pt);
         }
         //------------------------------
        
@@ -190,8 +190,8 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
             for (int j(0); j<num_part; ++j){
                 part_list[start_idx + j]->_post_sum_pt = sum_pt_temp2;
 
-               printf("part idx : %d, PT : %d for sum of PT per part (Dependency) \n",
-                       part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_post_sum_pt);
+            // printf("part idx : %d, PT : %d for sum of PT per part (Dependency) \n",
+            //          part_list[start_idx + j]->_part_idx, part_list[start_idx + j]->_post_sum_pt);
             }
             //------------------------------
 
@@ -207,9 +207,9 @@ Factory::Factory(const std::string & file_name):_sim_time(-1){
 
     Num_Total_Part = part_list.size();
 
-    //for(int i(0);i < part_list.size(); ++i){
-        //part_list[i]->printInfo(i);
-    //}
+   // for(int i(0);i < part_list.size(); ++i){
+      //  part_list[i]->printInfo(i);
+   // }
 
     //for(int i(0); i<pallet_list.size(); ++i){
         //pallet_list[i]->printInfo(i);

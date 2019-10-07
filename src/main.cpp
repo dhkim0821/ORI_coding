@@ -11,8 +11,14 @@
 
 int main(int argc, char ** argv ){
 
-    std::string file_name = THIS_COM"input_data/TEST_DATA_0920.txt";
-   // Reading files and setup problem
+   // std::string file_name = THIS_COM"input_data/TEST_DATA_0920.txt";
+   // std::string file_name = THIS_COM"input_data/largesize.txt";
+   // std::string file_name = THIS_COM"input_data/DATA_3_3_10_2_20_13__1.txt";
+ std::string file_name = THIS_COM"input_data/TEST_DATA_1006.txt";
+
+  
+
+// Reading files and setup problem
     Factory factory(file_name);
 
 
@@ -43,6 +49,10 @@ int main(int argc, char ** argv ){
         }
         printf("\n");
     }// End of Sim loop
+
+
+
+
 
     printf("****** Simulation is done\n");
     factory.printTardiness();

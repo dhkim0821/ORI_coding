@@ -21,20 +21,22 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
     // part list sorting
     std::vector<Part*> sort_part_list = part_list;
   
+    
+
     //palletizing rules
-    //std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD (original)
-     std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());  //SOPT
+    std::sort(sort_part_list.begin(), sort_part_list.end(), DueDateCompare());  //EDD (original)
+    // std::sort(sort_part_list.begin(), sort_part_list.end(), ProcessingCompare());  //SOPT
 
     //--------------------------------------
-    for( int z(0); z<sort_part_list.size(); z++ ){
-        printf("type%d, part%d, _sum_pt%d",
-                sort_part_list[z]->_part_type, sort_part_list[z]->_part_idx, sort_part_list[z]->_sum_pt);
+    /* for( int z(0); z<sort_part_list.size(); z++ ){
+        printf("type%d, part%d, _sum_pt%d, _due date%d",
+                sort_part_list[z]->_part_type, sort_part_list[z]->_part_idx, sort_part_list[z]->_sum_pt, sort_part_list[z]->_due_time);
 
         if (sort_part_list[z]->_dependency)
             printf("(dependency)");
 
         printf("\n");
-    }
+    }*/
     //--------------------------------------
 
     // Debug) Show sorted part list
@@ -52,6 +54,8 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
 
     Pallet* check_pallet;
 
+    
+
     for(int i(0); i<pallet_list.size(); ++i){ // Check all pallet list
         check_pallet = pallet_list[i];
 
@@ -64,7 +68,8 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                     // part type check
                     for(int pt_idx(0); pt_idx<sort_part_list.size(); ++pt_idx){
                         if( (sort_part_list[pt_idx]->_part_type == fixture_type) &&
-                             (!sort_part_list[pt_idx]->IsDone(false))   ){ 
+                             (!sort_part_list[pt_idx]->IsDone(false)) &&
+                             (sort_part_list[pt_idx]->_in_process == false)  ){ 
                             // Part type and fixture type matched
                             if(sort_part_list[pt_idx]->_part_loc == loc::Outside){ 
                                 // Part is in outside
@@ -77,6 +82,22 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                                 // Part gets pallet idx
                                 sort_part_list[pt_idx]->_pallet_idx = 
                                     check_pallet->_pallet_idx;
+                                
+
+                                //---------------
+                                /*
+                                   we have to give part class 'process state(bool _in_process)' too like pallet
+                                   1. adding 'bool _in_procss' function in part class
+                                   2. give the loaded parts "true" value
+                                   3. change the part process state if the part is done
+                                     ->give the unloaded parts "false" value in 'Empty_pallet' function in pallet class
+                                */
+
+                                //Part processs sate update
+                                sort_part_list[pt_idx]->_in_process = true;
+                                //---------------
+                               
+
                                 // Delete the loaded part from the list
                                 sort_part_list.erase(sort_part_list.begin() + pt_idx);
                             }
@@ -85,8 +106,10 @@ void Algorithm_Palletizing::_EariestDueDateMethod(const std::vector<Part*> & par
                     } // End of Sort part list loop
                 }
             } // End of Fixture loop
-        } // if( check_pallet->IsProcessing() )
+        } // if( check_pallet->IsProcessing())
     } // End of Pallet list loop
+
+
 }
 
 

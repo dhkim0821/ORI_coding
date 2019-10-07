@@ -159,6 +159,10 @@ void Pallet::Empty_pallet(int curr_time){
     while (part_iter != _loaded_part.end()){
         if( (*part_iter) ){ // there is loaded part
             (*part_iter)->_part_loc = loc::Outside;
+            //--------------
+            (*part_iter)->_in_process = false;
+            //-------------
+
             (*part_iter)->_pallet_idx = -1;
             (*part_iter)->_history._unloading_time.push_back(curr_time);
 

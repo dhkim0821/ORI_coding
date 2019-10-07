@@ -27,11 +27,11 @@ Algorithm_SetupAndMachining::Algorithm_SetupAndMachining(const Factory & factory
 void Algorithm_SetupAndMachining::run(int curr_time, const std::vector<Pallet*> & pallet_list){
 
     _Update(pallet_list);
-   // _OperationTime1(pallet_list); //SOPT (original)
+    _OperationTime1(pallet_list); //SOPT (original)
    // _OperationTime2(pallet_list); //EDD
    // _OperationTime3(pallet_list); //STPT
    // _OperationTime4(pallet_list); //MWKR
-      _OperationTime5(curr_time, pallet_list); //MST
+   //   _OperationTime5(curr_time, pallet_list); //MST
    // _OperationTime6(curr_time, pallet_list); //MDD    
 
 }
@@ -52,6 +52,7 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
                 if((!(*pl_iter)->_in_process) && 
                         ((*pl_iter)->_pallet_loc == loc::Buffer) ){
 
+                    printf("pallet%d\n", (*pl_iter)->_pallet_idx);
                     for(int pt_idx(0); pt_idx<(*pl_iter)->_loaded_part.size(); ++pt_idx){
                         if( (*pl_iter)->_loaded_part[pt_idx]){ // There is loaded part
                             Part* check_part = (*pl_iter)->_loaded_part[pt_idx];
@@ -63,13 +64,22 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
                             }
                             else {
                                 // check machine info
+                                //-------------------
+                                printf("check part%d\n",check_part->_part_idx);
+                                printf("%lu\n", check_part->_machining_info_list[check_part->_current_operation].machine_idx.size());
+                                //------------------
                                 MachiningInfo m_info = 
                                     check_part->_machining_info_list[check_part->_current_operation];
 
+                                //-----------------
+                                printf("ther number of alternative machine %lu\n", check_part->_machining_info_list[check_part->_current_operation].machine_idx.size());
+                                //there is no alternative machines' info of check_part
+                                //-----------------
                                 for(int m_idx(0); m_idx < m_info.machine_idx.size(); ++m_idx){
                                     if(m_info.machine_idx[m_idx] == i){
                                         candidate_part_list.push_back(check_part);
                                     }
+                               
                                 }
                             }
                         }
@@ -82,6 +92,9 @@ void Algorithm_SetupAndMachining::_OperationTime1(const std::vector<Pallet*> & p
             for(int i(0); i<candidate_part_list.size(); ++i ) 
             candidate_part_list[i]->printInfo(i);
 #endif
+            //----------------------
+            printf("the number of candidate_part%lu\n", candidate_part_list.size() );  // error point <- there is no candidate part 
+            //---------------------
             if(candidate_part_list.size() > 0){
                 // Pick a machine with shortest operation time
                 int selected_pt_idx(0); // Find this
